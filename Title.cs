@@ -12,43 +12,104 @@ namespace SpartaTextRPG
     {
         public static Title instance = new Title();
 
+        //플레이어 정보
+        string playerName;
+
         //타이틀 화면 시작
         public void StartTitle()
         {
             //메인 타이틀 화면
             ShowMainTitle();
 
-            
+            //이름 짓기
+            switch(MakePlayerName())
+            {
+                //아니요
+                case 2:
+                    //다시 이름 짓기
+                    MakePlayerName();
+                    break;
+            }
 
+            Console.Clear();
+            Console.WriteLine("{0}님 환영합니다!", playerName);
         }
 
         //유저 이름 짓기
-        private string MakePlayerName()
+        private int MakePlayerName()
         {
             //이름을 지었는지
             bool isName = false;
 
             //캐릭터 이름
-            string name;
-            Console.Clear();
-            Console.WriteLine("스파르타 RPG에 오신 여러분 환영합니다.");
-            Console.WriteLine("");
-            Console.WriteLine("모험을 시작하기 앞서 캐릭터의 이름을 입력 해주세요.");
-            Console.Write(">>");
-            name = Console.ReadLine();
+            playerName = "";
 
-            Console.Clear();
-            Console.WriteLine("캐릭터생성 - 이름");
-            Console.WriteLine();
-            Console.WriteLine("캐릭터의 이름을 {0}로 하시겠습니까?", name);
-            Console.WriteLine();
-            Console.WriteLine("1.예");
-            Console.WriteLine("2.아니오");
-            Console.WriteLine();
-            Console.Write(">>");
-            string input = Console.ReadLine();
+            while (playerName.Length < 1 || playerName.Contains(" "))
+            {
+                Console.Clear();
+                Console.WriteLine("스파르타 RPG에 오신 여러분 환영합니다.");
+                Console.WriteLine("");
+                Console.WriteLine("모험을 시작하기 앞서 캐릭터의 이름을 입력 해주세요.");
+                if (CheckEmpty(playerName))
+                    Console.WriteLine("******캐릭터 이름에는 공백이 포함될 수 없습니다.");
+                Console.Write(">>");
+                playerName = Console.ReadLine();
+            }
+
+            while(!isName)
+            {
+                isName = false;
+
+                Console.Clear();
+                Console.WriteLine("캐릭터생성 - 이름");
+                Console.WriteLine();
+                Console.WriteLine("캐릭터의 이름을 {0}로 하시겠습니까?", playerName);
+                Console.WriteLine();
+                Console.WriteLine("1.예");
+                Console.WriteLine("2.아니오");
+                Console.WriteLine();
+                Console.Write(">>");
+
+                switch (CheckIntInput(1, 2))
+                {
+                    //예
+                    case 1:
+                        isName = true;
+                        return 1;
+
+                    //아니오
+                    case 2:
+                        return 2;
+                }
+            }
+            return 1;
         }
 
+        //입력에 공백이 있는지
+        public static bool CheckEmpty(string _input)
+        {
+            if (_input.Contains(" "))
+                return true;
+            else
+                return false;
+        }
+
+        //입력 체크
+        public static int CheckIntInput(int _min, int _max)
+        {
+            //입력 값
+            int input;
+
+            //입력이 재대로 됐는지
+            bool isRight;
+
+            do
+            {
+                isRight = int.TryParse(Console.ReadLine(), out input);
+            } while (!isRight || (input < _min && input > _max));
+
+            return input;
+        }
 
         //타이틀 보여주기
         private void ShowMainTitle()
@@ -72,3 +133,4 @@ namespace SpartaTextRPG
         }
     }
 }
+
