@@ -8,6 +8,6 @@ namespace SpartaTextRPG
 {
     public class State
     {
-
+        
     }
 }
