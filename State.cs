@@ -1,5 +1,3 @@
-<<<<<<< refs/remotes/origin/S_feature_JYP
-=======
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -177,4 +175,3 @@ namespace SpartaTextRPG
         }
     }
 }
->>>>>>> local
