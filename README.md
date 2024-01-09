@@ -23,3 +23,6 @@
 
 ## For project details
 
+### Data 
+<a href="https://dbdiagram.io/d/659cf1a0ac844320ae83b157"><img src="https://i.ibb.co/t84qwRM/image.png" alt="2020-12-21-1-27-21" border="0" ></a>
+
