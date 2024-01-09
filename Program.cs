@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Title.instance.ShowTitle();
+            Title.instance.StartTitle();
         }
     }
 }
