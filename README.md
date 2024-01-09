@@ -1,7 +1,11 @@
 # SpartaTextRPG
 
 ## SpartaTextRPG?
-
+1. 던전에 도착한 캐릭터가 전투를 하는 게임을 텍스트로 구현합니다. (C# - Console App)
+2. 여러 몬스터들과 상호작용하는게 핵심입니다.
+3. 캐릭터와 몬스터는 여러개의 데이터가 함께 있는 만큼 객체나 구조체를 활용하는 편이 효율적 입니다.
+(이름, 능력, 설명 등…)
+4. 캐릭터와 몬스터의 데이터를 변경했을때 어떻게 유지되는가에 대한 고민이 되면 좋습니다.
 
 
 ## Project Members?
@@ -14,6 +18,7 @@
 
 
 ## Stack?
+<img src="https://i.namu.wiki/i/rR0JqoHBX6JAFtqYRWEFCutl8t2UvLGETvnivzsAzcUgvycs-EDmvEW9Buj8AdK36K7FelgNRzf5gZW2T7vtQA.svg" alt="2020-12-21-1-27-21" border="0" width="200">
 
 
 ## For project details
