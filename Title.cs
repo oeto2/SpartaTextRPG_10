@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace SpartaTextRPG
                 Console.WriteLine("");
                 Console.WriteLine("모험을 시작하기 앞서 캐릭터의 이름을 입력 해주세요.");
                 if (CheckEmpty(playerName))
-                    Console.WriteLine("******캐릭터 이름에는 공백이 포함될 수 없습니다.");
+                    Console.WriteLine("******캐릭터 이름에는 공백이 포함될 수 없습니다.******");
                 Console.Write(">>");
                 playerName = Console.ReadLine();
             }
@@ -72,6 +73,10 @@ namespace SpartaTextRPG
 
                 switch (CheckIntInput(1, 2))
                 {
+                    //Null
+                    case 99:
+                        break;
+
                     //예
                     case 1:
                         isName = true;
@@ -85,7 +90,7 @@ namespace SpartaTextRPG
             return 1;
         }
 
-        //입력에 공백이 있는지
+        //입력에 공백이 있으면 true
         public static bool CheckEmpty(string _input)
         {
             if (_input.Contains(" "))
@@ -97,8 +102,8 @@ namespace SpartaTextRPG
         //입력 체크
         public static int CheckIntInput(int _min, int _max)
         {
-            //입력 값
-            int input;
+            //입력 값, Nul이면 99반환
+            int input = 99;
 
             //입력이 재대로 됐는지
             bool isRight;
@@ -106,9 +111,23 @@ namespace SpartaTextRPG
             do
             {
                 isRight = int.TryParse(Console.ReadLine(), out input);
+
+                //null값 감지
+                if (input == 0)
+                    return input;
             } while (!isRight || (input < _min && input > _max));
 
+            //이상이 없으면 입력 값 반환
             return input;
+        }
+
+        //현재 줄만 지우기
+        public static void clearCurrentLine()
+        {
+            string s = "\r";
+            s += new string(' ', Console.CursorLeft);
+            s += "\r";
+            Console.Write(s);
         }
 
         //타이틀 보여주기
