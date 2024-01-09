@@ -34,8 +34,13 @@ namespace SpartaTextRPG
         public float mp { get; set; }
         public int gold = 1000;
         public int exp = 0;
+<<<<<<< HEAD
         public int? weapon { get; set;}
         public int? armor { get; set; }
+=======
+        public int weapon { get; set;}
+        public int armor { get; set; }
+>>>>>>> 36bf98b39ae9d32df2d3d319a8c541a79616539b
 
         //캐릭터 생성자
         public Player(int _id, string _name, float _baseAtk, float _baseDef, Job _job, float _maxHp, float _hp,
@@ -51,7 +56,10 @@ namespace SpartaTextRPG
             maxMp = _maxMp;
             mp = _mp;
         }
+<<<<<<< HEAD
 
         public static Player player = new Player(0, "미정", 5, 0, 0, 50, 50, 20, 20);
+=======
+>>>>>>> 36bf98b39ae9d32df2d3d319a8c541a79616539b
     }
 }
