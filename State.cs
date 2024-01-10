@@ -1,3 +1,4 @@
+using SpartaTextRPG;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -9,10 +10,12 @@ namespace SpartaTextRPG
 {
     public class State
     {
-        public static void Status()
+
+        public static string job = Player.player.job.ToString();
+
+        //직업 확인
+        public static void checkJob()
         {
-            Console.Clear();
-            string job = Player.player.job.ToString();
 
             if (job == ((Job)0).ToString())
             {
@@ -34,6 +37,12 @@ namespace SpartaTextRPG
             {
                 job = "궁수";
             }
+        }
+
+        public static void Status()
+        {
+            Console.Clear();
+            checkJob();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("상태 보기");
             Console.ResetColor();
@@ -71,33 +80,12 @@ namespace SpartaTextRPG
             }
         }
 
+        //1차 전직 하기
         public static void FirstJob()
         {
 
             Console.Clear();
-            string job = Player.player.job.ToString();
-
-            if (job == ((Job)0).ToString())
-            {
-                job = "초보자";
-            }
-            else if ((job == ((Job)1).ToString()))
-            {
-                job = "전사";
-            }
-            else if ((job == ((Job)2).ToString()))
-            {
-                job = "도적";
-            }
-            else if ((job == ((Job)3).ToString()))
-            {
-                job = "마법사";
-            }
-            else if ((job == ((Job)4).ToString()))
-            {
-                job = "궁수";
-            }
-
+            checkJob();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("전직 하기");
             Console.ResetColor();
@@ -163,6 +151,8 @@ namespace SpartaTextRPG
                     FirstJob();
                     break;
             }
+
+
 
 
             static void Board()
