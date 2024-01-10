@@ -133,15 +133,31 @@ namespace SpartaTextRPG
                 {
                     Color.ChangeTextColor(Colors.BLUE, "", "이미 구매한 아이템입니다.", "\n");
                 }
+                else if (1000 < Item.Instance.equipItems[index].cost) // 돈 모자랄때 1000>>player.gold로
+                {
+                    Color.ChangeTextColor(Colors.RED, "", "Gold 가 부족합니다.", "\n");
+                }
                 else
                 {
-
+                    // 플레이어 골드 감소
+                    Item.Instance.equipItems[index].isOwn = true;
+                    Color.ChangeTextColor(Colors.BLUE, "", "구매를 완료했습니다.", "\n");
                 }
             }
             // 소모품 구매
             else
             {
-
+                int consumIndex = index - Item.Instance.equipItems.Count;
+                if (1000 < Item.Instance.consumItems[consumIndex].cost) // 돈 모자랄때 1000>>player.gold로
+                {
+                    Color.ChangeTextColor(Colors.RED, "", "Gold 가 부족합니다.", "\n");
+                }
+                else
+                {
+                    // 플레이어 골드 감소 추가하기
+                    Item.Instance.consumItems[consumIndex].count++;
+                }
+                           
             }
         }
 
@@ -208,6 +224,7 @@ namespace SpartaTextRPG
                     case "6":
                     case "7":
                         // 구매
+                        BuyItems(Convert.ToInt16(answer) - 1);
                         break;
                     case "0":
                         scene = Scene.NORMAL;
