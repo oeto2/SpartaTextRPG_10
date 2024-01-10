@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace SpartaTextRPG
 {
-    enum Scene
-    {
-        NORMAL,
-        BUY,
-        SELL,
 
-    }
     internal class Shop
     {
+        enum Scene
+        {
+            NORMAL,
+            BUY,
+            SELL,
+
+        }
         public static Shop _instance;
 
         public static Shop Instance
@@ -175,7 +176,7 @@ namespace SpartaTextRPG
                         scene = Scene.SELL;
                         break;
                     case "0":
-                        // 메인화면으로
+                        Program.scene = SpartaTextRPG.Scene.mainScene;
                         break;
                     default:
                         Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
