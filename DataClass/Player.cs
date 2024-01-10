@@ -15,7 +15,11 @@ namespace SpartaTextRPG
         Warrior,
         Thief,
         Wizard,
-        Archer
+        Archer,
+        Berserker,
+        Warlord,
+        Reaper,
+        Demonic
     }
 
     internal class Player
