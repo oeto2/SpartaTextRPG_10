@@ -24,7 +24,7 @@ namespace SpartaTextRPG
         public void StartTitle()
         {
             //메인 타이틀 화면
-            ShowMainTitle();
+            while (ShowMainTitle() != 1) { };
 
             //이름 짓기
             while (NamePlayer() != 1) { };
@@ -55,7 +55,7 @@ namespace SpartaTextRPG
             Console.Clear();
             Console.CursorVisible = false;
 
-            //prolog1-1: 평화로운 마을
+            //Prolog1-1: 평화로운 마을
             ShowImage(3);
             Console.WriteLine("================================================================================");
             WriteChar("인간들의 대륙 \"엘리시움\"은 신비로운 힘과 환상적인 존재로 가득 차 있었다.", 50);
@@ -63,18 +63,18 @@ namespace SpartaTextRPG
             WriteChar("하지만 평화는 오래가지 않았다.", 50);
             Console.ReadKey();
 
-            //prolog1-2: 드래곤의 습격
+            //Prolog1-2: 드래곤의 습격
             Console.Clear();
             ShowImage(2);
             Console.WriteLine();
             Console.WriteLine("================================================================================");
-            WriteChar("어느날, 드래곤의 지휘 아래, 마물들이 인간들을 습격했다.", 50);
+            WriteChar("어느날, 드래곤과 마물들이 인간들을 습격했다.", 50);
             WriteChar("마물들의 습격으로 인해 마을은 황폐화되었고, 많은 인간들이 죽어나갔다.", 50);
             WriteChar("인간들은 마물들을 피해 숨었고, 원래 살던 마을은 던전이 되었다.", 50);
             Console.ReadKey();
 
 
-            //prolog1-3: 모험의 시작
+            //Prolog1-3: 모험의 시작
             Console.Clear();
             ShowImage(5);
             Console.WriteLine("================================================================================");
@@ -97,11 +97,10 @@ namespace SpartaTextRPG
             while (playerName.Length < 1 || playerName.Contains(" "))
             {
                 Console.Clear();
-                Console.WriteLine("스파르타 RPG에 오신 여러분 환영합니다.");
-                Console.WriteLine("");
-                Console.WriteLine("모험을 시작하기 앞서 캐릭터의 이름을 입력 해주세요.");
+                Color.ChangeTextColor(Colors.YELLOW, "", "스파르타 RPG에 오신 여러분 환영합니다.\n\n");
+                Color.ChangeTextColor(Colors.MAGENTA, "모험을 시작하기 앞서 ", "캐릭터의 이름", "을 입력 해주세요.\n");
                 if (CheckEmpty(playerName))
-                    Console.WriteLine("******캐릭터 이름에는 공백이 포함될 수 없습니다.******");
+                    Color.ChangeTextColor(Colors.RED, "", "******캐릭터 이름에는 공백이 포함될 수 없습니다.******\n");
                 Console.Write(">>");
                 playerName = Console.ReadLine();
             }
@@ -111,15 +110,17 @@ namespace SpartaTextRPG
                 isName = false;
 
                 Console.Clear();
-                Console.WriteLine("캐릭터생성 - 이름");
+                Color.ChangeTextColor(Colors.YELLOW, "", "캐릭터생성 - 이름\n");
                 Console.WriteLine();
-                Console.WriteLine("캐릭터의 이름을 {0}로 하시겠습니까?", playerName);
-                Console.WriteLine();
+
+                Color.ChangeTextColor(Colors.MAGENTA, "", "캐릭터의 이름", "을 ");
+                Color.ChangeTextColor(Colors.RED, "", playerName, "(으)로 하시겠습니까?\n");
+                Console.WriteLine("=============================================");
                 Console.WriteLine("1.예");
                 Console.WriteLine("2.아니오");
                 Console.WriteLine();
                 if (isWrong)
-                    Console.WriteLine("******잘못된 입력입니다.******");
+                    Color.ChangeTextColor(Colors.RED, "", "******잘못된 입력입니다.******\n");
                 Console.Write(">>");
 
                 string input = Console.ReadLine();
@@ -214,39 +215,81 @@ namespace SpartaTextRPG
             Console.Write(s);
         }
 
-        //타이틀 보여주기
-        private void ShowMainTitle()
+        //메인 타이틀
+        private int ShowMainTitle()
         {
-            string input = "";
-
             Console.Clear();
-            while (input != "1")
+            //타이틀 이미지
+            PrintTitleImage();
+
+            Console.Write(">>");
+            string input = Console.ReadLine();
+
+            switch(input)
             {
-                Console.Clear();
-                ShowImage(1);
-                Console.WriteLine("  ____                   _          ____  ____   ____ ");
-                Console.WriteLine(" / ___| _ __   __ _ _ __| |_ __ _  |  _ \\|  _ \\ / ___|");
-                Console.WriteLine(" \\___ \\| '_ \\ / _` | '__| __/ _` | | |_) | |_) | |  _ ");
-                Console.WriteLine("  ___) | |_) | (_| | |  | || (_| | |  _ <|  __/| |_| |");
-                Console.WriteLine(" |____/| .__/ \\__,_|_|   \\__\\__,_| |_| \\_\\_|    \\____|");
-                Console.WriteLine("       |_|                                            ");
-                Console.WriteLine("======================================================");
-                Console.WriteLine("                      모험의 시작                      ");
-                Console.WriteLine("======================================================");
-                Console.WriteLine("                     1. 새로하기                      ");
-                Console.WriteLine("                     2. 이어하기                      ");
-                Console.Write(">>");
-                input = Console.ReadLine();
+                default:
+                    break;
+                case "1":
+                    return 1;
+
+                case "2":
+                    return LoadingScene();
             }
+
+            return 3;
         }
 
-        //아스키아트
+        //로딩화면
+        private int LoadingScene()
+        {
+            Console.Clear();
+            Console.WriteLine("게임 데이터를 불러오는 중입니다...");
+            Thread.Sleep(1000);
+            Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
+            Thread.Sleep(1000);
+            Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
+            Thread.Sleep(1000);
+            Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
+            Thread.Sleep(1000);
+
+            //메인화면
+            return 1;
+        }
+
+        //타이틀 이미지
+        private void PrintTitleImage()
+        {
+            ShowImage(1);
+            Color.ChangeTextColor(Colors.YELLOW, "", "  ____                   _          ____  ____   ____ \n");
+            Color.ChangeTextColor(Colors.YELLOW, "", " / ___| _ __   __ _ _ __| |_ __ _  |  _ \\|  _ \\ / ___|\n");
+            Color.ChangeTextColor(Colors.YELLOW, "", " \\___ \\| '_ \\ / _` | '__| __/ _` | | |_) | |_) | |  _ \n");
+            Color.ChangeTextColor(Colors.YELLOW, "", "  ___) | |_) | (_| | |  | || (_| | |  _ <|  __/| |_| |\n");
+            Color.ChangeTextColor(Colors.YELLOW, "", " |____/| .__/ \\__,_|_|   \\__\\__,_| |_| \\_\\_|    \\____|\n");
+            Color.ChangeTextColor(Colors.YELLOW, "", "       |_|                                            \n");
+
+            //Console.WriteLine("  ____                   _          ____  ____   ____ ");
+            //Console.WriteLine(" / ___| _ __   __ _ _ __| |_ __ _  |  _ \\|  _ \\ / ___|");
+            //Console.WriteLine(" \\___ \\| '_ \\ / _` | '__| __/ _` | | |_) | |_) | |  _ ");
+            //Console.WriteLine("  ___) | |_) | (_| | |  | || (_| | |  _ <|  __/| |_| |");
+            //Console.WriteLine(" |____/| .__/ \\__,_|_|   \\__\\__,_| |_| \\_\\_|    \\____|");
+            //Console.WriteLine("       |_|                                            ");
+
+            Console.WriteLine("======================================================");
+            Color.ChangeTextColor(Colors.MAGENTA, "", "                      모험의 시작                      \n");
+            Console.WriteLine("======================================================");
+            Color.ChangeTextColor(Colors.YELLOW, "","                      1. 새로하기                      \n");
+            Color.ChangeTextColor(Colors.RED, "", "                      2. 이어하기                      \n");
+        }
+
+        //이미지 보여주기
         private void ShowImage(int _num)
         {
             switch (_num)
             {
                 //드래곤 이미지1
                 case 1:
+                    Console.Clear();
+                    //Color.ChangeTextColor(Colors.RED, "", "@@@@@@@@@@@@@@@@@@@@@**^^\"\"~~~\"^@@^*@*@@**@@@@@@@@@@@@\r\n@@@@@@@@@@@@@*^^'\"~   , - ' '; ,@@b. '  -e@@@@@@@@@@@@\r\n@@@@@@@@*^\"~      . '     . ' ,@@@@(  e@*@@@@@@@@@@@@@\r\n@@@@@^~         .       .   ' @@@@@@, ~^@@@@@@@@@@@@@@\r\n@@@~ ,e**@@*e,  ,e**e, .    ' '@@@@@@e,  \"*@@@@@'^@@@@\r\n@',e@@@@@@@@@@ e@@@@@@       ' '*@@@@@@    @@@'   0@@@\r\n@@@@@@@@@@@@@@@@@@@@@',e,     ;  ~^*^'    ;^~   ' 0@@@\r\n@@@@@@@@@@@@@@@^\"\"^@@e@@@   .'           ,'   .'  @@@@\r\n@@@@@@@@@@@@@@'    '@@@@@ '         ,  ,e'  .    ;@@@@\r\n@@@@@@@@@@@@@' ,&&,  ^@*'     ,  .  i^\"@e, ,e@e  @@@@@\r\n@@@@@@@@@@@@' ,@@@@,          ;  ,& !,,@@@e@@@@ e@@@@@\r\n@@@@@,~*@@*' ,@@@@@@e,   ',   e^~^@,   ~'@@@@@@,@@@@@@\r\n@@@@@@, ~\" ,e@@@@@@@@@*e*@*  ,@e  @@\"\"@e,,@@@@@@@@@@@@\r\n@@@@@@@@ee@@@@@@@@@@@@@@@\" ,e@' ,e@' e@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@\" ,@\" ,e@@e,,@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@~ ,@@@,,0@@@@@@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@,,@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"");
                     Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@**^^\"\"~~~\"^@@^*@*@@**@@@@@@@@@@@@\r\n@@@@@@@@@@@@@*^^'\"~   , - ' '; ,@@b. '  -e@@@@@@@@@@@@\r\n@@@@@@@@*^\"~      . '     . ' ,@@@@(  e@*@@@@@@@@@@@@@\r\n@@@@@^~         .       .   ' @@@@@@, ~^@@@@@@@@@@@@@@\r\n@@@~ ,e**@@*e,  ,e**e, .    ' '@@@@@@e,  \"*@@@@@'^@@@@\r\n@',e@@@@@@@@@@ e@@@@@@       ' '*@@@@@@    @@@'   0@@@\r\n@@@@@@@@@@@@@@@@@@@@@',e,     ;  ~^*^'    ;^~   ' 0@@@\r\n@@@@@@@@@@@@@@@^\"\"^@@e@@@   .'           ,'   .'  @@@@\r\n@@@@@@@@@@@@@@'    '@@@@@ '         ,  ,e'  .    ;@@@@\r\n@@@@@@@@@@@@@' ,&&,  ^@*'     ,  .  i^\"@e, ,e@e  @@@@@\r\n@@@@@@@@@@@@' ,@@@@,          ;  ,& !,,@@@e@@@@ e@@@@@\r\n@@@@@,~*@@*' ,@@@@@@e,   ',   e^~^@,   ~'@@@@@@,@@@@@@\r\n@@@@@@, ~\" ,e@@@@@@@@@*e*@*  ,@e  @@\"\"@e,,@@@@@@@@@@@@\r\n@@@@@@@@ee@@@@@@@@@@@@@@@\" ,e@' ,e@' e@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@\" ,@\" ,e@@e,,@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@~ ,@@@,,0@@@@@@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@,,@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"");
                     break;
 
