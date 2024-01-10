@@ -7,7 +7,6 @@ namespace SpartaTextRPG
         public static Scene scene;
         static void Main(string[] args)
         {
-            Title.instance.StartTitle();
             while (true)
             {
                 switch (scene)
@@ -18,7 +17,7 @@ namespace SpartaTextRPG
                         break;
                     case Scene.playerState:
                         Console.Clear();
-                        State.Status();
+
                         break;
 
                     case Scene.inventory:
@@ -27,15 +26,15 @@ namespace SpartaTextRPG
                         break;
                     case Scene.shop:
                         Console.Clear();
-                        Shop.Instance.ShowShopPage();
+
                         break;
-                    case Scene.dungeon:
+                    case Scene.Dungeon:
                         Console.Clear();
 
                         break;
                     case Scene.rest:
                         Console.Clear();
-                        GameManager.Rest();
+
                         break;
                 }
             }
