@@ -21,9 +21,7 @@ namespace SpartaTextRPG
         {
             Console.Title = "스파르타 던전";
             Console.WriteLine("Sparta Dungeon Game!");
-            Console.ResetColor();
-            Console.Write($" ");
-            Console.ResetColor();
+            Color.ChangeTextColor(Colors.MAGENTA,"", $"{Player.player.name} ");
             Console.WriteLine("님, 스파르타 마을에 오신것을 환영합니다!\n");
             Console.WriteLine("이곳에서 던전으로 돌아가기 전 활동을 할 수 있습니다.\n");
             Console.WriteLine("0. 게임 종료");
