@@ -15,7 +15,11 @@ namespace SpartaTextRPG
         Warrior,
         Thief,
         Wizard,
-        Archer
+        Archer,
+        Berserker,
+        Warlord,
+        Reaper,
+        Demonic
     }
 
     internal class Player
@@ -51,6 +55,6 @@ namespace SpartaTextRPG
             maxMp = _maxMp;
             mp = _mp;
         }
-        public static Player player = new Player(0, "미정", 5, 0, 0, 50, 50, 20, 20);
+        public static Player player = new Player(0, "미정", 3, 0, 0, 50, 50, 20, 20);
     }
 }
