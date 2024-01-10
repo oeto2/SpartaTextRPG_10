@@ -23,16 +23,6 @@ public class Monster
         IsDead = false;
     }
 
-    public static Monster[] Monsters()
-    {
-        return new Monster[]
-        {
-            new Monster(1, "몬스터1", 100, 10, 5),
-            new Monster(1, "몬스터2", 100, 10, 5),
-            new Monster(1, "몬스터3", 100, 10, 5)
-        };
-    }
-
     public void OnDamage(int damage)
     {
         Health -= damage;
