@@ -54,7 +54,8 @@ namespace SpartaTextRPG
             equipItems.Add(new EquipItem(12, "강철 갑옷", "강철로 된 갑옷입니다.", ItemType.ARMOR, 2000, 0, 10));
             equipItems.Add(new EquipItem(13, "미스릴 갑옷", "미스릴로 된 갑옷입니다.", ItemType.ARMOR, 2000, 0, 10));
 
-            consumItems.Add(new ConsumItem(21, "하급 포션", "하급 포션입니다.", ItemType.POTION, 500, 30, 30));
+            consumItems.Add(new ConsumItem(21, "하급 포션", "하급 포션입니다.", ItemType.POTION, 500, 30, 0));
+            consumItems.Add(new ConsumItem(22, "중급 포션", "하급 포션입니다.", ItemType.POTION, 1500, 60, 30));
         }
     }
 
