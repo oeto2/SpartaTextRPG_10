@@ -21,7 +21,7 @@ namespace SpartaTextRPG
         string playerName;
 
         //타이틀 화면 시작
-        public bool StartTitle()
+        public void StartTitle()
         {
             //메인 타이틀 화면
             ShowMainTitle();
@@ -31,8 +31,6 @@ namespace SpartaTextRPG
 
             //플레이어 이름 변경
             Player.player.name = playerName;
-
-            return true;
         }
 
         //유저 이름 짓기
