@@ -240,6 +240,10 @@ namespace SpartaTextRPG
 
                 case "2":
                     return LoadingScene();
+
+                case "4":
+                    Guild.instance.ShowGuildPage();
+                    break;
             }
 
             return 3;

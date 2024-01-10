@@ -42,6 +42,15 @@ namespace SpartaTextRPG.DataClass
             new Quest(4,"포션 아이템 사용하기","상점에서 포션을 구매해서 사용해보자",500,50),
         };
 
+        //진행중인 퀘스트
+        public static List<Quest> curQuestList = new List<Quest>();
+
+        //퀘스트 받기
+        public void RequestQuest(Quest _quest)
+        {
+            curQuestList.Add(_quest);
+        }
+
         //퀘스트 완료
         public void QuestClear(List<Quest> _questList, int _id)
         {
@@ -57,6 +66,14 @@ namespace SpartaTextRPG.DataClass
             //경험치 획득 (이후에 함수 받아서 사용해야할수도)
             Player.player.exp += _questList[_id].exp;
         }
-        
+
+        //메인 퀘스트 목록 보여주기
+        public void ShowMainQuest()
+        {
+            foreach(Quest _quest in mainQuestList)
+            {
+                Console.WriteLine("{0}    |{1}    |보상 : {2} Gold, {3} Exp", _quest.name, _quest.info, _quest.gold, _quest.exp);
+            }
+        }
     }
 }
