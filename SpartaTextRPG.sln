@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpartaTextRPG", "SpartaTextRPG.csproj", "{95A4BFEE-6436-4F4A-8422-43CDE7180E07}"
+=======
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpartaTextRPG", "SpartaTextRPG.csproj", "{F78B95D5-A304-4376-B8F8-967E700943BA}"
+>>>>>>> a1b61cdee5ec26837bdb93c798d7c20652e76fa5
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +15,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< HEAD
+		{95A4BFEE-6436-4F4A-8422-43CDE7180E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A4BFEE-6436-4F4A-8422-43CDE7180E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A4BFEE-6436-4F4A-8422-43CDE7180E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A4BFEE-6436-4F4A-8422-43CDE7180E07}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
 		{F78B95D5-A304-4376-B8F8-967E700943BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F78B95D5-A304-4376-B8F8-967E700943BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F78B95D5-A304-4376-B8F8-967E700943BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F78B95D5-A304-4376-B8F8-967E700943BA}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> a1b61cdee5ec26837bdb93c798d7c20652e76fa5
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+<<<<<<< HEAD
+		SolutionGuid = {AD9EE57A-54B0-4BAA-BD80-1A8A40F8DF93}
+=======
 		SolutionGuid = {1B463148-8E46-4F83-BB85-121211009866}
+>>>>>>> a1b61cdee5ec26837bdb93c798d7c20652e76fa5
 	EndGlobalSection
 EndGlobal
