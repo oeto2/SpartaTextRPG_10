@@ -56,8 +56,11 @@ namespace SpartaTextRPG
             Console.WriteLine("새로운 퀘스트를 받을 수 있습니다.\n");
 
             //메인 퀘스트 목록 보여주기
-            QuestList.instance.ShowMainQuest();
-            
+            QuestList.instance.ShowQuestList();
+
+            Console.WriteLine("\n의뢰 받을 퀘스트의 번호를 입력해주세요.");
+            Title.PrintInputCursor();
+
             Console.ReadLine();
         }
     }

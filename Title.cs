@@ -254,13 +254,13 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             Console.WriteLine("게임 데이터를 불러오는 중입니다...");
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
 
             //메인화면
             isContinue = true;
@@ -326,6 +326,11 @@ namespace SpartaTextRPG
 
             }
 
+        }
+
+        public static void PrintInputCursor()
+        {
+            Color.ChangeTextColor(Colors.YELLOW, "", ">>");
         }
     }
 }
