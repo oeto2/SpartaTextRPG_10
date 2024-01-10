@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SpartaTextRPG
+{
+    public class Guild
+    {
+        //싱글톤
+        public static Guild instance = new Guild();
+
+        
+
+    }
+}

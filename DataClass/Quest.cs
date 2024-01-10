@@ -1,23 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace SpartaTextRPG.DataClass
 {
-    internal class Quest
+    public class Quest
     {
-        //퀘스트 번호
-        public int id { get; set; }
-        //퀘스트 이름
-        public string name { get; set; }
-        //퀘스트 내용
-        public string info { get; set; }
-        //퀘스트 보상 골드
-        public int gold { get; set; }
-        //퀘스트 보상 경험치
-        public int exp { get; set; }
+        public int id { get; set; } //퀘스트 번호
+        public string name { get; set; } //퀘스트 이름
+        public string info { get; set; } //퀘스트 정보
+        public int gold { get; set; } //퀘스트 보상 골드
+        public int exp { get; set; } // 퀘스트 보상 경험치
+        public bool isComplete = false; //퀘스트 완료여부
+
+        public Quest(int _id, string _name, string _info, int _gold, int _exp)
+        {
+            id = _id;
+            name = _name; 
+            info = _info;
+            gold = _gold; 
+            exp = _exp;
+        }
+    }
+
+    public class QuestList
+    {
+        public static QuestList instance = new QuestList();
+
+        //메인 퀘스트 목록
+        public static List<Quest> mainQuestList = new List<Quest>()
+        {
+            new Quest(0,"1차 전직 하기","캐릭터의 레벨을 올려 1차 전직을 해보자.",2000, 200),
+            new Quest(2,"2차 전직 하기","캐릭터의 레벨을 올려 2차 전직을 해보자.",3000, 500)
+        };
+
+        //서브 퀘스트 목록
+        public static List<Quest> subQuestList = new List<Quest>()
+        {
+            new Quest(0,"아이템 장착하기","인벤토리에서 아이템을 장착해보자",500,50),
+            new Quest(1,"하급 던전 입장하기","하급 던전에 입장해보자",600,100),
+            new Quest(2,"휴식하기","상점에서 아이템을 구매해보자",500,50),
+            new Quest(3,"하급 던전 클리어","하급 던전을 클리어해보자.",500,50),
+            new Quest(4,"포션 아이템 사용하기","상점에서 포션을 구매해서 사용해보자",500,50),
+        };
+
+        //퀘스트 완료
+        public void QuestClear(List<Quest> _questList, int _id)
+        {
+            _questList[_id].isComplete = true;
+        }
+
+        //퀘스트 보상받기
+        public void GetQuestReward(List<Quest> _questList, int _id)
+        {
+            //골드 획득
+            Player.player.gold += _questList[_id].gold;
+
+            //경험치 획득 (이후에 함수 받아서 사용해야할수도)
+            Player.player.exp += _questList[_id].exp;
+        }
         
     }
 }
