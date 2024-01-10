@@ -7,17 +7,18 @@ namespace SpartaTextRPG
         public static Scene scene;
         static void Main(string[] args)
         {
+            Title.instance.StartTitle();
             while (true)
             {
                 switch (scene)
                 {
                     case Scene.mainScene:
                         Console.Clear();
-                        GameManager.MainGameScene();
+                        GameManager.instance.MainGameScene();
                         break;
                     case Scene.playerState:
                         Console.Clear();
-
+                        State.instance.Status();
                         break;
 
                     case Scene.inventory:
@@ -26,15 +27,15 @@ namespace SpartaTextRPG
                         break;
                     case Scene.shop:
                         Console.Clear();
-
+                        Shop.Instance.ShowShopPage();
                         break;
-                    case Scene.Dungeon:
+                    case Scene.dungeon:
                         Console.Clear();
 
                         break;
                     case Scene.rest:
                         Console.Clear();
-
+                        GameManager.instance.Rest();
                         break;
                 }
             }
