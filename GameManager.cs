@@ -20,6 +20,7 @@ namespace SpartaTextRPG
         public static GameManager instance = new GameManager();
         public void MainGameScene()
         {
+            Console.Clear();
             Console.Title = "스파르타 던전";
             Console.WriteLine("Sparta Dungeon Game!");
             Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name} ");
@@ -40,29 +41,25 @@ namespace SpartaTextRPG
                     Environment.Exit(0);
                     break;
                 case 1:
-                    Console.Clear();
                     Program.scene = Scene.playerState;
                     break;
                 case 2:
-                    Console.Clear();
                     Program.scene = Scene.inventory;
                     break;
                 case 3:
-                    Console.Clear();
                     Program.scene = Scene.shop;
                     break;
                 case 4:
-                    Console.Clear();
                     Program.scene = Scene.dungeon;
                     break;
                 case 5:
-                    Console.Clear();
                     Program.scene = Scene.rest;
                     break;
             }
         }
         public void Rest()
         {
+            Console.Clear();
             Player.player.hp = Player.player.maxHp;
             Console.WriteLine("휴 식");
             Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name} ");
@@ -81,15 +78,12 @@ namespace SpartaTextRPG
                     Program.scene = Scene.mainScene;
                     break;
                 case 1:
-                    Console.Clear();
                     Program.scene = Scene.playerState;
                     break;
                 case 2:
-                    Console.Clear();
                     Program.scene = Scene.inventory;
                     break;
                 case 3:
-                    Console.Clear();
                     Program.scene = Scene.shop;
                     break;
             }

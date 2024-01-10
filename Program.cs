@@ -13,28 +13,22 @@ namespace SpartaTextRPG
                 switch (scene)
                 {
                     case Scene.mainScene:
-                        Console.Clear();
                         GameManager.instance.MainGameScene();
                         break;
                     case Scene.playerState:
-                        Console.Clear();
                         State.instance.Status();
                         break;
 
                     case Scene.inventory:
-                        Console.Clear();
 
                         break;
                     case Scene.shop:
-                        Console.Clear();
                         Shop.Instance.ShowShopPage();
                         break;
                     case Scene.dungeon:
-                        Console.Clear();
 
                         break;
                     case Scene.rest:
-                        Console.Clear();
                         GameManager.instance.Rest();
                         break;
                 }

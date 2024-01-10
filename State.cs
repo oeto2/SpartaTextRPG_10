@@ -103,7 +103,6 @@ namespace SpartaTextRPG
                         res = true;
                         Console.Clear();
                         Program.scene = Scene.mainScene;
-                        GameManager.MainGameScene();
                         break;
                     default:
                         Console.WriteLine("\n잘못된 값입니다.");
