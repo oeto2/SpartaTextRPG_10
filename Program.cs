@@ -26,7 +26,7 @@ namespace SpartaTextRPG
                         break;
                     case Scene.shop:
                         Console.Clear();
-
+                        Shop.Instance.ShowShopPage();
                         break;
                     case Scene.Dungeon:
                         Console.Clear();
