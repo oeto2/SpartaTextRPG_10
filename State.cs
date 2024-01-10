@@ -1,4 +1,5 @@
 using SpartaTextRPG;
+using SpartaTextRPG.DataClass;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -65,7 +66,7 @@ namespace SpartaTextRPG
             checkJob();
             Color.ChangeTextColor(Colors.YELLOW, "", "상태 보기", "\n");
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
-            Color.ChangeTextColor(Colors.BLUE, "", Player.player.name, " 환영합니다!\n");
+            Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
             Console.WriteLine($"Lv. {Player.player.level}");
             Console.WriteLine($"chad < {job} >\n");
             Console.WriteLine($"공격력 : {Player.player.baseAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
@@ -74,41 +75,54 @@ namespace SpartaTextRPG
             Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
 
+           
+            Console.WriteLine($"보유 스킬 {Skills.myskills.Count}개\n");
+            foreach (var skill in Skills.myskills)
+            {
+                Color.ChangeTextColor(Colors.BLUE, "",$"{ skill.name} ", $"{skill.job} 전용스킬\n");
+                Console.Write($"데미지 피해량 : {Math.Truncate(skill.damage * (Player.player.baseAtk + Player.player.addAtk))}   ");
+                if(skill.hp != 0)
+                {
+                    Console.WriteLine($"HP : {skill.hp}");
+                }
+                if (skill.mp != 0)
+                {
+                    Console.WriteLine($"MP : {skill.mp}");
+                }
+                Console.WriteLine($"{skill.text}\n");
+
+            }
+
             if (Player.player.level >= 1 && Player.player.job.ToString() == ((Job)0).ToString())
             {
                 Console.WriteLine("1. 1차 전직하기");
             }
-            else if (Player.player.level >= 1 && Player.player.job.ToString() != ((Job)0).ToString())
+            else if (Player.player.level >= 1 && (Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString()))
             {
                 Console.WriteLine("1. 2차 전직하기");
             }
 
             Console.WriteLine("0. 나가기\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            bool res = false;
-            while (!res)
+            Console.Write(">>");
+            string read = Console.ReadLine();
+            switch (read)
             {
-                Console.Write(">>");
-                string read = Console.ReadLine();
-                switch (read)
-                {
-                    case "1":
-                        res = true;
-                        if (Player.player.job == ((Job)0))
-                            FirstJob();
-                        else if (Player.player.job != ((Job)0))
-                            SecondJob();
-                        break;
-                    case "0":
-                        res = true;
-                        Console.Clear();
-                        Program.scene = Scene.mainScene;
-                        GameManager.MainGameScene();
-                        break;
-                    default:
-                        Console.WriteLine("\n잘못된 값입니다.");
-                        break;
-                }
+                case "1":
+                    if (Player.player.job == ((Job)0))
+                        FirstJob();
+                    else if (Player.player.job != ((Job)0))
+                        SecondJob();
+                    break;
+                case "0":
+                    Console.Clear();
+                    Program.scene = Scene.mainScene;
+                    GameManager.instance.MainGameScene();
+                    break;
+                default:
+                    Console.WriteLine("\n잘못된 값입니다.");
+                    Thread.Sleep(500);
+                    break;
             }
         }
 
@@ -126,72 +140,70 @@ namespace SpartaTextRPG
             Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)");
             Console.WriteLine("0. 나가기\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            bool res = false;
-            while (!res)
+            Console.Write(">>");
+            string read = Console.ReadLine();
+            switch (read)
             {
-                Console.Write(">>");
-                string read = Console.ReadLine();
-                switch (read)
-                {
-                    case "1":
-                        Console.WriteLine("\n전사로 전직하시겠습니까?(Y)");
-                        Console.WriteLine("전사는 밸런스가 좋은 직업이며 체력이 높습니다\n");
-                        Console.Write(">>");
-                        string check = Console.ReadLine();
-                        switch (check.ToLower())
-                        {
-                            case "y":
-                                Console.WriteLine("\n전사로 전직하셨습니다.");
-                                Player.player.job = (Job)1;
-                                Player.player.baseAtk += 5;
-                                Player.player.hp = Player.player.maxHp + 50;
-                                Player.player.maxHp += 50;
-                                Player.player.baseDef += 5;
+                case "1":
+                    Console.WriteLine("\n전사로 전직하시겠습니까?(Y)");
+                    Console.WriteLine("전사는 밸런스가 좋은 직업이며 체력이 높습니다\n");
+                    Console.Write(">>");
+                    string check = Console.ReadLine();
+                    switch (check.ToLower())
+                    {
+                        case "y":
+                            Console.WriteLine("\n전사로 전직하셨습니다.");
+                            Player.player.job = (Job)1;
+                            Player.player.baseAtk += 5;
+                            Player.player.hp = Player.player.maxHp + 50;
+                            Player.player.maxHp += 50;
+                            Player.player.baseDef += 5;
+                            Skill.instance.getSkill();
+                            Thread.Sleep(1000);
+                            Status();
+                            break;
+                        default:
+                            Console.WriteLine("취소하셨습니다");
+                            Thread.Sleep(500);
+                            FirstJob();
+                            break;
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine("\n도적으로 전직하시겠습니까?(Y)");
+                    Console.WriteLine("도적은 체력과 방어력은 낮으나 높은 공격력으로 메인 어택커입니다.\n");
+                    Console.Write(">>");
+                    check = Console.ReadLine();
 
-                                Thread.Sleep(1000);
-                                Status();
-                                break;
-                            default:
-                                Console.WriteLine("취소하셨습니다");
-                                Thread.Sleep(500);
-                                FirstJob();
-                                break;
-                        }
-                        break;
-                    case "2":
-                        Console.WriteLine("\n도적으로 전직하시겠습니까?(Y)");
-                        Console.WriteLine("도적은 체력과 방어력은 낮으나 높은 공격력으로 메인 어택커입니다.\n");
-                        Console.Write(">>");
-                        check = Console.ReadLine();
-
-                        switch (check.ToLower())
-                        {
-                            case "y":
-                                Console.WriteLine("\n도적으로 전직하셨습니다.");
-                                Player.player.job = (Job)2;
-                                Player.player.baseAtk += 10;
-                                Player.player.hp = Player.player.maxHp + 20;
-                                Player.player.maxHp += 20;
-                                Player.player.mp = Player.player.maxMp + 30;
-                                Player.player.maxMp += 30;
-
-                                Thread.Sleep(1000);
-                                Status();
-                                break;
-                            default:
-                                Console.WriteLine("취소하셨습니다");
-                                Thread.Sleep(500);
-                                FirstJob();
-                                break;
-                        }
-                        break;
-                    case "0":
-                        Status();
-                        break;
-                    default:
-                        Console.WriteLine("\n잘못된 값입니다.");
-                        break;
-                }
+                    switch (check.ToLower())
+                    {
+                        case "y":
+                            Console.WriteLine("\n도적으로 전직하셨습니다.");
+                            Player.player.job = (Job)2;
+                            Player.player.baseAtk += 10;
+                            Player.player.hp = Player.player.maxHp + 20;
+                            Player.player.maxHp += 20;
+                            Player.player.mp = Player.player.maxMp + 30;
+                            Player.player.maxMp += 30;
+                            Skill.instance.getSkill();
+                            Thread.Sleep(1000);
+                            Status();
+                            break;
+                        default:
+                            Console.WriteLine("취소하셨습니다");
+                            Thread.Sleep(500);
+                            FirstJob();
+                            break;
+                    }
+                    break;
+                case "0":
+                    Status();
+                    break;
+                default:
+                    Console.WriteLine("\n잘못된 값입니다.");
+                    Thread.Sleep(500);
+                    FirstJob();
+                    break;
             }
         }
         static Job[] second = { Job.Berserker, Job.Warlord };
@@ -245,96 +257,96 @@ namespace SpartaTextRPG
             Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)");
             Console.WriteLine("0. 나가기\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            bool res = false;
-            while (!res)
+            Console.Write(">>");
+            string read = Console.ReadLine();
+            switch (read)
             {
-                Console.Write(">>");
-                string read = Console.ReadLine();
-                switch (read)
-                {
-                    case "1":
-                        Console.WriteLine($"\n{Sjob[0]}로 전직하시겠습니까?(Y)");
-                        if (Sjob[0] == "버서커")
-                            Console.WriteLine($"버서커는 체력을 소비하여 공격하고 공격 적중시 체력을 흡수하는 클래스 입니다.\n");
-                        else
-                            Console.WriteLine($"리퍼는 체방이 낮고 최고의 공격력을 가지고 있는 퓨어딜러 클래스입니다.\n");
+                case "1":
+                    Console.WriteLine($"\n{Sjob[0]}로 전직하시겠습니까?(Y)");
+                    if (Sjob[0] == "버서커")
+                        Console.WriteLine($"버서커는 체력을 소비하여 공격하고 공격 적중시 체력을 흡수하는 클래스 입니다.\n");
+                    else
+                        Console.WriteLine($"리퍼는 체방이 낮고 최고의 공격력을 가지고 있는 퓨어딜러 클래스입니다.\n");
 
-                        Console.Write(">>");
-                        string check = Console.ReadLine();
-                        switch (check.ToLower())
-                        {
-                            case "y":
-                                Console.WriteLine($"\n{Sjob[0]}로 전직하셨습니다.");
-                                if (Sjob[0] == "버서커")
-                                {
-                                    Player.player.baseAtk += 10;
-                                    Player.player.hp = Player.player.maxHp + 50;
-                                    Player.player.maxHp += 50;
-                                    Player.player.baseDef += 5;
-                                }
-                                else
-                                {
-                                    Player.player.baseAtk += 20;
-                                    Player.player.hp = Player.player.maxHp + 10;
-                                    Player.player.maxHp += 10;
+                    Console.Write(">>");
+                    string check = Console.ReadLine();
+                    switch (check.ToLower())
+                    {
+                        case "y":
+                            Console.WriteLine($"\n{Sjob[0]}로 전직하셨습니다.");
+                            Player.player.job = (second[0]);
+                            Skill.instance.getSkill();
+                            if (Sjob[0] == "버서커")
+                            {
+                                Player.player.baseAtk += 10;
+                                Player.player.hp = Player.player.maxHp + 50;
+                                Player.player.maxHp += 50;
+                                Player.player.baseDef += 5;
+                            }
+                            else
+                            {
+                                Player.player.baseAtk += 20;
+                                Player.player.hp = Player.player.maxHp + 10;
+                                Player.player.maxHp += 10;
 
-                                }
-                                Player.player.job = (second[0]);
+                            }
 
-                                Thread.Sleep(1000);
-                                Status();
-                                break;
-                            default:
-                                Console.WriteLine("취소하셨습니다");
-                                Thread.Sleep(500);
-                                SecondJob();
-                                break;
-                        }
-                        break;
-                    case "2":
-                        Console.WriteLine($"\n{Sjob[1]}로 전직하시겠습니까?(Y)");
-                        if (Sjob[0] == "워로드")
-                            Console.WriteLine($"워로드는 높은 체방을 가지고 있는 탱커 클래스 입니다.\n");
-                        else
-                            Console.WriteLine($"데모닉은 밸랜스형 변신 캐릭터 입니다.\n");
+                            Thread.Sleep(1000);
+                            Status();
+                            break;
+                        default:
+                            Console.WriteLine("취소하셨습니다");
+                            Thread.Sleep(500);
+                            SecondJob();
+                            break;
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine($"\n{Sjob[1]}로 전직하시겠습니까?(Y)");
+                    if (Sjob[1] == "워로드")
+                        Console.WriteLine($"워로드는 높은 체방을 가지고 있는 탱커 클래스 입니다.\n");
+                    else
+                        Console.WriteLine($"데모닉은 밸랜스형 변신 캐릭터 입니다.\n");
 
-                        Console.Write(">>");
-                        check = Console.ReadLine();
-                        switch (check.ToLower())
-                        {
-                            case "y":
-                                Console.WriteLine($"\n{Sjob[1]}로 전직하셨습니다.");
-                                if (Sjob[0] == "워로드")
-                                {
-                                    Player.player.hp = Player.player.maxHp + 100;
-                                    Player.player.maxHp += 100;
-                                    Player.player.baseDef += 10;
-                                }
-                                else
-                                {
-                                    Player.player.baseAtk += 10;
-                                    Player.player.hp = Player.player.maxHp + 50;
-                                    Player.player.maxHp += 50;
-                                    Player.player.baseDef += 5;
+                    Console.Write(">>");
+                    check = Console.ReadLine();
+                    switch (check.ToLower())
+                    {
+                        case "y":
+                            Console.WriteLine($"\n{Sjob[1]}로 전직하셨습니다.");
+                            Player.player.job = (second[1]);
+                            Skill.instance.getSkill();
+                            if (Sjob[0] == "워로드")
+                            {
+                                Player.player.hp = Player.player.maxHp + 100;
+                                Player.player.maxHp += 100;
+                                Player.player.baseDef += 10;
+                            }
+                            else
+                            {
+                                Player.player.baseAtk += 10;
+                                Player.player.hp = Player.player.maxHp + 50;
+                                Player.player.maxHp += 50;
+                                Player.player.baseDef += 5;
 
-                                }
-                                Player.player.job = (second[1]);
-                                Status();
-                                break;
-                            default:
-                                Console.WriteLine("취소하셨습니다");
-                                Thread.Sleep(500);
-                                SecondJob();
-                                break;
-                        }
-                        break;
-                    case "0":
-                        Status();
-                        break;
-                    default:
-                        Console.WriteLine("\n잘못된 값입니다.");
-                        break;
-                }
+                            }
+                            Status();
+                            break;
+                        default:
+                            Console.WriteLine("취소하셨습니다");
+                            Thread.Sleep(500);
+                            SecondJob();
+                            break;
+                    }
+                    break;
+                case "0":
+                    Status();
+                    break;
+                default:
+                    Console.WriteLine("\n잘못된 값입니다.");
+                    Thread.Sleep(500);
+                    SecondJob();
+                    break;
             }
         }
     }
