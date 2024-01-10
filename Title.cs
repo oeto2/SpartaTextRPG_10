@@ -17,6 +17,9 @@ namespace SpartaTextRPG
         //잘못된 입력 감지
         private bool isWrong = false;
 
+        //이어하기
+        private bool isContinue;
+            
         //플레이어 이름
         string playerName;
 
@@ -26,14 +29,17 @@ namespace SpartaTextRPG
             //메인 타이틀 화면
             while (ShowMainTitle() != 1) { };
 
-            //이름 짓기
-            while (NamePlayer() != 1) { };
+            if(!isContinue)
+            {
+                //이름 짓기
+                while (NamePlayer() != 1) { };
 
-            //프롤로그 시작
-            StartProlog();
+                //프롤로그 시작
+                StartProlog();
 
-            //플레이어 이름 변경
-            Player.player.name = playerName;
+                //플레이어 이름 변경
+                Player.player.name = playerName;
+            }    
         }
 
         //스토리 스킵
@@ -253,6 +259,7 @@ namespace SpartaTextRPG
             Thread.Sleep(1000);
 
             //메인화면
+            isContinue = true;
             return 1;
         }
 
