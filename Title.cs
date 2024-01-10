@@ -21,22 +21,18 @@ namespace SpartaTextRPG
         string playerName;
 
         //타이틀 화면 시작
-        public void StartTitle()
+        public bool StartTitle()
         {
             //메인 타이틀 화면
             ShowMainTitle();
 
             //이름 짓기
-            switch (NamePlayer())
-            {
-                //아니요
-                case 2:
-                    NamePlayer();
-                    break;
-            }
+            while (NamePlayer() != 1) { };
 
-            Console.Clear();
-            Console.WriteLine("{0}님 환영합니다!", playerName);
+            //플레이어 이름 변경
+            Player.player.name = playerName;
+
+            return true;
         }
 
         //유저 이름 짓기
