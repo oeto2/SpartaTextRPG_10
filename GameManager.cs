@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpartaTextRPG
 {
-    public enum Scene
+    enum Scene
     {
         mainScene,
         playerState,
