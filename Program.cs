@@ -7,6 +7,7 @@ namespace SpartaTextRPG
         public static Scene scene;
         static void Main(string[] args)
         {
+            Title.instance.StartTitle();
             while (true)
             {
                 switch (scene)
@@ -28,13 +29,13 @@ namespace SpartaTextRPG
                         Console.Clear();
                         Shop.Instance.ShowShopPage();
                         break;
-                    case Scene.Dungeon:
+                    case Scene.dungeon:
                         Console.Clear();
 
                         break;
                     case Scene.rest:
                         Console.Clear();
-
+                        GameManager.Rest();
                         break;
                 }
             }
