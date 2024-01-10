@@ -9,9 +9,13 @@ using System.Xml.Linq;
 
 namespace SpartaTextRPG
 {
+
     internal class Title
     {
         public static Title instance = new Title();
+
+        //잘못된 입력 감지
+        private bool isWrong = false;
 
         //플레이어 정보
         string playerName;
@@ -23,12 +27,11 @@ namespace SpartaTextRPG
             ShowMainTitle();
 
             //이름 짓기
-            switch(MakePlayerName())
+            switch (NamePlayer())
             {
                 //아니요
                 case 2:
-                    //다시 이름 짓기
-                    MakePlayerName();
+                    NamePlayer();
                     break;
             }
 
@@ -37,7 +40,7 @@ namespace SpartaTextRPG
         }
 
         //유저 이름 짓기
-        private int MakePlayerName()
+        private int NamePlayer()
         {
             //이름을 지었는지
             bool isName = false;
@@ -57,7 +60,7 @@ namespace SpartaTextRPG
                 playerName = Console.ReadLine();
             }
 
-            while(!isName)
+            while (!isName)
             {
                 isName = false;
 
@@ -69,22 +72,28 @@ namespace SpartaTextRPG
                 Console.WriteLine("1.예");
                 Console.WriteLine("2.아니오");
                 Console.WriteLine();
+                if (isWrong)
+                    Console.WriteLine("******잘못된 입력입니다.******");
                 Console.Write(">>");
 
-                switch (CheckIntInput(1, 2))
-                {
-                    //Null
-                    case 99:
-                        break;
+                string input = Console.ReadLine();
 
+                switch (input)
+                {
                     //예
-                    case 1:
+                    case "1":
+                        isWrong = false;
                         isName = true;
                         return 1;
 
                     //아니오
-                    case 2:
+                    case "2":
+                        isWrong = false;
                         return 2;
+
+                    default:
+                        isWrong = true;
+                        break;
                 }
             }
             return 1;
@@ -105,17 +114,17 @@ namespace SpartaTextRPG
             //입력 값, Nul이면 99반환
             int input = 99;
 
-            //입력이 재대로 됐는지
-            bool isRight;
+            //입력값이 int인지
+            bool isInt;
 
             do
             {
-                isRight = int.TryParse(Console.ReadLine(), out input);
+                isInt = int.TryParse(Console.ReadLine(), out input);
 
                 //null값 감지
                 if (input == 0)
                     return input;
-            } while (!isRight || (input < _min && input > _max));
+            } while (!isInt || (input < _min && input > _max));
 
             //이상이 없으면 입력 값 반환
             return input;
@@ -133,22 +142,26 @@ namespace SpartaTextRPG
         //타이틀 보여주기
         private void ShowMainTitle()
         {
+            string input = "";
 
-            Console.Clear();
-            Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@**^^\"\"~~~\"^@@^*@*@@**@@@@@@@@@@@@\r\n@@@@@@@@@@@@@*^^'\"~   , - ' '; ,@@b. '  -e@@@@@@@@@@@@\r\n@@@@@@@@*^\"~      . '     . ' ,@@@@(  e@*@@@@@@@@@@@@@\r\n@@@@@^~         .       .   ' @@@@@@, ~^@@@@@@@@@@@@@@\r\n@@@~ ,e**@@*e,  ,e**e, .    ' '@@@@@@e,  \"*@@@@@'^@@@@\r\n@',e@@@@@@@@@@ e@@@@@@       ' '*@@@@@@    @@@'   0@@@\r\n@@@@@@@@@@@@@@@@@@@@@',e,     ;  ~^*^'    ;^~   ' 0@@@\r\n@@@@@@@@@@@@@@@^\"\"^@@e@@@   .'           ,'   .'  @@@@\r\n@@@@@@@@@@@@@@'    '@@@@@ '         ,  ,e'  .    ;@@@@\r\n@@@@@@@@@@@@@' ,&&,  ^@*'     ,  .  i^\"@e, ,e@e  @@@@@\r\n@@@@@@@@@@@@' ,@@@@,          ;  ,& !,,@@@e@@@@ e@@@@@\r\n@@@@@,~*@@*' ,@@@@@@e,   ',   e^~^@,   ~'@@@@@@,@@@@@@\r\n@@@@@@, ~\" ,e@@@@@@@@@*e*@*  ,@e  @@\"\"@e,,@@@@@@@@@@@@\r\n@@@@@@@@ee@@@@@@@@@@@@@@@\" ,e@' ,e@' e@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@\" ,@\" ,e@@e,,@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@~ ,@@@,,0@@@@@@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@,,@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"");
-            Console.WriteLine("  ____                   _          ____  ____   ____ ");
-            Console.WriteLine(" / ___| _ __   __ _ _ __| |_ __ _  |  _ \\|  _ \\ / ___|");
-            Console.WriteLine(" \\___ \\| '_ \\ / _` | '__| __/ _` | | |_) | |_) | |  _ ");
-            Console.WriteLine("  ___) | |_) | (_| | |  | || (_| | |  _ <|  __/| |_| |");
-            Console.WriteLine(" |____/| .__/ \\__,_|_|   \\__\\__,_| |_| \\_\\_|    \\____|");
-            Console.WriteLine("       |_|                                            ");
-            Console.WriteLine("======================================================");
-            Console.WriteLine("                      모험의 시작                      ");
-            Console.WriteLine("======================================================");
-            Console.WriteLine("                 PRESS ANYKEY TO START                ");
-            Console.CursorVisible = false;
-            Console.ReadKey();
-            Console.CursorVisible = true;
+            while(input != "1")
+            {
+                Console.Clear();
+                Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@**^^\"\"~~~\"^@@^*@*@@**@@@@@@@@@@@@\r\n@@@@@@@@@@@@@*^^'\"~   , - ' '; ,@@b. '  -e@@@@@@@@@@@@\r\n@@@@@@@@*^\"~      . '     . ' ,@@@@(  e@*@@@@@@@@@@@@@\r\n@@@@@^~         .       .   ' @@@@@@, ~^@@@@@@@@@@@@@@\r\n@@@~ ,e**@@*e,  ,e**e, .    ' '@@@@@@e,  \"*@@@@@'^@@@@\r\n@',e@@@@@@@@@@ e@@@@@@       ' '*@@@@@@    @@@'   0@@@\r\n@@@@@@@@@@@@@@@@@@@@@',e,     ;  ~^*^'    ;^~   ' 0@@@\r\n@@@@@@@@@@@@@@@^\"\"^@@e@@@   .'           ,'   .'  @@@@\r\n@@@@@@@@@@@@@@'    '@@@@@ '         ,  ,e'  .    ;@@@@\r\n@@@@@@@@@@@@@' ,&&,  ^@*'     ,  .  i^\"@e, ,e@e  @@@@@\r\n@@@@@@@@@@@@' ,@@@@,          ;  ,& !,,@@@e@@@@ e@@@@@\r\n@@@@@,~*@@*' ,@@@@@@e,   ',   e^~^@,   ~'@@@@@@,@@@@@@\r\n@@@@@@, ~\" ,e@@@@@@@@@*e*@*  ,@e  @@\"\"@e,,@@@@@@@@@@@@\r\n@@@@@@@@ee@@@@@@@@@@@@@@@\" ,e@' ,e@' e@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@\" ,@\" ,e@@e,,@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@~ ,@@@,,0@@@@@@@@@@@@@@@@@@@@@@\r\n@@@@@@@@@@@@@@@@@@@@@@@@,,@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"");
+                Console.WriteLine("  ____                   _          ____  ____   ____ ");
+                Console.WriteLine(" / ___| _ __   __ _ _ __| |_ __ _  |  _ \\|  _ \\ / ___|");
+                Console.WriteLine(" \\___ \\| '_ \\ / _` | '__| __/ _` | | |_) | |_) | |  _ ");
+                Console.WriteLine("  ___) | |_) | (_| | |  | || (_| | |  _ <|  __/| |_| |");
+                Console.WriteLine(" |____/| .__/ \\__,_|_|   \\__\\__,_| |_| \\_\\_|    \\____|");
+                Console.WriteLine("       |_|                                            ");
+                Console.WriteLine("======================================================");
+                Console.WriteLine("                      모험의 시작                      ");
+                Console.WriteLine("======================================================");
+                Console.WriteLine("                     1. 새로하기                      ");
+                Console.WriteLine("                     2. 이어하기                      ");
+                Console.Write(">>");
+                input = Console.ReadLine();
+            }
         }
     }
 }
