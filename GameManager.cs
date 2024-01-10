@@ -17,7 +17,8 @@ namespace SpartaTextRPG
     }
     public class GameManager
     {
-        public static void MainGameScene()
+        public static GameManager instance = new GameManager();
+        public void MainGameScene()
         {
             Console.Title = "스파르타 던전";
             Console.WriteLine("Sparta Dungeon Game!");
@@ -60,7 +61,7 @@ namespace SpartaTextRPG
                     break;
             }
         }
-        public static void Rest()
+        public void Rest()
         {
             Player.player.hp = Player.player.maxHp;
             Console.WriteLine("휴 식");
