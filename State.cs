@@ -10,43 +10,45 @@ namespace SpartaTextRPG
 {
     public class State
     {
+        public static State instance = new State();
 
-        public static string job = Player.player.job.ToString();
+        string job;
 
         //직업 확인
-        public static void checkJob()
+        static void checkJob()
         {
+            string job = Player.player.job.ToString();
 
             if (job == ((Job)0).ToString())
             {
-                job = "초보자";
+                instance.job = "초보자";
             }
             else if ((job == ((Job)1).ToString()))
             {
-                job = "전사";
+                instance.job = "전사";
             }
             else if ((job == ((Job)2).ToString()))
             {
-                job = "도적";
+                instance.job = "도적";
             }
             else if ((job == ((Job)3).ToString()))
             {
-                job = "마법사";
+                instance.job = "마법사";
             }
             else if ((job == ((Job)4).ToString()))
             {
-                job = "궁수";
+                instance.job = "궁수";
             }
         }
 
-        public static void Status()
+        // 상태창
+        public void Status()
         {
             Console.Clear();
             checkJob();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("상태 보기");
-            Console.ResetColor();
+            Color.ChangeTextColor(Colors.YELLOW, "", "상태 보기", "\n");
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
+            Console.WriteLine($"{Player.player.name}\n");
             Console.WriteLine($"Lv. {Player.player.level}");
             Console.WriteLine($"chad < {job} >\n");
             Console.WriteLine($"공격력 : {Player.player.baseAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
@@ -62,34 +64,37 @@ namespace SpartaTextRPG
 
             Console.WriteLine("0. 나가기\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">>");
-            string read = Console.ReadLine();
-            switch (read)
+            bool res = false;
+            while (!res)
             {
-                case "1":
-                    FirstJob();
-                    break;
-                case "0":
-                    Console.WriteLine("홈으로...");
-                    break;
-                default:
-                    Console.WriteLine("\n잘못된 입력입니다.\n");
-                    Thread.Sleep(500);
-                    Status();
-                    break;
+                Console.Write(">>");
+                string read = Console.ReadLine();
+                switch (read)
+                {
+                    case "1":
+                        res = true;
+                        FirstJob();
+                        break;
+                    case "0":
+                        res = true;
+                        Console.Clear();
+                        Program.scene = Scene.mainScene;
+                        GameManager.MainGameScene();
+                        break;
+                    default:
+                        Console.WriteLine("\n잘못된 값입니다.");
+                        break;
+                }
             }
         }
 
-        //1차 전직 하기
-        public static void FirstJob()
+        // 1차 전직 하기
+        public void FirstJob()
         {
 
             Console.Clear();
             checkJob();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("전직 하기");
-            Console.ResetColor();
-
+            Color.ChangeTextColor(Colors.YELLOW, "", "전직하기", "\n");
             Console.WriteLine("일정 레벨이 될 시 전직이 가능합니다.\n");
             Console.WriteLine($"Lv. {Player.player.level}  < {job} >\n");
             Board();
@@ -106,12 +111,16 @@ namespace SpartaTextRPG
                     Console.WriteLine("전사는 \n");
                     Console.Write(">>");
                     string check = Console.ReadLine();
-                    
-                    switch (check.ToLower()) 
-                    { 
+                    switch (check.ToLower())
+                    {
                         case "y":
                             Console.WriteLine("\n전사로 전직하셨습니다.");
                             Player.player.job = (Job)1;
+                            Player.player.baseAtk = 5;
+                            Player.player.maxHp = 100;
+                            Player.player.hp = 100;
+                            Player.player.baseDef = 5;
+
                             Thread.Sleep(1000);
                             Status();
                             break;
@@ -120,7 +129,7 @@ namespace SpartaTextRPG
                             Thread.Sleep(500);
                             FirstJob();
                             break;
-                    } 
+                    }
                     break;
                 case "2":
                     Console.WriteLine("\n도적으로 전직하시겠습니까?(Y/N)");
@@ -132,7 +141,13 @@ namespace SpartaTextRPG
                     {
                         case "y":
                             Console.WriteLine("\n도적으로 전직하셨습니다.");
-                            Player.player.job = (Job)1;
+                            Player.player.job = (Job)2;
+                            Player.player.baseAtk = 10;
+                            Player.player.maxHp = 70;
+                            Player.player.hp = 70;
+                            Player.player.maxMp = 50;
+                            Player.player.mp = 50;
+
                             Thread.Sleep(1000);
                             Status();
                             break;
@@ -147,13 +162,9 @@ namespace SpartaTextRPG
                     Status();
                     break;
                 default:
-                    Console.WriteLine("잘못된 값입니다.");
-                    FirstJob();
+                    Console.WriteLine("\n잘못된 값입니다.");
                     break;
             }
-
-
-
 
             static void Board()
             {
