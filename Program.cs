@@ -31,7 +31,7 @@ namespace SpartaTextRPG
                         break;
                     case Scene.dungeon:
                         Console.Clear();
-
+                        Dungeon.Instance.DungeonEntrance();
                         break;
                     case Scene.rest:
                         Console.Clear();
