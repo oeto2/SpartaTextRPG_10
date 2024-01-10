@@ -18,7 +18,7 @@ namespace SpartaTextRPG
                         break;
                     case Scene.playerState:
                         Console.Clear();
-
+                        State.Status();
                         break;
 
                     case Scene.inventory:
