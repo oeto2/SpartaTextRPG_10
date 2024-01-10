@@ -14,11 +14,11 @@ namespace SpartaTextRPG
                 {
                     case Scene.mainScene:
                         Console.Clear();
-                        GameManager.MainGameScene();
+                        GameManager.instance.MainGameScene();
                         break;
                     case Scene.playerState:
                         Console.Clear();
-                        State.Status();
+                        State.instance.Status();
                         break;
 
                     case Scene.inventory:
@@ -35,7 +35,7 @@ namespace SpartaTextRPG
                         break;
                     case Scene.rest:
                         Console.Clear();
-                        GameManager.Rest();
+                        GameManager.instance.Rest();
                         break;
                 }
             }
