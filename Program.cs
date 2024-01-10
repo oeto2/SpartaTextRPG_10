@@ -31,6 +31,9 @@ namespace SpartaTextRPG
                     case Scene.rest:
                         GameManager.instance.Rest();
                         break;
+                    case Scene.fishing:
+                        Fishing.instance.StartFishing();
+                        break;
                 }
             }
         }

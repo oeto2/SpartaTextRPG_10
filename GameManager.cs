@@ -13,7 +13,8 @@ namespace SpartaTextRPG
         inventory,
         shop,
         dungeon,
-        rest
+        rest,
+        fishing
     }
     public class GameManager
     {
@@ -32,8 +33,9 @@ namespace SpartaTextRPG
             Console.WriteLine("3. 상점 입장");
             Console.WriteLine("4. 던전 입장");
             Console.WriteLine("5. 휴식하기");
+            Console.WriteLine("6. 낚시하기");
             Console.WriteLine();
-            int _input = CheckValidAction(0, 5);
+            int _input = CheckValidAction(0, 6);
 
             switch (_input)
             {
@@ -54,6 +56,9 @@ namespace SpartaTextRPG
                     break;
                 case 5:
                     Program.scene = Scene.rest;
+                    break;
+                case 6:
+                    Program.scene = Scene.fishing;
                     break;
             }
         }
