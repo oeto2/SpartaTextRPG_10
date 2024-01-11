@@ -310,7 +310,8 @@ namespace SpartaTextRPG
                         break;
                 }
                 // 초기화
-                Item.Instance.equipItems[equip] = Item.Instance.enforceInit[equip];
+                var p = Item.Instance.enforceInit[equip];
+                Item.Instance.equipItems[equip] = new EquipItem(p.id, p.name, p.info, p.type, p.cost, p.atk, p.def);
             }
             // 소모품 판매
             else if (Inventory.Instance.ownEquipCount.Count + Inventory.Instance.ownConsumCount.Count - 1 >= index)
