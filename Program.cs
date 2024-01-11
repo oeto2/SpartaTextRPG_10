@@ -34,6 +34,9 @@ namespace SpartaTextRPG
                     case Scene.fishing:
                         Fishing.instance.StartFishing();
                         break;
+                    case Scene.guild:
+                        Guild.instance.ShowGuildPage();
+                        break;
                 }
             }
         }

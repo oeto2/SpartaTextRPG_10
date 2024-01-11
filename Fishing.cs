@@ -69,7 +69,8 @@ namespace SpartaTextRPG
                         // Program exit
                         break;
                     }
-                    else if(keyInfo.Key == ConsoleKey.NumPad0)
+                    else if(keyInfo.Key == ConsoleKey.NumPad0 ||
+                        keyInfo.Key == ConsoleKey.D0)
                     {
                         Program.scene = Scene.mainScene;
                         Console.Clear();

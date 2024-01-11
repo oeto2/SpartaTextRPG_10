@@ -14,7 +14,8 @@ namespace SpartaTextRPG
         shop,
         dungeon,
         rest,
-        fishing
+        fishing,
+        guild
     }
     public class GameManager
     {
@@ -59,6 +60,9 @@ namespace SpartaTextRPG
                     break;
                 case 6:
                     Program.scene = Scene.fishing;
+                    break;
+                case 7:
+                    Program.scene = Scene.guild;
                     break;
             }
         }
