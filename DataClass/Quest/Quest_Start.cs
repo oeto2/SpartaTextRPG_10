@@ -57,6 +57,7 @@ namespace SpartaTextRPG.DataClass.Quest
         public void ShowStQuestList()
         {
             int questNum = 0;
+            stQuestNum = 0;
 
             int row, col;
 
@@ -76,6 +77,8 @@ namespace SpartaTextRPG.DataClass.Quest
                 {
                     if (_quest.isPossible && !_quest.isOngoing && !_quest.isComplete && _quest.type == 'M')
                     {
+                        ++stQuestNum;
+
                         (row, col) = Console.GetCursorPosition();
                         Color.ChangeTextColor(Colors.YELLOW, "", $"{++questNum}.");
                         //Console.Write($"{qeustNum++}.");
@@ -118,6 +121,8 @@ namespace SpartaTextRPG.DataClass.Quest
                 {
                     if (_quest.isPossible && !_quest.isOngoing && !_quest.isComplete && _quest.type == 'S')
                     {
+                        ++stQuestNum;
+
                         (row, col) = Console.GetCursorPosition();
                         Color.ChangeTextColor(Colors.YELLOW, "", $"{++questNum}.");
                         //Console.Write($"{qeustNum++}.");
