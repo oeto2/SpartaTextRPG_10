@@ -34,18 +34,19 @@ namespace SpartaTextRPG
                 default:
                     break;
 
-                //퀘스트 받기
+                //퀘스트 시작 페이지
                 case "1":
                     ShowRequestPage();
                     break;
 
-                //퀘스트 확인
+                //퀘스트 확인 페이지
                 case "2":
                     ShowCurQuestPage();
                     break;
 
-                //퀘스트 보상
+                //퀘스트 완료 페이지
                 case "3":
+                    ShoCompQuestPage();
                     break;
             }
         }
@@ -80,7 +81,27 @@ namespace SpartaTextRPG
 
             //진행중인 퀘스트 목록 보여주기
             QuestList.instance.ShowCurQuestList();
-            
+
+            Color.ChangeTextColor(Colors.YELLOW, "", "\n0. ");
+            Console.WriteLine("나가기");
+
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            Title.PrintInputCursor();
+            Console.ReadLine();
+        }
+
+        //완료한 퀘스트
+        public void ShoCompQuestPage()
+        {
+            Console.Clear();
+            Color.ChangeTextColor(Colors.YELLOW, "", "길드 - 퀘스트 진행\n");
+            Console.WriteLine("진행중인 퀘스트를 확인할 수 있습니다.\n");
+
+            //완료한 퀘스트 목록 보여주기
+            QuestList.instance.ShowCurQuestList();
+
+            Color.ChangeTextColor(Colors.YELLOW, "", "\n0. ");
+            Console.WriteLine("나가기");
 
             Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             Title.PrintInputCursor();

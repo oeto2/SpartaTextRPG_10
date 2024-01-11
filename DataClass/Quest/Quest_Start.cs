@@ -30,7 +30,7 @@ namespace SpartaTextRPG.DataClass.Quest
                 questList[0].isPossible = true;
 
 
-            //2차 전직 퀘스트 시작 조건 (1차 전직 완료)
+            //2차 전직 퀘스트 시작 조건 (1차 전직 퀘스트 완료)
             if ((playerJob == Job.Warrior || playerJob == Job.Wizard || playerJob == Job.Archer || playerJob == Job.Thief) && questList[0].isComplete)
                 questList[1].isPossible = true;
             #endregion
