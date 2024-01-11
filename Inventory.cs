@@ -51,24 +51,32 @@ namespace SpartaTextRPG
             switch (Item.Instance.equipItems[equip].type)
             {
                 case ItemType.WEAPON:
+                    // 해제
                     if (Item.Instance.equipItems[equip].id == Player.player.weapon)
                     {
+                        Item.Instance.equipItems[equip].SubItemStat();
                         Player.player.weapon = 0;
                     }
+                    // 장착
                     else
                     {
                         Player.player.weapon = Item.Instance.equipItems[equip].id;
+                        Item.Instance.equipItems[equip].AddItemStat();
                     }
                     break;
 
                 case ItemType.ARMOR:
+                    // 해제
                     if (Item.Instance.equipItems[equip].id == Player.player.armor)
                     {
+                        Item.Instance.equipItems[equip].SubItemStat();
                         Player.player.armor = 0;
                     }
+                    // 장착
                     else
                     {
                         Player.player.armor = Item.Instance.equipItems[equip].id;
+                        Item.Instance.equipItems[equip].AddItemStat();
                     }
                     break;
 
