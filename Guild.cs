@@ -65,7 +65,10 @@ namespace SpartaTextRPG
 
             Console.WriteLine("\n의뢰 받을 퀘스트의 번호를 입력해주세요.");
             Title.PrintInputCursor();
-            Console.ReadLine();
+            string input = Console.ReadLine();
+
+            QuestList.instance.StartQuest(int.Parse(input));
+            
         }
 
         //진행중인 퀘스트

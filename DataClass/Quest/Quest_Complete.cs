@@ -9,5 +9,6 @@ namespace SpartaTextRPG.DataClass.Quest
     //완료한 퀘스트
     public partial class QuestList
     {
+    
     }
 }
