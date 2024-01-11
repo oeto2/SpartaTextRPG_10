@@ -8,6 +8,7 @@ namespace SpartaTextRPG
         static void Main(string[] args)
         {
             Title.instance.StartTitle();
+            Console.Clear();
             while (true)
             {
                 switch (scene)
@@ -16,11 +17,11 @@ namespace SpartaTextRPG
                         GameManager.instance.MainGameScene();
                         break;
                     case Scene.playerState:
+                        Console.Clear();
                         State.instance.Status();
                         break;
-
                     case Scene.inventory:
-
+                        Inventory.Instance.ShowInvenPage();
                         break;
                     case Scene.shop:
                         Shop.Instance.ShowShopPage();
@@ -33,6 +34,9 @@ namespace SpartaTextRPG
                         break;
                     case Scene.fishing:
                         Fishing.instance.StartFishing();
+                        break;
+                    case Scene.guild:
+                        Guild.instance.ShowGuildPage();
                         break;
                 }
             }
