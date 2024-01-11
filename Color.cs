@@ -11,7 +11,8 @@ namespace SpartaTextRPG
         RED,
         BLUE,
         YELLOW,
-        MAGENTA
+        MAGENTA,
+        GREEN
     }
 
     internal class Color
@@ -34,6 +35,9 @@ namespace SpartaTextRPG
                     break;
                 case Colors.MAGENTA:
                     Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case Colors.GREEN:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     break;
             }
 

@@ -89,7 +89,7 @@ namespace SpartaTextRPG
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
             Console.WriteLine("==========================================================");
             Console.WriteLine("1. 던전 입장");
-            Console.WriteLine("2. 이전 메뉴로 돌아가기");
+            Console.WriteLine("0. 이전 메뉴로 돌아가기");
             Console.WriteLine("메뉴를 선택하세요:");
             Console.Write(">>");
 
@@ -97,7 +97,7 @@ namespace SpartaTextRPG
 
             if (userInput == "1")
             {
-                if (Player.player.hp <= 20)
+                if (Player.player.hp >= 20)
                 {
                     int stage1RecommendedAttack = 10;
                     int stage2RecommendedAttack = 20;
@@ -123,27 +123,48 @@ namespace SpartaTextRPG
                     Console.WriteLine("Stage.1 - 모험의 시작");
                     if (Player.player.baseAtk >= stage1RecommendedAttack)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage1RecommendedAttack}\n");
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage1RecommendedAttack}\n");
                     }
-                    Console.Write($"적정 공격력 : {stage1RecommendedAttack}");
                     Console.WriteLine("Stage.2 - 용의 둥지");
                     if (Player.player.baseAtk >= stage2RecommendedAttack)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage2RecommendedAttack}\n");
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage2RecommendedAttack}\n");
                     }
-                    Console.Write($"적정 공격력 : {stage2RecommendedAttack}");
-                    Console.WriteLine(stage2RecommendedAttack);
                     Console.WriteLine("Stage.3 - 불의 둥지");
+                    if (Player.player.baseAtk >= stage3RecommendedAttack)
+                    {
+                        Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage3RecommendedAttack}\n");
+                    }
+                    else
+                    {
+                        Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage3RecommendedAttack}\n");
+                    }
                     Console.WriteLine("Stage.4 - 물의 둥지");
+                    if (Player.player.baseAtk >= stage4RecommendedAttack)
+                    {
+                        Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage4RecommendedAttack}\n");
+                    }
+                    else
+                    {
+                        Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage4RecommendedAttack}\n");
+                    }
                     Console.WriteLine("Stage.5 - 어둠의 둥지");
+                    if (Player.player.baseAtk >= stage5RecommendedAttack)
+                    {
+                        Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage5RecommendedAttack} \n");
+                    }
+                    else
+                    {
+                        Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage5RecommendedAttack} \n");
+                    }
                     Console.WriteLine("");
                     Console.WriteLine("입장하고 싶은 던전을 선택해주세요. :");
                     Console.Write(">>");
@@ -155,6 +176,7 @@ namespace SpartaTextRPG
                         case "1":
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Console.ReadLine();
+                            Console.Clear();
                             break;
 
                         case "2":
@@ -189,7 +211,7 @@ namespace SpartaTextRPG
                     Console.Write(">>");
                 }
             }
-            else if (userInput == "2")
+            else if (userInput == "0")
             {
                 Console.Clear();
                 Program.scene = Scene.mainScene;
