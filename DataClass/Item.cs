@@ -39,8 +39,9 @@ namespace SpartaTextRPG
         public ItemType type { get; set; }
         public int cost { get; set; }
         public bool isOwn { get; set; }
-
+        
         public List<EquipItem> equipItems = new List<EquipItem>();
+        public List<EquipItem> enforceInit = new List<EquipItem>();
         public List<ConsumItem> consumItems = new List<ConsumItem>();
         
 
@@ -52,10 +53,12 @@ namespace SpartaTextRPG
 
             equipItems.Add(new EquipItem(11, "가죽 갑옷", "가죽으로 된 갑옷입니다.", ItemType.ARMOR, 1000, 0, 5));
             equipItems.Add(new EquipItem(12, "강철 갑옷", "강철로 된 갑옷입니다.", ItemType.ARMOR, 2000, 0, 10));
-            equipItems.Add(new EquipItem(13, "미스릴 갑옷", "미스릴로 된 갑옷입니다.", ItemType.ARMOR, 2000, 0, 10));
+            equipItems.Add(new EquipItem(13, "미스릴 갑옷", "미스릴로 된 갑옷입니다.", ItemType.ARMOR, 3000, 0, 10));
+
+            enforceInit = equipItems.ConvertAll(p => new EquipItem(p.id, p.name, p.info, p.type, p.cost, p.atk, p.def));
 
             consumItems.Add(new ConsumItem(21, "하급 포션", "하급 포션입니다.", ItemType.POTION, 500, 30, 0));
-            consumItems.Add(new ConsumItem(22, "중급 포션", "하급 포션입니다.", ItemType.POTION, 1500, 60, 30));
+            consumItems.Add(new ConsumItem(22, "중급 포션", "중급 포션입니다.", ItemType.POTION, 1500, 60, 30));
         }
     }
 
@@ -63,10 +66,11 @@ namespace SpartaTextRPG
     internal class EquipItem : Item
     {
          
-         public int atk { get; set; }
-         public int def { get; set; }
+        public int atk { get; set; }
+        public int def { get; set; }
+        public int enforce { get; set; }
 
-        public EquipItem(int _id, string _name, string _info, ItemType _type, int _cost, int _atk, int _def)
+        public EquipItem(int _id, string _name, string _info, ItemType _type, int _cost, int _atk, int _def, int _enforce = 0)
         {
             id = _id; 
             name = _name; 
@@ -75,6 +79,7 @@ namespace SpartaTextRPG
             cost = _cost;
             atk = _atk;
             def = _def;
+            enforce = _enforce;
         }
     }
 
