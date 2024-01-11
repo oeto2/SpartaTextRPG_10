@@ -36,6 +36,7 @@ namespace SpartaTextRPG
 
         public List<int> ownEquipCount = new List<int>();
         public List<int> ownConsumCount = new List<int>();
+        public List<int> ownFishCount = new List<int>();
 
         // 장비 장착 / 해제
         void EquipOnOff(int index)
@@ -94,7 +95,7 @@ namespace SpartaTextRPG
                 Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                 return;
             }
-            
+
             int equip = ownEquipCount[index];
             // 강화비용(장비 기본가격의 절반)이 모자라다면
             if (Player.player.gold < Item.Instance.enforceInit[equip].cost / 2)
@@ -116,7 +117,7 @@ namespace SpartaTextRPG
             Item.Instance.equipItems[equip].cost += Item.Instance.enforceInit[equip].cost / 2;
         }
 
-        // 보유 장비 확인
+        // 보유 아이템 확인
         public void CheckOwnEquip()
         {
             ownEquipCount.Clear();
@@ -135,13 +136,21 @@ namespace SpartaTextRPG
                     ownConsumCount.Add(i);
                 }
             }
+            ownFishCount.Clear();
+            for (int i = 0; i < Item.Instance.fishList.Count; i++)
+            {
+                if (Item.Instance.fishList[i].count > 0)
+                {
+                    ownFishCount.Add(i);
+                }
+            }
         }
 
         // 인벤토리 장비 리스트 출력
         void ShowInvenEquipList()
         {
             Console.WriteLine("[아이템 목록]");
-            
+
             for (int i = 0; i < ownEquipCount.Count; i++)
             {
                 int index = ownEquipCount[i];
@@ -163,7 +172,7 @@ namespace SpartaTextRPG
                 }
                 Console.Write(equip.name);
 
-                if (equip.enforce > 0) 
+                if (equip.enforce > 0)
                 {
                     Color.ChangeTextColor(Colors.MAGENTA, " +", Convert.ToString(equip.enforce));
                 }
@@ -207,14 +216,8 @@ namespace SpartaTextRPG
                 {
                     ConsumItem consum = Item.Instance.consumItems[i];
 
-                    if (scene == InvenScene.NORMAL)
-                    {
-                        Console.Write("- ");
-                    }
-                    else if (scene == InvenScene.MANAGE)
-                    {
-                        Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(i + 1 + Item.Instance.equipItems.Count), " ");
-                    }
+                    Console.Write("- ");
+
                     Console.Write(consum.name);
 
                     (row, col) = Console.GetCursorPosition();
@@ -242,6 +245,30 @@ namespace SpartaTextRPG
                 }
             }
         }
+        // 인벤토리 물고기 출력
+        void ShowInvenFish()
+        {
+            for (int i = 0; i < Item.Instance.fishList.Count; i++)
+            {
+                if (Item.Instance.fishList[i].count > 0)
+                {
+                    Fish fish = Item.Instance.fishList[i];
+
+                    Console.Write("- ");
+
+                    Console.Write(fish.name);
+
+                    (row, col) = Console.GetCursorPosition();
+                    Console.SetCursorPosition(24, col);
+
+                    Console.Write($"| {fish.info}");
+
+                    Console.SetCursorPosition(84, col);
+                    Color.ChangeTextColor(Colors.MAGENTA, "| ", Convert.ToString(fish.count), "마리 소지\n");
+                }
+            }
+        }
+
         public void ShowInvenPage()
         {
             CheckOwnEquip();
@@ -253,6 +280,7 @@ namespace SpartaTextRPG
 
                 ShowInvenEquipList();
                 ShowInvenConsumList();
+                ShowInvenFish();
 
                 Console.WriteLine();
                 Color.ChangeTextColor(Colors.MAGENTA, "", "1", ". 장착 관리\n");
