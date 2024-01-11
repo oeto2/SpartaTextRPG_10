@@ -30,7 +30,8 @@ namespace SpartaTextRPG
             while (true)
             {
                 Console.Clear();
-                Console.SetCursorPosition(x*3, 0);
+                Console.WriteLine("                                      ,!..        \r\n                                      -;:~        \r\n                                   ,:~~~=~-       \r\n                                  :,,,...-:.      \r\n                                  !*~~,-,,-,      \r\n                                  @:,.-,.*-       \r\n                                  !    ..@:       \r\n                                 ~~,,*. !=-       \r\n                                 ,~. ,,,.~        \r\n                                 :!:=---~=        \r\n                                 :!:,,~-,#:       \r\n                                ,!*.,~,!;!;.      \r\n          =.                   ,~:*~,;,.!;=.!     \r\n         ,.~.                 .,.:!,,,--;;-.-:    \r\n         *  ,~               ,,..,:~,~*;;!,..-,   \r\n        .    -=             .;....;!;=!;;.,...!.  \r\n        ;     :,            -.....;:;:;;:,,,...*  \r\n       ,.      -~.          ;.-...!!;;;:,,,.~..,  \r\n                ~=         !..,.,.*!!;;-,,,,,.,,- \r\n       :         ,=       ~,..*,,,$=;;;,,,,,,,,-- \r\n      ,           ;-.     -,.,!,,,@;!:.,,,,:::-,-~\r\n      .             ~    .~..,:,,.*;~,,,,,.$!-,,-,\r\n     -               :.  ..,,,!.-!;;-,-,==:,,,,,-,\r\n                  .~:~:! !,,,,,,=$!!,:*:,,,,,,,,;-\r\n                .*$*:,,!*,,,,,,-*#;$~$;-,,,,,,,,~~\r\n    .          #;-,,~,,!#=,,,,;;-.-   ;-,,,,,,,~!*\r\n   .         .;,-,~,,,-~==;,,-!*-,* ,*-*:,,,,,,*~;\r\n   .         :=,-,,,,,=!*=-,-*;~~:,-~,,;!.,,,,~-,-\r\n  .         $!,,,,,,,,~-;;*!~:-,:#!!~,-!!=,,,!-,,,\r\n  .        *=--,,,,,,,: .-!!:~:~=;!*;=!-**!!!,,~,,\r\n          .!,,,,!~,,,,~   .-!;#$;*.-=*;;:,,,,,,,,:\r\n .          ~:=#~*-,,,~~    -;=$!,=. . ;!*,,,,,,,~\r\n            :#=,,;~--,,--,.=***=**    . ;:,,,,-~*-\r\n.            !$,,-~--~,,-:;**!==*=:   ,.,!:,-~;!~,\r\n             .*$-,,,,,~,,-!**;!**!-:,    =*= ;-,,,");
+                Console.SetCursorPosition(x*3, 35);
                 Console.Write('↓');
                 Console.WriteLine();
 
@@ -50,7 +51,8 @@ namespace SpartaTextRPG
                 Console.WriteLine();
                 Console.WriteLine("0. 나가기");
 
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
+
 
                 if (Console.KeyAvailable)
                 {
@@ -59,7 +61,25 @@ namespace SpartaTextRPG
                     {
                         if (x == starPosition)
                         {
+                            int fish = random.Next(0, 1000);
                             Console.WriteLine("성공했습니다.");
+                            if (fish == 17)
+                            {
+                                Color.ChangeTextColor(Colors.RED, "전설의", "불고기", "가 존재하였습니다.");
+                            }
+                            else if(fish <=10)
+                            {
+                                Color.ChangeTextColor(Colors.YELLOW, "아닛! 이것이", "골드물고기", "!?!?");
+                            }
+                            else if(fish>= 800)
+                            {
+                                Color.ChangeTextColor(Colors.BLUE, "흠...", "실버물고기", "를 낚았군요.");
+                            }
+                            else
+                            {
+                                Console.Write("그냥 물고기를 낚았습니다.");
+                            }
+                            Thread.Sleep(300);
                         }
                         else
                         {
@@ -94,7 +114,7 @@ namespace SpartaTextRPG
                     }
                 }
             }
-            System.Threading.Thread.Sleep(500);
+            Thread.Sleep(500);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SpartaTextRPG.DataClass.Quest
             int row, col;
 
             //진행중인 퀘스트가 없을 경우
-            if (questList.Find(x => x.isPossible && !x.isOngoing && !x.isComplete) == null)
+            if (questList.Find(x => x.isPossible && x.isOngoing && !x.isComplete) == null)
                 Color.ChangeTextColor(Colors.RED, "", "***진행중인 퀘스트가 없습니다***\n");
 
             //진행중인 퀘스트가 있을 경우
@@ -37,7 +37,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
                         //Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                         Console.Write($"{_quest.name} ");
-                        Console.SetCursorPosition(18, col);
+                        Console.SetCursorPosition(20, col);
                         Console.Write('|');
 
                         //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
