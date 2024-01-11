@@ -63,8 +63,7 @@ namespace SpartaTextRPG
         public void Status()
         {
             checkJob();
-            Color.ChangeTextColor(Colors.YELLOW, "", "상태 보기", "\n");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
+            Color.ChangeTextColor(Colors.YELLOW, "", "상태 보기", "\n\n");
             Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
             Console.WriteLine($"Lv. {Player.player.level}");
             Console.WriteLine($"chad < {job} >\n");
@@ -74,7 +73,6 @@ namespace SpartaTextRPG
             Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
 
-           
             Console.WriteLine($"보유 스킬 {Skills.myskills.Count}개\n");
             foreach (var skill in Skills.myskills)
             {
@@ -92,13 +90,37 @@ namespace SpartaTextRPG
 
             }
 
+
+            int weapon = Player.player.weapon;
+            int armor = Player.player.armor;
+
+            string wname = "미착용";
+            string aname = "미착용";
+            foreach (var item in Item._instance.equipItems)
+            {
+                if (weapon == item.id)
+                {
+                    wname = item.name;
+                }
+                if (armor == item.id)
+                {
+                    aname = item.name;
+                }
+            }
+
+            Console.WriteLine($"무기 : {wname}");
+            Console.WriteLine($"방어구 : {aname} \n");
+
+
+            Console.WriteLine("9. 인벤토리");
+
             if (Player.player.level >= 1 && Player.player.job.ToString() == ((Job)0).ToString())
             {
-                Console.WriteLine("1. 1차 전직하기");
+                Color.ChangeTextColor(Colors.BLUE, "", "1. 1차 전직하기", "\n");
             }
             else if (Player.player.level >= 1 && (Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString()))
             {
-                Console.WriteLine("1. 2차 전직하기");
+                Color.ChangeTextColor(Colors.BLUE, "", "1. 2차 전직하기", "\n");
             }
 
             Color.ChangeTextColor(Colors.RED, "", "0. 나가기", "\n\n");
@@ -119,6 +141,10 @@ namespace SpartaTextRPG
                         Console.Clear();
                         SecondJob();
                     }
+                    break;
+                case "9":
+                    Console.Clear();
+                    Program.scene = Scene.inventory;
                     break;
                 case "0":
                     Console.Clear();
@@ -142,7 +168,7 @@ namespace SpartaTextRPG
             Board();
 
 
-            Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)");
+            Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)\n");
             Color.ChangeTextColor(Colors.RED, "", "0. 나가기", "\n\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">>");
@@ -150,7 +176,7 @@ namespace SpartaTextRPG
             switch (read)
             {
                 case "1":
-                    Console.WriteLine("\n전사로 전직하시겠습니까?(Y)");
+                    Color.ChangeTextColor(Colors.BLUE, "\n", "전사", "로 전직하시겠습니까?(Y)\n\n");
                     Console.WriteLine("전사는 밸런스가 좋은 직업이며 체력이 높습니다\n");
                     Console.Write(">>");
                     string check = Console.ReadLine();
@@ -164,18 +190,18 @@ namespace SpartaTextRPG
                             Player.player.baseDef += 5;
                             Skill.instance.getSkill();
                             Console.Clear();
-                            Color.ChangeTextColor(Colors.YELLOW, "", "전사으로 전직하셨습니다.", "\n");
+                            Color.ChangeTextColor(Colors.BLUE, "", "전사", "로 전직하셨습니다.\n");
                             Status();
                             break;
                         default:
                             Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                            Color.ChangeTextColor(Colors.RED, "", "취소하셨습니다", "\n");
                             FirstJob();
                             break;
                     }
                     break;
                 case "2":
-                    Console.WriteLine("\n도적으로 전직하시겠습니까?(Y)");
+                    Color.ChangeTextColor(Colors.BLUE, "\n", "도적", "으로 전직하시겠습니까?(Y)\n\n");
                     Console.WriteLine("도적은 체력과 방어력은 낮으나 높은 공격력으로 메인 어택커입니다.\n");
                     Console.Write(">>");
                     check = Console.ReadLine();
@@ -191,17 +217,18 @@ namespace SpartaTextRPG
                             Player.player.maxMp += 30;
                             Skill.instance.getSkill();
                             Console.Clear();
-                            Color.ChangeTextColor(Colors.YELLOW, "", "도적으로 전직하셨습니다.", "\n");
+                            Color.ChangeTextColor(Colors.BLUE, "", "도적", "으로 전직하셨습니다.\n");
                             Status();
                             break;
                         default:
                             Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                            Color.ChangeTextColor(Colors.RED, "", "취소하셨습니다", "\n");
                             FirstJob();
                             break;
                     }
                     break;
                 case "0":
+                    Console.Clear();
                     Status();
                     break;
                 default:
@@ -251,7 +278,6 @@ namespace SpartaTextRPG
         }
         public void SecondJob()
         {
-            Console.Clear();
             checkJob();
             Color.ChangeTextColor(Colors.YELLOW, "", "2차 전직하기", "\n");
             Console.WriteLine("일정 레벨이 될 시 전직이 가능합니다.\n");
@@ -259,7 +285,7 @@ namespace SpartaTextRPG
             Board();
 
 
-            Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)");
+            Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)\n");
             Color.ChangeTextColor(Colors.RED, "", "0. 나가기", "\n\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">>");
@@ -267,7 +293,7 @@ namespace SpartaTextRPG
             switch (read)
             {
                 case "1":
-                    Console.WriteLine($"\n{Sjob[0]}로 전직하시겠습니까?(Y)");
+                    Color.ChangeTextColor(Colors.BLUE, "\n", $"{Sjob[0]}", "로 전직하시겠습니까?(Y)\n\n");
                     if (Sjob[0] == "버서커")
                         Console.WriteLine($"버서커는 체력을 소비하여 공격하고 공격 적중시 체력을 흡수하는 클래스 입니다.\n");
                     else
@@ -278,7 +304,6 @@ namespace SpartaTextRPG
                     switch (check.ToLower())
                     {
                         case "y":
-                            Console.WriteLine($"\n{Sjob[0]}로 전직하셨습니다.");
                             Player.player.job = (second[0]);
                             Skill.instance.getSkill();
                             if (Sjob[0] == "버서커")
@@ -296,18 +321,19 @@ namespace SpartaTextRPG
 
                             }
 
-                            Thread.Sleep(1000);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.BLUE, "", $"\n{Sjob[0]}", "로 전직하셨습니다.\n");
                             Status();
                             break;
                         default:
                             Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                            Color.ChangeTextColor(Colors.RED, "", "취소하셨습니다", "\n");
                             SecondJob();
                             break;
                     }
                     break;
                 case "2":
-                    Console.WriteLine($"\n{Sjob[1]}로 전직하시겠습니까?(Y)");
+                    Color.ChangeTextColor(Colors.BLUE, "\n", $"{Sjob[1]}", "로 전직하시겠습니까?(Y)\n\n");
                     if (Sjob[1] == "워로드")
                         Console.WriteLine($"워로드는 높은 체방을 가지고 있는 탱커 클래스 입니다.\n");
                     else
@@ -318,7 +344,6 @@ namespace SpartaTextRPG
                     switch (check.ToLower())
                     {
                         case "y":
-                            Console.WriteLine($"\n{Sjob[1]}로 전직하셨습니다.");
                             Player.player.job = (second[1]);
                             Skill.instance.getSkill();
                             if (Sjob[0] == "워로드")
@@ -335,6 +360,8 @@ namespace SpartaTextRPG
                                 Player.player.baseDef += 5;
 
                             }
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.BLUE, "", $"\n{Sjob[1]}", "로 전직하셨습니다.\n");
                             Status();
                             break;
                         default:
@@ -345,6 +372,7 @@ namespace SpartaTextRPG
                     }
                     break;
                 case "0":
+                    Console.Clear();
                     Status();
                     break;
                 default:

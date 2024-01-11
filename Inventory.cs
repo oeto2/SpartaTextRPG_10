@@ -51,24 +51,32 @@ namespace SpartaTextRPG
             switch (Item.Instance.equipItems[equip].type)
             {
                 case ItemType.WEAPON:
+                    // 해제
                     if (Item.Instance.equipItems[equip].id == Player.player.weapon)
                     {
+                        Item.Instance.equipItems[equip].SubItemStat();
                         Player.player.weapon = 0;
                     }
+                    // 장착
                     else
                     {
                         Player.player.weapon = Item.Instance.equipItems[equip].id;
+                        Item.Instance.equipItems[equip].AddItemStat();
                     }
                     break;
 
                 case ItemType.ARMOR:
+                    // 해제
                     if (Item.Instance.equipItems[equip].id == Player.player.armor)
                     {
+                        Item.Instance.equipItems[equip].SubItemStat();
                         Player.player.armor = 0;
                     }
+                    // 장착
                     else
                     {
                         Player.player.armor = Item.Instance.equipItems[equip].id;
+                        Item.Instance.equipItems[equip].AddItemStat();
                     }
                     break;
 
@@ -249,7 +257,7 @@ namespace SpartaTextRPG
                 Console.WriteLine();
                 Color.ChangeTextColor(Colors.MAGENTA, "", "1", ". 장착 관리\n");
                 Color.ChangeTextColor(Colors.MAGENTA, "", "2", ". 장비 강화\n");
-                Color.ChangeTextColor(Colors.MAGENTA, "", "0", ". 나가기\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
@@ -282,7 +290,7 @@ namespace SpartaTextRPG
                 ShowInvenEquipList();
 
                 Console.WriteLine();
-                Color.ChangeTextColor(Colors.MAGENTA, "", "0", ". 나가기\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
@@ -321,7 +329,7 @@ namespace SpartaTextRPG
                 ShowInvenEquipList();
 
                 Console.WriteLine();
-                Color.ChangeTextColor(Colors.MAGENTA, "", "0", ". 나가기\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
