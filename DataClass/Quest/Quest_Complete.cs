@@ -17,6 +17,9 @@ namespace SpartaTextRPG.DataClass.Quest
 
             int row, col;
 
+            //완료한 퀘스트가 있는지 확인
+            CheckCompQuest();
+
             //완료할 수 있는 퀘스트가 없을 경우
             if (questList.Find(x => x.isPossible && !x.isOngoing && !x.isComplete) == null)
                 Color.ChangeTextColor(Colors.RED, "", "***완료할 수 있는 퀘스트가 없습니다***\n");

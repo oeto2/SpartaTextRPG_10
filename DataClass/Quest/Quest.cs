@@ -10,6 +10,10 @@ namespace SpartaTextRPG.DataClass.Quest
     {
         public static QuestList instance = new QuestList();
 
+        public static int stQuestNum = 0; //시작 가능한 퀘스트 갯수
+        public static int curQuestNum = 0; //진행중인 퀘스트 갯수
+        public static int compQuestNum = 0; //완료가능한 퀘스트 갯수
+
         //퀘스트 목록
         public static List<Quest> questList = new List<Quest>()
         {
