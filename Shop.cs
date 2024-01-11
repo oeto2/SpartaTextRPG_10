@@ -323,7 +323,7 @@ namespace SpartaTextRPG
                 Console.WriteLine();
                 Color.ChangeTextColor(Colors.MAGENTA, "", "1", ". 아이템 구매\n");
                 Color.ChangeTextColor(Colors.MAGENTA, "", "2", ". 아이템 판매\n");
-                Color.ChangeTextColor(Colors.MAGENTA, "", "0", ". 나가기\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
@@ -359,7 +359,7 @@ namespace SpartaTextRPG
                 ShopItemList();
 
                 Console.WriteLine();
-                Color.ChangeTextColor(Colors.MAGENTA, "", "0", ". 나가기\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
@@ -400,7 +400,7 @@ namespace SpartaTextRPG
                 ShowSellList();
 
                 Console.WriteLine();
-                Color.ChangeTextColor(Colors.MAGENTA, "", "0", ". 나가기\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Console.Write(">> ");
