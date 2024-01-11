@@ -13,13 +13,15 @@ namespace SpartaTextRPG
         inventory,
         shop,
         dungeon,
-        rest
+        rest,
+        fishing
     }
     public class GameManager
     {
         public static GameManager instance = new GameManager();
         public void MainGameScene()
         {
+            Console.Clear();
             Console.Title = "스파르타 던전";
             Console.WriteLine("Sparta Dungeon Game!");
             Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name} ");
@@ -31,8 +33,9 @@ namespace SpartaTextRPG
             Console.WriteLine("3. 상점 입장");
             Console.WriteLine("4. 던전 입장");
             Console.WriteLine("5. 휴식하기");
+            Console.WriteLine("6. 낚시하기");
             Console.WriteLine();
-            int _input = CheckValidAction(0, 5);
+            int _input = CheckValidAction(0, 6);
 
             switch (_input)
             {
@@ -40,29 +43,28 @@ namespace SpartaTextRPG
                     Environment.Exit(0);
                     break;
                 case 1:
-                    Console.Clear();
                     Program.scene = Scene.playerState;
                     break;
                 case 2:
-                    Console.Clear();
                     Program.scene = Scene.inventory;
                     break;
                 case 3:
-                    Console.Clear();
                     Program.scene = Scene.shop;
                     break;
                 case 4:
-                    Console.Clear();
                     Program.scene = Scene.dungeon;
                     break;
                 case 5:
-                    Console.Clear();
                     Program.scene = Scene.rest;
+                    break;
+                case 6:
+                    Program.scene = Scene.fishing;
                     break;
             }
         }
         public void Rest()
         {
+            Console.Clear();
             Player.player.hp = Player.player.maxHp;
             Console.WriteLine("휴 식");
             Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name} ");
@@ -81,15 +83,12 @@ namespace SpartaTextRPG
                     Program.scene = Scene.mainScene;
                     break;
                 case 1:
-                    Console.Clear();
                     Program.scene = Scene.playerState;
                     break;
                 case 2:
-                    Console.Clear();
                     Program.scene = Scene.inventory;
                     break;
                 case 3:
-                    Console.Clear();
                     Program.scene = Scene.shop;
                     break;
             }
