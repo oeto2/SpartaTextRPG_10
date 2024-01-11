@@ -39,11 +39,11 @@ namespace SpartaTextRPG
         public ItemType type { get; set; }
         public int cost { get; set; }
         public bool isOwn { get; set; }
-        
+
         public List<EquipItem> equipItems = new List<EquipItem>();
         public List<EquipItem> enforceInit = new List<EquipItem>();
         public List<ConsumItem> consumItems = new List<ConsumItem>();
-        
+
 
         public void ItemInit()
         {
@@ -65,21 +65,32 @@ namespace SpartaTextRPG
     // 장비 아이템 클래스
     internal class EquipItem : Item
     {
-         
+
         public int atk { get; set; }
         public int def { get; set; }
         public int enforce { get; set; }
 
         public EquipItem(int _id, string _name, string _info, ItemType _type, int _cost, int _atk, int _def, int _enforce = 0)
         {
-            id = _id; 
-            name = _name; 
-            info = _info; 
+            id = _id;
+            name = _name;
+            info = _info;
             type = _type;
             cost = _cost;
             atk = _atk;
             def = _def;
             enforce = _enforce;
+        }
+
+        public void AddItemStat()
+        {
+            Player.player.addAtk += atk;
+            Player.player.addDef += def;
+        }
+        public void SubItemStat()
+        {
+            Player.player.addAtk -= atk;
+            Player.player.addDef -= def;
         }
     }
 
@@ -103,7 +114,7 @@ namespace SpartaTextRPG
         }
     }
 
-    
 
-    
+
+
 }
