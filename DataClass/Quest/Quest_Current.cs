@@ -12,13 +12,15 @@ namespace SpartaTextRPG.DataClass.Quest
         //진행중인 퀘스트 목록 보여주기
         public void ShowCurQuestList()
         {
+            curQuestNum = 0;
+
             //퀘스트 번호
             int questNum = 1;
 
             int row, col;
 
             //진행중인 퀘스트가 없을 경우
-            if (questList.Find(x => x.isPossible && x.isOngoing && !x.isComplete) == null)
+            if (questList.Find(x => x.isPossible && x.isOngoing && !x.isClear) == null)
                 Color.ChangeTextColor(Colors.RED, "", "***진행중인 퀘스트가 없습니다***\n");
 
             //진행중인 퀘스트가 있을 경우
@@ -30,6 +32,8 @@ namespace SpartaTextRPG.DataClass.Quest
                 {
                     if (_quest.isOngoing)
                     {
+                        curQuestNum++;
+
                         (row, col) = Console.GetCursorPosition();
                         Color.ChangeTextColor(Colors.YELLOW, "", $"{questNum++}.");
                         //Console.Write($"{qeustNum++}.");
