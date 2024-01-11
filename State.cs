@@ -62,7 +62,6 @@ namespace SpartaTextRPG
         // 상태창
         public void Status()
         {
-            Console.Clear();
             checkJob();
             Color.ChangeTextColor(Colors.YELLOW, "", "상태 보기", "\n");
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
@@ -102,26 +101,33 @@ namespace SpartaTextRPG
                 Console.WriteLine("1. 2차 전직하기");
             }
 
-            Console.WriteLine("0. 나가기\n");
+            Color.ChangeTextColor(Colors.RED, "", "0. 나가기", "\n\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">>");
+
             string read = Console.ReadLine();
             switch (read)
             {
                 case "1":
                     if (Player.player.job == ((Job)0))
+                    {
+                        Console.Clear();
                         FirstJob();
+                    }
                     else if (Player.player.job != ((Job)0))
+                    {
+                        Console.Clear();
                         SecondJob();
+                    }
                     break;
                 case "0":
                     Console.Clear();
                     Program.scene = Scene.mainScene;
-                    GameManager.instance.MainGameScene();
                     break;
                 default:
-                    Console.WriteLine("\n잘못된 값입니다.");
-                    Thread.Sleep(500);
+                    Console.Clear();
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                    Status();
                     break;
             }
         }
@@ -129,7 +135,6 @@ namespace SpartaTextRPG
         // 1차 전직 하기
         public void FirstJob()
         {
-            Console.Clear();
             checkJob();
             Color.ChangeTextColor(Colors.YELLOW, "", "전직하기", "\n");
             Console.WriteLine("일정 레벨이 될 시 전직이 가능합니다.\n");
@@ -138,7 +143,7 @@ namespace SpartaTextRPG
 
 
             Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)");
-            Console.WriteLine("0. 나가기\n");
+            Color.ChangeTextColor(Colors.RED, "", "0. 나가기", "\n\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">>");
             string read = Console.ReadLine();
@@ -152,19 +157,19 @@ namespace SpartaTextRPG
                     switch (check.ToLower())
                     {
                         case "y":
-                            Console.WriteLine("\n전사로 전직하셨습니다.");
                             Player.player.job = (Job)1;
                             Player.player.baseAtk += 5;
                             Player.player.hp = Player.player.maxHp + 50;
                             Player.player.maxHp += 50;
                             Player.player.baseDef += 5;
                             Skill.instance.getSkill();
-                            Thread.Sleep(1000);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.YELLOW, "", "전사으로 전직하셨습니다.", "\n");
                             Status();
                             break;
                         default:
-                            Console.WriteLine("취소하셨습니다");
-                            Thread.Sleep(500);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                             FirstJob();
                             break;
                     }
@@ -178,7 +183,6 @@ namespace SpartaTextRPG
                     switch (check.ToLower())
                     {
                         case "y":
-                            Console.WriteLine("\n도적으로 전직하셨습니다.");
                             Player.player.job = (Job)2;
                             Player.player.baseAtk += 10;
                             Player.player.hp = Player.player.maxHp + 20;
@@ -186,12 +190,13 @@ namespace SpartaTextRPG
                             Player.player.mp = Player.player.maxMp + 30;
                             Player.player.maxMp += 30;
                             Skill.instance.getSkill();
-                            Thread.Sleep(1000);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.YELLOW, "", "도적으로 전직하셨습니다.", "\n");
                             Status();
                             break;
                         default:
-                            Console.WriteLine("취소하셨습니다");
-                            Thread.Sleep(500);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                             FirstJob();
                             break;
                     }
@@ -200,8 +205,8 @@ namespace SpartaTextRPG
                     Status();
                     break;
                 default:
-                    Console.WriteLine("\n잘못된 값입니다.");
-                    Thread.Sleep(500);
+                    Console.Clear();
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                     FirstJob();
                     break;
             }
@@ -255,7 +260,7 @@ namespace SpartaTextRPG
 
 
             Console.WriteLine("원하시는 직업을 선택해주세요(숫자만 입력)");
-            Console.WriteLine("0. 나가기\n");
+            Color.ChangeTextColor(Colors.RED, "", "0. 나가기", "\n\n");
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">>");
             string read = Console.ReadLine();
@@ -295,8 +300,8 @@ namespace SpartaTextRPG
                             Status();
                             break;
                         default:
-                            Console.WriteLine("취소하셨습니다");
-                            Thread.Sleep(500);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                             SecondJob();
                             break;
                     }
@@ -333,8 +338,8 @@ namespace SpartaTextRPG
                             Status();
                             break;
                         default:
-                            Console.WriteLine("취소하셨습니다");
-                            Thread.Sleep(500);
+                            Console.Clear();
+                            Color.ChangeTextColor(Colors.RED, "", "취소하셨습니다", "\n");
                             SecondJob();
                             break;
                     }
@@ -343,8 +348,8 @@ namespace SpartaTextRPG
                     Status();
                     break;
                 default:
-                    Console.WriteLine("\n잘못된 값입니다.");
-                    Thread.Sleep(500);
+                    Console.Clear();
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                     SecondJob();
                     break;
             }
