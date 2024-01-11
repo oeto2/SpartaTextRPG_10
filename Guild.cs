@@ -23,8 +23,8 @@ namespace SpartaTextRPG
         //싱글톤
         public static Guild instance = new Guild();
 
-        //잘못된 입력인지 체크
-        private bool isWrong = false;
+        private bool isWrong = false; //잘못된 입력인지 체크
+        private bool isStart = false; //퀘스트를 받았는지 체크
 
         private GuildScene guildScene = GuildScene.Main;
 
@@ -67,6 +67,7 @@ namespace SpartaTextRPG
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
                 Color.ChangeTextColor(Colors.YELLOW, "", ">>");
                 string input = Console.ReadLine();
+                Console.Clear();
 
                 switch (input)
                 {
@@ -113,6 +114,8 @@ namespace SpartaTextRPG
             Console.Clear();
             if (isWrong)
                 Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.\n");
+            if(isStart)
+                Color.ChangeTextColor(Colors.BLUE, "", "퀘스트를 받았습니다.\n");
             Color.ChangeTextColor(Colors.YELLOW, "", "길드 - 퀘스트 받기\n");
             Console.WriteLine("새로운 퀘스트를 받을 수 있습니다.\n");
 
@@ -135,6 +138,7 @@ namespace SpartaTextRPG
                 {
                     QuestList.instance.StartQuest(int.Parse(input));
                     isWrong = false;
+                    isStart = true;
                 }
 
                 //화면 전환
@@ -144,11 +148,13 @@ namespace SpartaTextRPG
                 {
                     guildScene = GuildScene.Main;
                     isWrong = false;
+                    isStart = false;
                 }
             }
             else
             {
                 isWrong = true;
+                isStart = false;
                 guildScene = GuildScene.Stquest;
             }
         }
@@ -191,7 +197,7 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             Color.ChangeTextColor(Colors.YELLOW, "", "길드 - 퀘스트 완료\n");
-            Console.WriteLine("완료한 퀘스트를 확인할 수 있습니다.\n");
+            Console.WriteLine("완료한 퀘스트의 보상을 받을 수 있습니다.\n");
 
             //완료한 퀘스트 목록 보여주기
             QuestList.instance.ShowCompQuestList();

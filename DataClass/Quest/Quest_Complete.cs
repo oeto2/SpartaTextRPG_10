@@ -31,7 +31,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
                 foreach (Quest _quest in questList)
                 {
-                    if (_quest.isOngoing)
+                    if (_quest.isComplete)
                     {
                         (row, col) = Console.GetCursorPosition();
                         Color.ChangeTextColor(Colors.YELLOW, "", $"{questNum++}.");
