@@ -8,34 +8,35 @@ namespace SpartaTextRPG
         static void Main(string[] args)
         {
             Title.instance.StartTitle();
+            Console.Clear();
             while (true)
             {
                 switch (scene)
                 {
                     case Scene.mainScene:
-                        Console.Clear();
                         GameManager.instance.MainGameScene();
                         break;
                     case Scene.playerState:
                         Console.Clear();
                         State.instance.Status();
                         break;
-
                     case Scene.inventory:
-                        Console.Clear();
-
+                        Inventory.Instance.ShowInvenPage();
                         break;
                     case Scene.shop:
-                        Console.Clear();
                         Shop.Instance.ShowShopPage();
                         break;
                     case Scene.dungeon:
-                        Console.Clear();
-
+                        Dungeon.instance.DungeonEntrance();
                         break;
                     case Scene.rest:
-                        Console.Clear();
                         GameManager.instance.Rest();
+                        break;
+                    case Scene.fishing:
+                        Fishing.instance.StartFishing();
+                        break;
+                    case Scene.guild:
+                        Guild.instance.ShowGuildPage();
                         break;
                 }
             }

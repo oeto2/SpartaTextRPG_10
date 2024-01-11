@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace SpartaTextRPG
 {
@@ -13,7 +14,9 @@ namespace SpartaTextRPG
         inventory,
         shop,
         dungeon,
-        rest
+        rest,
+        fishing,
+        guild
     }
     public class GameManager
     {
@@ -30,34 +33,42 @@ namespace SpartaTextRPG
             Console.WriteLine("2. 인벤토리");
             Console.WriteLine("3. 상점 입장");
             Console.WriteLine("4. 던전 입장");
-            Console.WriteLine("5. 휴식하기");
+            Console.WriteLine("5. 휴식 하기");
+            Console.WriteLine("6. 낚시 하기");
+            Console.WriteLine("7. 길드 입장");
             Console.WriteLine();
-            int _input = CheckValidAction(0, 5);
-
-            switch (_input)
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write(">> ");
+            string answer = Console.ReadLine();
+            Console.Clear();
+            switch (answer)
             {
-                case 0:
+                case "0":
                     Environment.Exit(0);
                     break;
-                case 1:
-                    Console.Clear();
+                case "1":
                     Program.scene = Scene.playerState;
                     break;
-                case 2:
-                    Console.Clear();
+                case "2":
                     Program.scene = Scene.inventory;
                     break;
-                case 3:
-                    Console.Clear();
+                case "3":
                     Program.scene = Scene.shop;
                     break;
-                case 4:
-                    Console.Clear();
+                case "4":
                     Program.scene = Scene.dungeon;
                     break;
-                case 5:
-                    Console.Clear();
+                case "5":
                     Program.scene = Scene.rest;
+                    break;
+                case "6":
+                    Program.scene = Scene.fishing;
+                    break;
+                case "7":
+                    Program.scene = Scene.guild;
+                    break;
+                default:
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                     break;
             }
         }
@@ -73,43 +84,27 @@ namespace SpartaTextRPG
             Console.WriteLine("2. 인벤토리");
             Console.WriteLine("3. 상점 입장");
             Console.WriteLine();
-            int _input = CheckValidAction(0, 3);
-
-            switch (_input)
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write(">> ");
+            string answer = Console.ReadLine();
+            Console.Clear();
+            switch (answer)
             {
-                case 0:
+                case "0":
                     Program.scene = Scene.mainScene;
                     break;
-                case 1:
-                    Console.Clear();
+                case "1":
                     Program.scene = Scene.playerState;
                     break;
-                case 2:
-                    Console.Clear();
+                case "2":
                     Program.scene = Scene.inventory;
                     break;
-                case 3:
-                    Console.Clear();
+                case "3":
                     Program.scene = Scene.shop;
                     break;
-            }
-        }
-        static int CheckValidAction(int _min, int _max)
-        {
-            while (true)
-            {
-                Console.WriteLine(" ");
-                Console.WriteLine(" 원하시는 행동을 입력해주세요.");
-                Console.Write(">>");
-                string _input = Console.ReadLine();
-
-                bool _parseSuccess = int.TryParse(_input, out var _ret);
-                if (_parseSuccess)
-                {
-                    if (_ret >= _min && _ret <= _max)
-                        return _ret;
-                }
-                Console.WriteLine("잘못된 입력입니다.");
+                default:
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                    break;
             }
         }
     }
