@@ -9,13 +9,6 @@ namespace SpartaTextRPG.DataClass.Quest
     //완료한 퀘스트
     public partial class QuestList
     {
-        //퀘스트 완료 조건
-        public void CheckCompQuest()
-        {
-            //퀘스트 완료 조건 부탁드립니다...
-            //조건에 따라 questList.isComplite = true
-        }
-
         //완료한 퀘스트 목록 보여주기
         public void ShowCompQuestList()
         {
