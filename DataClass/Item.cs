@@ -14,6 +14,7 @@ namespace SpartaTextRPG
         WEAPON,
         ARMOR,
         POTION,
+        FISH
 
     }
 
@@ -43,6 +44,7 @@ namespace SpartaTextRPG
         public List<EquipItem> equipItems = new List<EquipItem>();
         public List<EquipItem> enforceInit = new List<EquipItem>();
         public List<ConsumItem> consumItems = new List<ConsumItem>();
+        public List<Fish> fishList = new List<Fish>(); 
 
 
         public void ItemInit()
@@ -59,6 +61,11 @@ namespace SpartaTextRPG
 
             consumItems.Add(new ConsumItem(21, "하급 포션", "하급 포션입니다.", ItemType.POTION, 500, 30, 0));
             consumItems.Add(new ConsumItem(22, "중급 포션", "중급 포션입니다.", ItemType.POTION, 1500, 60, 30));
+
+            fishList.Add(new Fish("일반 물고기", "일반 물고기이다.", 5));
+            fishList.Add(new Fish("실버 물고기", "약간 반짝거리는 물고기이다.", 20));
+            fishList.Add(new Fish("골드 물고기", "어디서도 볼 수 없을 거 같은 금빛 물고기이다.", 100));
+            fishList.Add(new Fish("불고기", "이것이... 전설의 불고기...!?", 1000));
         }
     }
 
@@ -114,7 +121,20 @@ namespace SpartaTextRPG
         }
     }
 
+    // 물고기 아이템 클래스
+    internal class Fish : Item
+    {
+        public int count { get; set; }
 
+        public Fish(string _name, string _info, int _cost, ItemType _type = ItemType.FISH, int _count = 0)
+        {
+            name = _name;
+            info = _info;
+            type = _type;
+            cost = _cost;
+            count = _count;
+        }
+    }
 
 
 }
