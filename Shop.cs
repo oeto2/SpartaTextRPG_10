@@ -37,9 +37,9 @@ namespace SpartaTextRPG
         void ShopItemList()
         {
             Console.WriteLine("[아이템 목록]");
-            for (int i = 0; i < Item.Instance.equipItems.Count; i++)
+            for (int i = 0; i < Item.Instance.enforceInit.Count; i++)
             {
-                EquipItem equip = Item.Instance.equipItems[i];
+                EquipItem equip = Item.Instance.enforceInit[i];
 
                 if (scene == ShopScene.NORMAL)
                 {
@@ -73,7 +73,7 @@ namespace SpartaTextRPG
 
                 Console.SetCursorPosition(80, col);
                 Console.Write("| ");
-                if (equip.isOwn)
+                if (Item.Instance.equipItems[i].isOwn)
                 {
                     Console.WriteLine("구매완료");
                 }
@@ -82,11 +82,11 @@ namespace SpartaTextRPG
                     Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(equip.cost), " G\n");
                 }
             }
-
+            // 소비
             for (int i = 0; i < Item.Instance.consumItems.Count; i++)
             {
                 ConsumItem consum = Item.Instance.consumItems[i];
-
+                
                 if (scene == ShopScene.NORMAL)
                 {
                     Console.Write("- ");
@@ -176,33 +176,38 @@ namespace SpartaTextRPG
 
                 EquipItem equip = Item.Instance.equipItems[index];
 
-                if (Player.player.weapon == equip.id)
+                if (Player.player.weapon == equip.id || Player.player.armor == equip.id)
                 {
                     Color.ChangeTextColor(Colors.MAGENTA, "[", "E", "]");
                 }
                 Console.Write(equip.name);
 
+                if (equip.enforce > 0)
+                {
+                    Color.ChangeTextColor(Colors.MAGENTA, " +", Convert.ToString(equip.enforce));
+                }
+
                 (row, col) = Console.GetCursorPosition();
-                Console.SetCursorPosition(20, col);
+                Console.SetCursorPosition(24, col);
 
                 Console.Write("| ");
 
                 if (equip.atk != 0)
                 {
-                    Console.SetCursorPosition(22, col);
+                    Console.SetCursorPosition(26, col);
                     Color.ChangeTextColor(Colors.MAGENTA, "공격력 +", Convert.ToString(equip.atk), " ");
                 }
                 if (equip.def != 0)
                 {
-                    Console.SetCursorPosition(36, col);
+                    Console.SetCursorPosition(40, col);
                     Color.ChangeTextColor(Colors.MAGENTA, "방어력 +", Convert.ToString(equip.def), " ");
                 }
 
-                Console.SetCursorPosition(50, col);
+                Console.SetCursorPosition(54, col);
                 Console.Write("| ");
                 Console.WriteLine(equip.info);
 
-                Console.SetCursorPosition(80, col);
+                Console.SetCursorPosition(94, col);
                 Console.Write("| ");
                 
                 Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(equip.cost), " G\n");
@@ -220,26 +225,26 @@ namespace SpartaTextRPG
                     Console.Write(consum.name);
 
                     (row, col) = Console.GetCursorPosition();
-                    Console.SetCursorPosition(20, col);
+                    Console.SetCursorPosition(24, col);
 
                     Console.Write("| ");
 
                     if (consum.recoveryHp != 0)
                     {
-                        Console.SetCursorPosition(22, col);
+                        Console.SetCursorPosition(26, col);
                         Color.ChangeTextColor(Colors.MAGENTA, "HP회복량 +", Convert.ToString(consum.recoveryHp), " ");
                     }
                     if (consum.recoveryMp != 0)
                     {
-                        Console.SetCursorPosition(36, col);
+                        Console.SetCursorPosition(40, col);
                         Color.ChangeTextColor(Colors.MAGENTA, "MP회복량 +", Convert.ToString(consum.recoveryMp), " ");
                     }
 
-                    Console.SetCursorPosition(50, col);
+                    Console.SetCursorPosition(54, col);
                     Console.Write("| ");
                     Console.Write(consum.info);
 
-                    Console.SetCursorPosition(80, col);
+                    Console.SetCursorPosition(84, col);
                     Color.ChangeTextColor(Colors.MAGENTA, "| ", Convert.ToString(consum.count), "개 소지\n");
 
                     Console.SetCursorPosition(94, col);
@@ -283,15 +288,22 @@ namespace SpartaTextRPG
                         Console.WriteLine("아이템 판매 기능 오류");
                         break;
                 }
+                // 초기화
+                Item.Instance.equipItems[equip] = Item.Instance.enforceInit[equip];
             }
             // 소모품 판매
             else if (Inventory.Instance.ownEquipCount.Count + Inventory.Instance.ownConsumCount.Count - 1 >= index)
             {
+                int consum = Inventory.Instance.ownConsumCount[index - Inventory.Instance.ownEquipCount.Count];
 
+                Item.Instance.consumItems[consum].count--;
+                Player.player.gold += Item.Instance.consumItems[consum].cost * 85 / 100;
+                Color.ChangeTextColor(Colors.BLUE, "", Item.Instance.consumItems[consum].name + "을(를) 판매하였습니다.\n");
             }
             // 범위 초과 시 리턴
             else
             {
+                Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                 return;
             }
         }
