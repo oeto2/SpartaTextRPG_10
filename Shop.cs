@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,7 +87,7 @@ namespace SpartaTextRPG
             for (int i = 0; i < Item.Instance.consumItems.Count; i++)
             {
                 ConsumItem consum = Item.Instance.consumItems[i];
-                
+
                 if (scene == ShopScene.NORMAL)
                 {
                     Console.Write("- ");
@@ -207,50 +208,70 @@ namespace SpartaTextRPG
                 Console.Write("| ");
                 Console.WriteLine(equip.info);
 
-                Console.SetCursorPosition(94, col);
+                Console.SetCursorPosition(98, col);
                 Console.Write("| ");
-                
-                Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(equip.cost), " G\n");
-                
+
+                Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(equip.cost * 85 / 100), " G\n");
+
             }
             // 소비 목록
-            for (int i = 0; i < Item.Instance.consumItems.Count; i++)
+            for (int i = 0; i < Inventory.Instance.ownConsumCount.Count; i++)
             {
-                if (Item.Instance.consumItems[i].count > 0)
+                ConsumItem consum = Item.Instance.consumItems[Inventory.Instance.ownConsumCount[i]];
+
+                Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(i + 1 + Inventory.Instance.ownEquipCount.Count), " ");
+
+                Console.Write(consum.name);
+
+                (row, col) = Console.GetCursorPosition();
+                Console.SetCursorPosition(24, col);
+
+                Console.Write("| ");
+
+                if (consum.recoveryHp != 0)
                 {
-                    ConsumItem consum = Item.Instance.consumItems[i];
-
-                    Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(i + 1 + Inventory.Instance.ownEquipCount.Count), " ");
-
-                    Console.Write(consum.name);
-
-                    (row, col) = Console.GetCursorPosition();
-                    Console.SetCursorPosition(24, col);
-
-                    Console.Write("| ");
-
-                    if (consum.recoveryHp != 0)
-                    {
-                        Console.SetCursorPosition(26, col);
-                        Color.ChangeTextColor(Colors.MAGENTA, "HP회복량 +", Convert.ToString(consum.recoveryHp), " ");
-                    }
-                    if (consum.recoveryMp != 0)
-                    {
-                        Console.SetCursorPosition(40, col);
-                        Color.ChangeTextColor(Colors.MAGENTA, "MP회복량 +", Convert.ToString(consum.recoveryMp), " ");
-                    }
-
-                    Console.SetCursorPosition(54, col);
-                    Console.Write("| ");
-                    Console.Write(consum.info);
-
-                    Console.SetCursorPosition(84, col);
-                    Color.ChangeTextColor(Colors.MAGENTA, "| ", Convert.ToString(consum.count), "개 소지\n");
-
-                    Console.SetCursorPosition(94, col);
-                    Console.Write("| ");
-                    Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(consum.cost), " G\n");
+                    Console.SetCursorPosition(26, col);
+                    Color.ChangeTextColor(Colors.MAGENTA, "HP회복량 +", Convert.ToString(consum.recoveryHp), " ");
                 }
+                if (consum.recoveryMp != 0)
+                {
+                    Console.SetCursorPosition(40, col);
+                    Color.ChangeTextColor(Colors.MAGENTA, "MP회복량 +", Convert.ToString(consum.recoveryMp), " ");
+                }
+
+                Console.SetCursorPosition(54, col);
+                Console.Write("| ");
+                Console.Write(consum.info);
+
+                Console.SetCursorPosition(84, col);
+                Color.ChangeTextColor(Colors.MAGENTA, "| ", Convert.ToString(consum.count), "개 소지\n");
+
+                Console.SetCursorPosition(98, col);
+                Console.Write("| ");
+                Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(consum.cost * 85 / 100), " G\n");
+
+            }
+            // 물고기
+            for (int i = 0; i < Inventory.Instance.ownFishCount.Count; i++)
+            {
+                Fish fish = Item.Instance.fishList[Inventory.Instance.ownFishCount[i]];
+
+                Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(i + 1 + Inventory.Instance.ownEquipCount.Count + Inventory.Instance.ownConsumCount.Count), " ");
+
+                Console.Write(fish.name);
+
+                (row, col) = Console.GetCursorPosition();
+                Console.SetCursorPosition(24, col);
+                Console.Write("| ");
+                Console.Write(fish.info);
+
+                Console.SetCursorPosition(84, col);
+                Color.ChangeTextColor(Colors.MAGENTA, "| ", Convert.ToString(fish.count), "마리 소지\n");
+
+                Console.SetCursorPosition(98, col);
+                Console.Write("| ");
+                Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(fish.cost), " G\n");
+
             }
         }
 
@@ -289,7 +310,8 @@ namespace SpartaTextRPG
                         break;
                 }
                 // 초기화
-                Item.Instance.equipItems[equip] = Item.Instance.enforceInit[equip];
+                var p = Item.Instance.enforceInit[equip];
+                Item.Instance.equipItems[equip] = new EquipItem(p.id, p.name, p.info, p.type, p.cost, p.atk, p.def);
             }
             // 소모품 판매
             else if (Inventory.Instance.ownEquipCount.Count + Inventory.Instance.ownConsumCount.Count - 1 >= index)
@@ -299,6 +321,15 @@ namespace SpartaTextRPG
                 Item.Instance.consumItems[consum].count--;
                 Player.player.gold += Item.Instance.consumItems[consum].cost * 85 / 100;
                 Color.ChangeTextColor(Colors.BLUE, "", Item.Instance.consumItems[consum].name + "을(를) 판매하였습니다.\n");
+            }
+            // 물고기 판매
+            else if (Inventory.Instance.ownEquipCount.Count + Inventory.Instance.ownConsumCount.Count + Inventory.Instance.ownFishCount.Count - 1 >= index)
+            {
+                int fish = Inventory.Instance.ownFishCount[index - Inventory.Instance.ownEquipCount.Count - Inventory.Instance.ownConsumCount.Count];
+
+                Item.Instance.fishList[fish].count--;
+                Player.player.gold += Item.Instance.fishList[fish].cost;
+                Color.ChangeTextColor(Colors.BLUE, "", Item.Instance.fishList[fish].name + "을(를) 판매하였습니다.\n");
             }
             // 범위 초과 시 리턴
             else
@@ -419,6 +450,9 @@ namespace SpartaTextRPG
                     case "7":
                     case "8":
                     case "9":
+                    case "10":
+                    case "11":
+                    case "12":
                         // 판매
                         SellItems(Convert.ToInt16(answer) - 1);
                         break;
