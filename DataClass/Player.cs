@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -39,7 +40,8 @@ namespace SpartaTextRPG
         public float mp { get; set; }
         public int gold = 1000;
         public int exp = 0;
-        public int needExp = 100; //레벨업에 필요한 경험치 총량
+        public int needExp = Convert.ToInt32(Math.Pow((50.00 / 49.00), 2.5) * 25); //레벨업에 필요한 경험치 총량
+        public int levelExp = Convert.ToInt32(Math.Pow((50.00 / 49.00), 2.5) * 25);
         public int weapon { get; set; }
         public int armor { get; set; }
 
@@ -80,30 +82,68 @@ namespace SpartaTextRPG
             //획득 경험치 적용
             player.exp += _getExp;
 
-            //레벨업 조건
-            while (player.exp >= needExp)
-            {
-                LevelUP(needExp);
-                needExp = player.level * 50;
-            }
+            double expCount = Math.Pow(player.exp / 25, 0.4) * 49 / 50 + 1;
+            int level = Convert.ToInt32(Math.Floor(expCount));
+
+            int totalExp = Convert.ToInt32(Math.Pow(((player.level ) * 50.00 / 49.00), 2.5) * 25);
+            int needExp = totalExp - player.exp;
+
+            player.needExp = needExp;
 
             //레벨업 페이지
-            if (pastState.level != player.level)
+            if (pastState.level < level)
+            {
+                LevelUP(pastState);
                 ShowLevelUpPage(pastState);
+            }
         }
 
-        public void LevelUP(int _needExp)
+        public void LevelUP(Player pastState)
         {
-            player.exp -= _needExp;
-            player.level++;
+            int totalExp = Convert.ToInt32(Math.Pow(((player.level +1) * 50.00 / 49.00), 2.5) * 25);
+            int needExp = totalExp - player.exp;
+            int levelExp = totalExp - Convert.ToInt32(Math.Pow(((player.level) * 50.00 / 49.00), 2.5) * 25);
 
-            //다음 레벨업에 필요한 경험치
-            needExp += player.level * 50;
+            player.needExp = needExp;
+            player.levelExp = levelExp;
+
+            if(pastState.job == Job.Beginner)
+            {
+                player.maxHp += 2;
+                player.baseAtk += 2;
+                player.baseDef += 1;
+            } else if (pastState.job == Job.Warrior || pastState.job == Job.Berserker)
+            {
+                player.maxHp += 5;
+                player.maxMp += 2;
+                player.baseAtk += 2;
+                player.baseDef += 2;
+            } else if (pastState.job == Job.Thief || pastState.job == Job.Demonic)
+            {
+                player.maxHp += 3;
+                player.maxMp += 5;
+                player.baseAtk += 3;
+                player.baseDef += 1;
+            } else if (pastState.job == Job.Warlord)
+            {
+                player.maxHp += 7;
+                player.maxMp += 3;
+                player.baseAtk += 1;
+                player.baseDef += 3;
+            } else if (pastState.job == Job.Reaper)
+            {
+                player.maxHp += 2;
+                player.maxMp += 5;
+                player.baseAtk += 4;
+                player.baseDef += 1;
+            }
+
+            player.level++;
+            ShowLevelUpPage(pastState);
         }
 
         public void ShowLevelUpPage(Player _pastState)
         {
-            Console.Clear();
             Console.WriteLine("플레이어 - 레벨업\n");
             Console.WriteLine("축하합니다! 플레이어가 레벨업 했습니다.\n");
             Console.WriteLine("[능력치 변화]");
@@ -113,8 +153,12 @@ namespace SpartaTextRPG
             Console.WriteLine($"최대 체력 : {_pastState.maxHp} -> {player.maxHp}");
             Console.WriteLine($"최대 마력 : {_pastState.maxMp} -> {player.maxMp}");
 
+            Console.WriteLine("\n아무 입력시 돌아갑니다.");
+
+            Console.Write($"<<");
             Console.ReadLine();
             Console.Clear();
+
         }
     }
 }
