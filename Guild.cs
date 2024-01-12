@@ -25,6 +25,7 @@ namespace SpartaTextRPG
 
         private bool isWrong = false; //잘못된 입력인지 체크
         private bool isStart = false; //퀘스트를 받았는지 체크
+        private bool isClear = false; //퀘스트 보상을 받았는지 체크
 
         private GuildScene guildScene = GuildScene.Main;
 
@@ -59,9 +60,9 @@ namespace SpartaTextRPG
                 Color.ChangeTextColor(Colors.YELLOW, "", "길드\n");
                 Console.WriteLine("퀘스트를 확인할 수 있습니다.");
                 Console.WriteLine();
-                Color.ChangeTextColor(Colors.YELLOW, "", "1. ", "새로운 퀘스트 받기\n");
-                Color.ChangeTextColor(Colors.YELLOW, "", "2. ", "진행중인 퀘스트 확인\n");
-                Color.ChangeTextColor(Colors.YELLOW, "", "3. ", "퀘스트 보상 받기\n");
+                Color.ChangeTextColor(Colors.YELLOW, "", "1. ", "새로운 퀘스트\n");
+                Color.ChangeTextColor(Colors.YELLOW, "", "2. ", "진행중인 퀘스트\n");
+                Color.ChangeTextColor(Colors.YELLOW, "", "3. ", "완료한 퀘스트\n");
                 Color.ChangeTextColor(Colors.RED, "", "0. ", "나가기\n");
                 Console.WriteLine();
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -140,10 +141,19 @@ namespace SpartaTextRPG
                     isWrong = false;
                     isStart = true;
                 }
+                //퀘스트 번호외의 숫자입력
+                else
+                {
+                    guildScene = GuildScene.Stquest;
+                    isWrong = true;
+                    isStart = false;
+                }
 
                 //화면 전환
                 if (intInput != 0)
                     guildScene = GuildScene.Stquest;
+
+                //나가기
                 else
                 {
                     guildScene = GuildScene.Main;
@@ -196,6 +206,10 @@ namespace SpartaTextRPG
         public void ShoCompQuestPage()
         {
             Console.Clear();
+            if (isClear)
+                Color.ChangeTextColor(Colors.BLUE, "", "퀘스트 보상을 받았습니다.\n");
+            if (isWrong)
+                Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.\n");
             Color.ChangeTextColor(Colors.YELLOW, "", "길드 - 퀘스트 완료\n");
             Console.WriteLine("완료한 퀘스트의 보상을 받을 수 있습니다.\n");
 
@@ -208,18 +222,44 @@ namespace SpartaTextRPG
             Title.PrintInputCursor();
             string input = Console.ReadLine();
 
-            switch (input)
-            {
-                default:
-                    guildScene = GuildScene.CurQuest;
-                    isWrong = true;
-                    break;
+            int intInput;
+            bool isRight = int.TryParse(input, out intInput);
 
+            if (isRight)
+            {
+                //퀘스트 시작
+                if (intInput > 0 && intInput <= QuestList.compQuestNum)
+                {
+                    QuestList.instance.QuestClear(int.Parse(input));
+                    isWrong = false;
+                    isClear = true;
+                }
+
+                //퀘스트 번호외의 숫자 입력
+                else
+                {
+                    guildScene = GuildScene.CompQuest;
+                    isWrong = true;
+                    isClear = false;
+                }
+
+                //화면 전환
+                if (intInput != 0)
+                    guildScene = GuildScene.CompQuest;
+                
                 //나가기
-                case "0":
+                else
+                {
                     guildScene = GuildScene.Main;
                     isWrong = false;
-                    break;
+                    isClear = false;
+                }
+            }
+            else
+            {
+                isClear = false;
+                isWrong = true;
+                guildScene = GuildScene.CompQuest;
             }
         }
     }

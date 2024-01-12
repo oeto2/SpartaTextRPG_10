@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpartaTextRPG.DataClass.Quest;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace SpartaTextRPG
         ARMOR,
         POTION,
         FISH
-
     }
 
     internal class Item
@@ -51,16 +51,16 @@ namespace SpartaTextRPG
         {
             equipItems.Add(new EquipItem(1, "돌 칼", "돌로 된 칼입니다.", ItemType.WEAPON, 1000, 5, 2));
             equipItems.Add(new EquipItem(2, "금 칼", "금으로 된 칼입니다.", ItemType.WEAPON, 2000, 10, 0));
-            equipItems.Add(new EquipItem(3, "다이아몬드 칼", "다이아몬드로 된 칼입니다.", ItemType.WEAPON, 3000, 15, 0));
+            equipItems.Add(new EquipItem(3, "다이아몬드 칼", "다이아몬드로 된 칼입니다.", ItemType.WEAPON, 3000, 15, 3));
 
             equipItems.Add(new EquipItem(11, "가죽 갑옷", "가죽으로 된 갑옷입니다.", ItemType.ARMOR, 1000, 0, 5));
             equipItems.Add(new EquipItem(12, "강철 갑옷", "강철로 된 갑옷입니다.", ItemType.ARMOR, 2000, 0, 10));
-            equipItems.Add(new EquipItem(13, "미스릴 갑옷", "미스릴로 된 갑옷입니다.", ItemType.ARMOR, 3000, 0, 10));
+            equipItems.Add(new EquipItem(13, "미스릴 갑옷", "미스릴로 된 갑옷입니다.", ItemType.ARMOR, 3000, 3, 15));
 
             enforceInit = equipItems.ConvertAll(p => new EquipItem(p.id, p.name, p.info, p.type, p.cost, p.atk, p.def));
 
-            consumItems.Add(new ConsumItem(21, "하급 포션", "하급 포션입니다.", ItemType.POTION, 500, 30, 0));
-            consumItems.Add(new ConsumItem(22, "중급 포션", "중급 포션입니다.", ItemType.POTION, 1500, 60, 30));
+            consumItems.Add(new ConsumItem(21, "하급 포션", "하급 포션입니다.", ItemType.POTION, 300, 30, 0));
+            consumItems.Add(new ConsumItem(22, "중급 포션", "중급 포션입니다.", ItemType.POTION, 700, 60, 30));
 
             fishList.Add(new Fish("일반 물고기", "일반 물고기이다.", 5));
             fishList.Add(new Fish("실버 물고기", "약간 반짝거리는 물고기이다.", 20));
@@ -99,6 +99,7 @@ namespace SpartaTextRPG
             Player.player.addAtk -= atk;
             Player.player.addDef -= def;
         }
+
     }
 
     // 소비 아이템 클래스
@@ -118,6 +119,27 @@ namespace SpartaTextRPG
             recoveryHp = _recoveryHp;
             recoveryMp = _recoveryMp;
             count = _count;
+        }
+
+        public void UsePotion()
+        {
+            if (count > 0)
+            {
+                count--;
+                Player.player.hp += recoveryHp;
+                if (Player.player.hp > Player.player.maxHp)
+                {
+                    Player.player.hp = Player.player.maxHp;
+                }
+                Player.player.mp += recoveryMp;
+                if (Player.player.mp > Player.player.maxMp)
+                {
+                    Player.player.mp = Player.player.maxMp;
+                }
+
+                if (!QuestBool.usePotion && QuestList.questList[6].isOngoing)
+                    QuestBool.usePotion = true;
+            }
         }
     }
 

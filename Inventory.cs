@@ -113,8 +113,13 @@ namespace SpartaTextRPG
             Item.Instance.equipItems[equip].enforce++;
             Player.player.gold -= Item.Instance.enforceInit[equip].cost / 2;
             // 장비 능력치, 가격 변화 (추후 변동)
-            Item.Instance.equipItems[equip].atk += 3;
+            if (Item.Instance.equipItems[equip].id == Player.player.weapon || Item.Instance.equipItems[equip].id == Player.player.armor)
+                Item.Instance.equipItems[equip].SubItemStat();
+            Item.Instance.equipItems[equip].atk += Item.Instance.enforceInit[equip].atk / 3;
+            Item.Instance.equipItems[equip].def += Item.Instance.enforceInit[equip].def / 3;
             Item.Instance.equipItems[equip].cost += Item.Instance.enforceInit[equip].cost / 2;
+            if (Item.Instance.equipItems[equip].id == Player.player.weapon || Item.Instance.equipItems[equip].id == Player.player.armor)
+                Item.Instance.equipItems[equip].AddItemStat();
         }
 
         // 보유 아이템 확인
