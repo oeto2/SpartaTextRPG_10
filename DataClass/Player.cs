@@ -139,6 +139,7 @@ namespace SpartaTextRPG
             }
 
             player.level++;
+            Console.Clear();
             ShowLevelUpPage(pastState);
         }
 

@@ -110,6 +110,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
                 //경험치 획득
                 Player.player.GetExp(_quest.exp);
+                Console.Clear();
             }
         }
     }
