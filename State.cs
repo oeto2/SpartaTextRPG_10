@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -72,6 +73,7 @@ namespace SpartaTextRPG
             Console.WriteLine($"체력 : {Player.player.maxHp} / {Player.player.hp}");
             Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
+            Console.WriteLine($"경험치 : {Player.player.levelExp - Player.player.needExp} / {Player.player.levelExp} ({(Player.player.needExp == 0 ? "0" : Convert.ToInt32((Player.player.levelExp - Player.player.needExp) * 100.00 / Player.player.levelExp))}%)\n");
 
             Console.WriteLine($"보유 스킬 {Skills.myskills.Count}개\n");
             foreach (var skill in Skills.myskills)
@@ -118,7 +120,7 @@ namespace SpartaTextRPG
             {
                 Color.ChangeTextColor(Colors.BLUE, "", "1. 1차 전직하기", "\n");
             }
-            else if (Player.player.level >= 1 && (Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString()))
+            else if (Player.player.level >= 3 && (Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString()))
             {
                 Color.ChangeTextColor(Colors.BLUE, "", "1. 2차 전직하기", "\n");
             }
@@ -190,8 +192,8 @@ namespace SpartaTextRPG
                         case "y":
                             Player.player.job = (Job)1;
                             Player.player.baseAtk += 5;
-                            Player.player.hp = Player.player.maxHp + 50;
-                            Player.player.maxHp += 50;
+                            Player.player.hp = Player.player.maxHp + 20;
+                            Player.player.maxHp += 20;
                             Player.player.baseDef += 5;
                             Skill.instance.getSkill();
                             Console.Clear();
@@ -216,10 +218,10 @@ namespace SpartaTextRPG
                         case "y":
                             Player.player.job = (Job)2;
                             Player.player.baseAtk += 10;
-                            Player.player.hp = Player.player.maxHp + 20;
-                            Player.player.maxHp += 20;
-                            Player.player.mp = Player.player.maxMp + 30;
-                            Player.player.maxMp += 30;
+                            Player.player.hp = Player.player.maxHp + 10;
+                            Player.player.maxHp += 10;
+                            Player.player.mp = Player.player.maxMp + 20;
+                            Player.player.maxMp += 20;
                             Skill.instance.getSkill();
                             Console.Clear();
                             Color.ChangeTextColor(Colors.BLUE, "", "도적", "으로 전직하셨습니다.\n");
@@ -242,6 +244,7 @@ namespace SpartaTextRPG
                     FirstJob();
                     break;
             }
+
         }
         static Job[] second = { Job.Berserker, Job.Warlord };
         static string[] Sjob = { "버서커", "워로드" };
@@ -355,6 +358,7 @@ namespace SpartaTextRPG
                             {
                                 Player.player.hp = Player.player.maxHp + 100;
                                 Player.player.maxHp += 100;
+                                Player.player.baseAtk += 2;
                                 Player.player.baseDef += 10;
                             }
                             else

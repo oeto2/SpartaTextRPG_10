@@ -97,7 +97,6 @@ namespace SpartaTextRPG
             }
         }
 
-
         public bool CheckIsDead(List<Monster> monsters) // 처치 여부
         {
             if (Player.player.hp <= 0)
