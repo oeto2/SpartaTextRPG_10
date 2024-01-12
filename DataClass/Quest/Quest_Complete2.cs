@@ -30,6 +30,13 @@ namespace SpartaTextRPG.DataClass.Quest
                 questList[2].isComplete = true;
             }
             // 4. 던전 입장하기
+            // bool 하나 추가해서 던전 쪽에서 값 변경해줘야 할 듯
+            // 5. 휴식하기
+            // 4와 동일
+            // 6. 던전 스테이지 2 클리어하기
+            // 4와 동일
+            // 7. 포션 사용하기 
+            // 4와 동일 (기능 없음)
         }
     }
 }
