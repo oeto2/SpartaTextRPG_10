@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpartaTextRPG.DataClass.Quest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,6 +75,7 @@ namespace SpartaTextRPG
         }
         public void Rest()
         {   
+            QuestBool.isRest = true;
             Player.player.hp = Player.player.maxHp;
             Console.WriteLine("휴 식");
             Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name} ");

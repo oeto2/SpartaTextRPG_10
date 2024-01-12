@@ -36,14 +36,15 @@ namespace SpartaTextRPG
 
         //스킬 사용(원하는 스킬 인덱스 , 공격 몬스터 인덱스)
         //나중에 스플뎀 가능하면 넣을 예정
-        public void useSkill(int skillnum, int monsternum)
+        public static void useSkill(int skillnum, int monsternum, Monster[] monsters)
         {
             float damage = Skills.myskills[skillnum].damage * (Player.player.baseAtk + Player.player.addAtk);
             Math.Truncate(damage);
             Player.player.hp += Skills.myskills[skillnum].hp;
             Player.player.mp += Skills.myskills[skillnum].mp;
 
-            //Monster.OnDamge(damage);
+            Monster targetMonster = monsters[monsternum];
+            Battle.OnDamage(targetMonster, damage);
         }
     }
 }
