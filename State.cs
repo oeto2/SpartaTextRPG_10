@@ -136,10 +136,15 @@ namespace SpartaTextRPG
                         Console.Clear();
                         FirstJob();
                     }
-                    else if (Player.player.job != ((Job)0))
+                    else if (Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString())
                     {
                         Console.Clear();
                         SecondJob();
+                    } else
+                    {
+                        Console.Clear();
+                        Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                        Status();
                     }
                     break;
                 case "9":
