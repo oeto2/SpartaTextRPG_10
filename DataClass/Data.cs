@@ -27,7 +27,14 @@ namespace SpartaTextRPG.DataClass
             gameData = new List<string>();
 
             //저장할 데이터를 gamData에 넣기
-            //
+            gameData.Add(new string(JsonConvert.SerializeObject(Item.Instance.equipItems)));
+
+
+        //    //아이템 데이터들
+        //    public List<EquipItem> equipItems = new List<EquipItem>();
+        //public List<EquipItem> enforceInit = new List<EquipItem>();
+        //public List<ConsumItem> consumItems = new List<ConsumItem>();
+        //public List<Fish> fishList = new List<Fish>(); 
 
             //파일 저장
             for (int i = 0; i < gameData.Count; i++)
