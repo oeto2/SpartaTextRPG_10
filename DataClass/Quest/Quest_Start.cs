@@ -29,7 +29,7 @@ namespace SpartaTextRPG.DataClass.Quest
             }
 
             //1차 전직 퀘스트 시작 조건 (직업: 모험가, 아이템 장착 퀘스트 클리어)
-            if (playerJob == Job.Beginner && questList[2].isClear)
+            if (questList[2].isClear)
             {
                 questList[0].isPossible = true;
                 questList[0].isOngoing = true;
@@ -37,7 +37,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
 
             //2차 전직 퀘스트 시작 조건 (1차 전직 퀘스트 완료)
-            if ((playerJob == Job.Warrior || playerJob == Job.Wizard || playerJob == Job.Archer || playerJob == Job.Thief) && questList[0].isClear)
+            if (questList[0].isClear)
             {
                 questList[1].isPossible = true;
                 questList[1].isOngoing = true;
