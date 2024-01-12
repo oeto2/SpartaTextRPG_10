@@ -66,18 +66,22 @@ namespace SpartaTextRPG
                             if (fish == 17)
                             {
                                 Color.ChangeTextColor(Colors.RED, "전설의", "불고기", "가 존재하였습니다.");
+                                Item.Instance.fishList[3].count++;
                             }
                             else if(fish <=10)
                             {
                                 Color.ChangeTextColor(Colors.YELLOW, "아닛! 이것이", "골드물고기", "!?!?");
+                                Item.Instance.fishList[2].count++;
                             }
                             else if(fish>= 800)
                             {
                                 Color.ChangeTextColor(Colors.BLUE, "흠...", "실버물고기", "를 낚았군요.");
+                                Item.Instance.fishList[1].count++;
                             }
                             else
                             {
                                 Console.Write("그냥 물고기를 낚았습니다.");
+                                Item.Instance.fishList[0].count++;
                             }
                             Thread.Sleep(300);
                         }
