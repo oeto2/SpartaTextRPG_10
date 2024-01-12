@@ -35,7 +35,7 @@ namespace SpartaTextRPG.DataClass.Quest
                 questList[4].isComplete = true;
 
             // 5.Stage.2 던전 클리어
-            if (questList[5].isOngoing && QuestBool.dungeonClear[2])
+            if (questList[5].isOngoing && QuestBool.dungeonClear)
                 questList[5].isComplete = true;
 
             // 6.포션아이템 사용

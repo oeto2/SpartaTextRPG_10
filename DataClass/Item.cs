@@ -16,7 +16,6 @@ namespace SpartaTextRPG
         ARMOR,
         POTION,
         FISH
-
     }
 
     internal class Item
