@@ -29,6 +29,7 @@ namespace SpartaTextRPG
         {
             return $"\n{monster.Number}.  레벨: {monster.Level} 몬스터 이름: {monster.Name}, 체력: {monster.Health} / {monster.MaxHealth}";
         }
+
         private void BattleScene()
         {
             
@@ -45,15 +46,24 @@ namespace SpartaTextRPG
                 MonsterMaxCount = maxCount;
             }
         }
-        public void OnDamage(Monster monster, float damage) // 몬스터가 데미지 받았을때
+
+        internal static void OnDamage(Monster monsters, float damage)
         {
-            monster.Health -= damage;
-            Console.WriteLine($"{monster.Name}은(는) {damage}의 데미지를 입었습니다!");
+            monsters.Health -= damage;
+            Console.WriteLine($"{monsters.Name}은(는) {damage}의 데미지를 입었습니다!");
         }
+
         public void GetDamage(Player player, float damage) // 플레이어가 데미지 받았을때
         {
             Player.player.hp -= damage;
             Console.WriteLine($"{Player.player.name}은(는) {damage}의 데미지를 입었습니다!");
+
+            if (CheckIsDead(new List<Monster>()))
+            {
+                // 플레이어가 사망했을 때 처리
+                Console.WriteLine("플레이어가 전투에서 패배했습니다...");
+                // 추가적인 처리를 수행할 수 있습니다.
+            }
         }
 
         public bool CheckIsDead(List<Monster> monsters)
@@ -115,11 +125,12 @@ namespace SpartaTextRPG
             Console.WriteLine("\n[전투 시작]");
 
             int currentMonsterIndex = 0;
+            int monsterNumber;
 
             while (Player.player.hp > 0 && monsters.Any(m => m.Health > 0))
             {
-                // 사용자의 공격
-                Console.WriteLine("\n[플레이어의 턴]");
+                // 플레이어의 차례
+                Console.WriteLine("\n[플레이어의 차례]");
                 Console.WriteLine("1. 일반 공격");
                 Console.WriteLine("2. 스킬 공격");
                 Console.WriteLine("3. 아이템 사용");
@@ -132,30 +143,12 @@ namespace SpartaTextRPG
                     case "1":
                         // 플레이어의 일반 공격
                         Console.WriteLine("플레이어가 일반 공격을 시전합니다.");
+                        Console.Write("공격할 몬스터 번호를 입력하세요: ");
+                        monsterNumber = int.Parse(Console.ReadLine());
 
                         Monster targetMonster = monsters[currentMonsterIndex];
                         float damageToMonster = Player.player.baseAtk;
                         OnDamage(targetMonster, damageToMonster);
-
-                        // 몬스터가 죽었는지 확인
-                        if (targetMonster.Health <= 0)
-                        {
-                            Console.WriteLine($"{targetMonster.Name}을(를) 처치했습니다!");
-                        }
-                        else
-                        {
-                            // 몬스터의 공격
-                            Console.WriteLine($"{targetMonster.Name}이(가) 플레이어를 공격합니다.");
-                            float damageToPlayer = targetMonster.Atk;
-                            GetDamage(Player.player, damageToPlayer);
-
-                            // 플레이어가 죽었는지 확인
-                            if (Player.player.hp <= 0)
-                            {
-                                Console.WriteLine("플레이어가 전투에서 패배했습니다...");
-                                return;
-                            }
-                        }
                         break;
 
                     case "2":
@@ -164,8 +157,8 @@ namespace SpartaTextRPG
                         Console.Write("사용할 스킬 번호를 입력하세요: ");
                         int skillNumber = int.Parse(Console.ReadLine());
                         Console.Write("공격할 몬스터 번호를 입력하세요: ");
-                        int monsterNumber = int.Parse(Console.ReadLine());
-                        //Skill.useSkill(skillNumber, monsterNumber); // 스킬 사용 메서드 호출
+                        monsterNumber = int.Parse(Console.ReadLine());
+                        Skill.useSkill(skillNumber, monsterNumber, monsters); // 스킬 사용 메서드 호출
                         break;
 
                     case "3":
@@ -178,26 +171,23 @@ namespace SpartaTextRPG
                         break;
                 }
 
-                // 몬스터의 턴
+                // 몬스터의 차례
                 foreach (var monster in monsters)
                 {
                     if (monster.Health > 0)
                     {
-                        Console.WriteLine($"\n[{monster.Name}의 턴]");
+                        Console.WriteLine($"\n[{monster.Name}의 차례]");
                         float damageToPlayer = monster.Atk;
                         GetDamage(Player.player, damageToPlayer);
 
-                        // 플레이어가 죽었는지 확인
-                        if (Player.player.hp <= 0)
+                        // 플레이어가 전투에서 패배했는지 확인
+                        if (Player.player.hp == 0)
                         {
                             Console.WriteLine("플레이어가 전투에서 패배했습니다...");
                             return;
                         }
                     }
                 }
-
-                // 다음 몬스터로 넘어가기
-                currentMonsterIndex = (currentMonsterIndex + 1) % monsters.Length;
             }
 
             // 전투 종료 후 결과 출력
@@ -245,6 +235,5 @@ namespace SpartaTextRPG
             Console.WriteLine("==========================================================");
             Console.WriteLine("\n[몬스터 정보]");
         }
-
     }
 }
