@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SpartaTextRPG.DataClass.Quest;
 
 namespace SpartaTextRPG.DataClass
 {
@@ -27,14 +29,19 @@ namespace SpartaTextRPG.DataClass
             gameData = new List<string>();
 
             //저장할 데이터를 gamData에 넣기
+            //ItemData
             gameData.Add(new string(JsonConvert.SerializeObject(Item.Instance.equipItems)));
-
-
-        //    //아이템 데이터들
-        //    public List<EquipItem> equipItems = new List<EquipItem>();
-        //public List<EquipItem> enforceInit = new List<EquipItem>();
-        //public List<ConsumItem> consumItems = new List<ConsumItem>();
-        //public List<Fish> fishList = new List<Fish>(); 
+            gameData.Add(new string(JsonConvert.SerializeObject(Item.Instance.enforceInit)));
+            gameData.Add(new string(JsonConvert.SerializeObject(Item.Instance.consumItems)));
+            gameData.Add(new string(JsonConvert.SerializeObject(Item.Instance.fishList)));
+            //Inventory Data
+            gameData.Add(new string(JsonConvert.SerializeObject(Inventory.Instance.ownEquipCount)));
+            gameData.Add(new string(JsonConvert.SerializeObject(Inventory.Instance.ownConsumCount)));
+            gameData.Add(new string(JsonConvert.SerializeObject(Inventory.Instance.ownFishCount)));
+            //Player
+            gameData.Add(new string(JsonConvert.SerializeObject(Player.player)));
+            //Quest
+            gameData.Add(new string(JsonConvert.SerializeObject(QuestList.questList)));
 
             //파일 저장
             for (int i = 0; i < gameData.Count; i++)
@@ -70,8 +77,19 @@ namespace SpartaTextRPG.DataClass
                 }
 
                 //읽어온 내용 업데이트
-                //
-
+                //Item Data
+                Item.Instance.equipItems = JsonConvert.DeserializeObject<List<EquipItem>>(gameData[0]);
+                Item.Instance.enforceInit = JsonConvert.DeserializeObject<List<EquipItem>>(gameData[1]);
+                Item.Instance.consumItems = JsonConvert.DeserializeObject<List<ConsumItem>>(gameData[2]);
+                Item.Instance.fishList = JsonConvert.DeserializeObject<List<Fish>>(gameData[3]);
+                //Inventory Data
+                Inventory.Instance.ownEquipCount = JsonConvert.DeserializeObject<List<int>>(gameData[4]);
+                Inventory.Instance.ownConsumCount = JsonConvert.DeserializeObject<List<int>>(gameData[5]);
+                Inventory.Instance.ownFishCount = JsonConvert.DeserializeObject<List<int>>(gameData[6]);
+                //Player
+                Player player = JsonConvert.DeserializeObject<Player>(gameData[7]);
+                //Quest
+                QuestList questList = JsonConvert.DeserializeObject<QuestList>(gameData[8]);
             }
         }
     }

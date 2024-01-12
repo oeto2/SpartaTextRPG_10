@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpartaTextRPG.DataClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -251,6 +252,8 @@ namespace SpartaTextRPG
         //로딩화면
         private int LoadingScene()
         {
+            Data.instnace.Save();
+
             Console.Clear();
             Console.WriteLine("게임 데이터를 불러오는 중입니다...");
             Thread.Sleep(100);
