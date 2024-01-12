@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace SpartaTextRPG
             Right = 0,
             Left = 1
         }
+        private static string passKey = "";
+        private static int delay = 100;
 
         private static int[] stars = new int[10];
 
@@ -51,12 +54,16 @@ namespace SpartaTextRPG
                 Console.WriteLine();
                 Console.WriteLine("0. 나가기");
 
-                Thread.Sleep(100);
-
+                Thread.Sleep(delay);
 
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
+                    if (passKey == keyInfo.Key.ToString())
+                    {
+                        delay = 0;
+                        continue;
+                    }
                     if (keyInfo.Key == ConsoleKey.Spacebar)
                     {
                         if (x == starPosition)
@@ -89,7 +96,7 @@ namespace SpartaTextRPG
                         {
                             Console.WriteLine("실패했습니다.");
                         }
-
+                        passKey = keyInfo.Key.ToString();
                         // Program exit
                         break;
                     }
@@ -100,6 +107,11 @@ namespace SpartaTextRPG
                         Console.Clear();
                         break;
                     }
+                }
+                else
+                {
+                    delay = 100;
+                    passKey = " ";
                 }
                 if (dir == Direction.Right)
                 {
