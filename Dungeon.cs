@@ -38,7 +38,6 @@ namespace SpartaTextRPG
             {
                 Console.WriteLine("==========================================================");
                 Color.ChangeTextColor(Colors.YELLOW, "", "던  전  입  구\n");
-                Console.WriteLine("아스키 아트 삽입 예정 (던전 입구 이미지)");
                 Console.WriteLine("==========================================================");
                 Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
                 Console.WriteLine($"Lv. {Player.player.level}");
