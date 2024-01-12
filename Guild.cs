@@ -207,7 +207,7 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             if (isClear)
-                Color.ChangeTextColor(Colors.BLUE, "", "퀘스트를 완료했습니다.\n");
+                Color.ChangeTextColor(Colors.BLUE, "", "퀘스트 보상을 받았습니다.\n");
             if (isWrong)
                 Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.\n");
             Color.ChangeTextColor(Colors.YELLOW, "", "길드 - 퀘스트 완료\n");

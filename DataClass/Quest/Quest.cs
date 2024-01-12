@@ -26,7 +26,7 @@ namespace SpartaTextRPG.DataClass.Quest
         {
             new Quest(0,"1차 전직","캐릭터의 레벨을 올려 1차 전직을 해보자.",500, 30,QuestType.Main),
             new Quest(1,"2차 전직","캐릭터의 레벨을 올려 2차 전직을 해보자.",3000, 500,QuestType.Main),
-            new Quest(2,"아이템 장착","인벤토리에서 아이템을 장착해보자",200,50 ,QuestType.Main),
+            new Quest(2,"아이템 장착","인벤토리에서 아이템을 장착해보자",200,500 ,QuestType.Main),
             new Quest(3,"던전 입장하기","던전에 입장해보자",600,100,QuestType.Sub),
             new Quest(4,"휴식하기","휴식 기능을 사용해보자",1000,150,QuestType.Sub),
             new Quest(5,"Stage.2 던전 클리어","Stage.2 던전을 클리어해보자.",500,50,QuestType.Main),
@@ -38,16 +38,18 @@ namespace SpartaTextRPG.DataClass.Quest
         {
             int count = 0;
 
-            foreach (Quest _quest in questList)
-            {
-                if (_quest.isPossible && !_quest.isOngoing && _quest.type == QuestType.Main)
-                {
-                    ++count;
-                    if (_questNum == count)
-                        _quest.isOngoing = true;
-                }
-            }
-
+            ////메인퀘스트
+            //foreach (Quest _quest in questList)
+            //{
+            //    if (_quest.isPossible && !_quest.isOngoing && _quest.type == QuestType.Main)
+            //    {
+            //        ++count;
+            //        if (_questNum == count)
+            //            _quest.isOngoing = true;
+            //    }
+            //}
+            
+            //서브 퀘스트
             foreach (Quest _quest in questList)
             {
                 if (_quest.isPossible && !_quest.isOngoing && _quest.type == QuestType.Sub)
@@ -105,8 +107,8 @@ namespace SpartaTextRPG.DataClass.Quest
                 //골드 획득
                 Player.player.gold += _quest.gold;
 
-                //경험치 획득 (이후에 함수 받아서 사용해야할수도)
-                Player.player.exp += _quest.exp;
+                //경험치 획득
+                Player.player.GetExp(_quest.exp);
             }
         }
     }
