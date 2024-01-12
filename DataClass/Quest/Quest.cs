@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -29,7 +30,7 @@ namespace SpartaTextRPG.DataClass.Quest
             new Quest(2,"아이템 장착","인벤토리에서 아이템을 장착해보자",200,500 ,QuestType.Main),
             new Quest(3,"던전 입장하기","던전에 입장해보자",600,100,QuestType.Sub),
             new Quest(4,"휴식하기","휴식 기능을 사용해보자",1000,150,QuestType.Sub),
-            new Quest(5,"Stage.2 던전 클리어","Stage.2 던전을 클리어해보자.",500,50,QuestType.Main),
+            new Quest(5,"던전 클리어","난이도 상관없이 던전을 클리어해보자.",500,50,QuestType.Main),
             new Quest(6,"포션 아이템 사용","상점에서 포션을 구매해서 사용해보자",500,50,QuestType.Sub),
         };
 
@@ -48,7 +49,7 @@ namespace SpartaTextRPG.DataClass.Quest
             //            _quest.isOngoing = true;
             //    }
             //}
-            
+
             //서브 퀘스트
             foreach (Quest _quest in questList)
             {
@@ -71,7 +72,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
             foreach (Quest _quest in questList)
             {
-                if (_quest.isComplete && _quest.type == QuestType.Main)
+                if (_quest.isComplete && !_quest.isClear && _quest.type == QuestType.Main)
                 {
                     ++count;
                     if (_questNum == count)
@@ -84,7 +85,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
             foreach (Quest _quest in questList)
             {
-                if (_quest.isComplete && _quest.type == QuestType.Sub)
+                if (_quest.isComplete && !_quest.isClear && _quest.type == QuestType.Sub)
                 {
                     ++count;
                     if (_questNum == count)
@@ -102,7 +103,7 @@ namespace SpartaTextRPG.DataClass.Quest
         //퀘스트 보상받기
         public void GetQuestReward(Quest _quest)
         {
-            if(_quest != null)
+            if (_quest != null)
             {
                 //골드 획득
                 Player.player.gold += _quest.gold;
@@ -137,12 +138,45 @@ namespace SpartaTextRPG.DataClass.Quest
         }
     }
 
-    //퀘스트 조건
+    //퀘스트 조건 (해당 퀘스트가 진행 중이여야만 동작)
     public class QuestBool
     {
-        public static bool usePotion = false; //물약을 사용했는지
-        public static bool[] dungeonClear = new bool[6]; // stage1 Clear -> dungeonCler[1] = true;
-        public static bool enterDungeon = false; //던전에 입장했는지
-        public static bool isRest = false; //휴식기능을 사용했는지
+        //휴식 기능을 사용 했는지
+        public static bool IsRest = false;
+
+        //물약을 사용했는지
+        public static bool UsePotion = false;
+
+        // 던전 클리어 했을 경우 (아무 던전이나 가능)
+        public static bool DungeonClear = false;
+
+        //던전에 입장했는지
+        public static bool EnterDungeon = false;
+
+
+        //프로퍼티
+        public static bool usePotion
+        {
+            get { return UsePotion; }
+            set { if (QuestList.questList[6].isOngoing) UsePotion = value; }
+        } 
+
+        public static bool dungeonClear
+        {
+            get { return DungeonClear; }
+            set { if (QuestList.questList[5].isOngoing) DungeonClear = value; }
+        }
+
+        public static bool enterDungeon
+        {
+            get { return EnterDungeon; }
+            set { if (QuestList.questList[3].isOngoing) EnterDungeon = value; }
+        }
+
+        public static bool isRest
+        {
+            get { return IsRest; }
+            set { if (QuestList.questList[4].isOngoing) IsRest = value; }
+        }
     }
 }
