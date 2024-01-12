@@ -6,6 +6,12 @@ using SpartaTextRPG.DataClass;
 
 namespace SpartaTextRPG
 {
+    enum DungeonScene
+    {
+        DungeonEntrance,
+        DungeonChoice
+
+    }
     public class Dungeon
     {
         public static Dungeon instance = new Dungeon();
@@ -14,40 +20,55 @@ namespace SpartaTextRPG
         public int MonsterMaxCount { get; set; }
         public int MonsterCount { get; set; }
 
+        DungeonScene scene = DungeonScene.DungeonEntrance;
+
         public void DungeonEntrance()
         {
-            Console.WriteLine("==========================================================");
-            Color.ChangeTextColor(Colors.YELLOW, "", "던  전  입  구\n");
-            Console.WriteLine("아스키 아트 삽입 예정 (던전 입구 이미지)");
-            Console.WriteLine("==========================================================");
-            Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
-            Console.WriteLine($"Lv. {Player.player.level}");
-            //Console.WriteLine($"chad < {Player.job} >\n");
-            Console.WriteLine($"공격력 : {Player.player.baseAtk+Player.player.addAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
-            Console.WriteLine($"방어력 : {Player.player.baseDef+Player.player.addDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
-            Console.WriteLine($"체력 : {Player.player.maxHp} / {Player.player.hp}");
-            Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
-            Console.WriteLine($"Gold : {Player.player.gold} G\n");
-            Console.WriteLine("==========================================================");
-            Console.WriteLine("1. 던전 입장");
-            Console.WriteLine("0. 이전 메뉴로 돌아가기");
-            Console.WriteLine("메뉴를 선택하세요:");
-            Console.Write(">>");
-
-            string userInput = Console.ReadLine();
-            Console.Clear();
-            if (userInput == "1")
+            if (scene == DungeonScene.DungeonEntrance)
             {
-                if (Player.player.hp >= 20)
+                Console.WriteLine("==========================================================");
+                Color.ChangeTextColor(Colors.YELLOW, "", "던  전  입  구\n");
+                Console.WriteLine("아스키 아트 삽입 예정 (던전 입구 이미지)");
+                Console.WriteLine("==========================================================");
+                Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
+                Console.WriteLine($"Lv. {Player.player.level}");
+                //Console.WriteLine($"chad < {Player.job} >\n");
+                Console.WriteLine($"공격력 : {Player.player.baseAtk + Player.player.addAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
+                Console.WriteLine($"방어력 : {Player.player.baseDef + Player.player.addDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
+                Console.WriteLine($"체력 : {Player.player.maxHp} / {Player.player.hp}");
+                Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
+                Console.WriteLine($"Gold : {Player.player.gold} G\n");
+                Console.WriteLine("==========================================================");
+                Console.WriteLine("1. 던전 입장");
+                Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n");
+                Console.WriteLine("메뉴를 선택하세요:");
+                Console.Write(">>");
+
+                string userInput = Console.ReadLine();
+                Console.Clear();
+                if (userInput == "1")
                 {
-                    DungeonChoice();
+                    if (Player.player.hp >= 20)
+                    {
+                        scene = DungeonScene.DungeonChoice;
+                    }
+                    else if (Player.player.hp < 20)
+                    {
+                        // 던전 입장 조건을 충족하지 못한 경우
+                        Color.ChangeTextColor(Colors.RED, "", "던전에 입장할 수 없습니다. 체력이 부족합니다.", "\n");
+                        Console.ReadLine();
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                    }
                 }
-                else if (Player.player.hp < 20)
+                else if (userInput == "0")
                 {
-                    // 던전 입장 조건을 충족하지 못한 경우
-                    Color.ChangeTextColor(Colors.RED, "", "던전에 입장할 수 없습니다. 체력이 부족합니다.", "\n");
-                    Console.ReadLine();
                     Console.Clear();
+                    Program.scene = Scene.mainScene;
                 }
                 else
                 {
@@ -55,15 +76,9 @@ namespace SpartaTextRPG
                     Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                 }
             }
-            else if (userInput == "0")
-            {
-                Console.Clear();
-                Program.scene = Scene.mainScene;
-            }
             else
             {
-                Console.Clear();
-                Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
+                DungeonChoice();
             }
         }
         public void DungeonChoice()
@@ -133,6 +148,7 @@ namespace SpartaTextRPG
             {
                 Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage5RecommendedAttack} \n");
             }
+            Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n");
             Console.WriteLine("");
             Console.WriteLine("입장하고 싶은 던전을 선택해주세요. :");
             Console.Write(">>");
@@ -165,13 +181,11 @@ namespace SpartaTextRPG
                         else if (stage == "0")
                         {
                             Console.Clear();
-                            DungeonChoice();
                         }
                         else
                         {
                             Console.Clear();
                             Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                            DungeonChoice();
                         }
                     }
                     break;
@@ -310,6 +324,10 @@ namespace SpartaTextRPG
                             Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                         }
                     }
+                    break;
+                case "0":
+                    Console.Clear();
+                    scene = DungeonScene.DungeonEntrance;
                     break;
                 default:
                     Console.Clear();
