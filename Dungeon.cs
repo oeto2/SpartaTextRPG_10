@@ -8,69 +8,11 @@ namespace SpartaTextRPG
 {
     public class Dungeon
     {
-        private static Dungeon _instance;
-        public static Dungeon instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Dungeon();
-                }
-                return _instance;
-            }
-        }
+        public static Dungeon instance = new Dungeon();
         public int DungeonLevel { get; set; }
-        public int MonsterCount;
-
-        public Dungeon()
-        {
-            DungeonLevel = 1;
-        }
-
-        public List<Monster> MonsterSpawn()
-        {
-            Random random = new Random();
-            MonsterCount = 4; // 항상 4마리의 몬스터 생성
-
-            List<Monster> Monsters = new List<Monster>();
-            Monster[] availableMonsters = Game.Monsters();
-
-            for (int i = 0; i < MonsterCount; i++)
-            {
-                Monster randomMonster = availableMonsters[random.Next(0, availableMonsters.Length)];
-                Monster monster = new Monster(randomMonster.Level, randomMonster.Name, randomMonster.Health, randomMonster.Atk, randomMonster.Def);
-                Monsters.Add(monster);
-            }
-            return Monsters;
-        }
-
-        public struct CurrentDungeonReward
-        {
-            public bool isClear;
-            public int stageNumber;
-            public int exp;
-            public int gold;
-        }
-
-        public void ClearReward()
-        {
-            // 리워드 설정
-            Game.currentStageReward.isClear = true;
-            Game.currentStageReward.stageNumber = DungeonLevel;
-            Game.currentStageReward.exp = DungeonLevel * 20;
-            Game.currentStageReward.gold = 100; // 골드획득 
-
-            // 레벨 1 증가
-            DungeonLevel++;
-        }
-
-        public void FailReward()
-        {
-            // 실패 시 전리품 미지급
-            Game.currentStageReward.isClear = false;
-            Game.currentStageReward.stageNumber = DungeonLevel;
-        }
+        public int MonsterMinCount { get; set; }
+        public int MonsterMaxCount { get; set; }
+        public int MonsterCount { get; set; }
 
         public void DungeonEntrance()
         {
@@ -147,7 +89,7 @@ namespace SpartaTextRPG
                     {
                         Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage3RecommendedAttack}\n");
                     }
-                    Console.WriteLine("Stage.4 - 물의 둥지");
+                    Console.WriteLine("Stage.4 - 문영오의 둥지");
                     if (Player.player.baseAtk >= stage4RecommendedAttack)
                     {
                         Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage4RecommendedAttack}\n");
@@ -156,7 +98,7 @@ namespace SpartaTextRPG
                     {
                         Color.ChangeTextColor(Colors.RED, "", $"   적정 공격력 : {stage4RecommendedAttack}\n");
                     }
-                    Console.WriteLine("Stage.5 - 어둠의 둥지");
+                    Console.WriteLine("Stage.5 - 한효승의 안식처");
                     if (Player.player.baseAtk >= stage5RecommendedAttack)
                     {
                         Color.ChangeTextColor(Colors.GREEN, "", $"   적정 공격력 : {stage5RecommendedAttack} \n");
@@ -174,29 +116,183 @@ namespace SpartaTextRPG
                     switch (selectedStage)
                     {
                         case "1":
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Console.ReadLine();
-                            Console.Clear();
+                            if (Player.player.baseAtk >= stage1RecommendedAttack)
+                            {
+                                Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                Console.ReadLine();
+                                Console.Clear();
+                                Battle.instance.Stage1();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                                Console.WriteLine("1. 예");
+                                Console.WriteLine("0. 이전 화면으로 돌아가기");
+                                Console.Write(">>");
+
+                                string stage = Console.ReadLine();
+
+                                if (stage == "1")
+                                {
+                                    Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                    Battle.instance.Stage1();
+                                }
+                                else if (stage == "0")
+                                {
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                    Dungeon.instance.DungeonEntrance();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("유효하지 않는 값입니다. 다시 선택해주세요.");
+                                    Console.Write(">>");
+                                }
+                            }
                             break;
 
                         case "2":
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Console.ReadLine();
+                            if (Player.player.baseAtk >= stage2RecommendedAttack)
+                            {
+                                Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                Console.ReadLine();
+                                Console.Clear();
+                                Battle.instance.Stage3();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                                Console.WriteLine("1. 예");
+                                Console.WriteLine("0. 이전 화면으로 돌아가기");
+                                Console.Write(">>");
+
+                                string stage = Console.ReadLine();
+
+                                if (stage == "1")
+                                {
+                                    Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                    Battle.instance.Stage2();
+                                }
+                                else if (stage == "0")
+                                {
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                    Dungeon.instance.DungeonEntrance();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("유효하지 않는 값입니다. 다시 선택해주세요.");
+                                    Console.Write(">>");
+                                }
+                            }
                             break;
 
                         case "3":
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Console.ReadLine();
+                            if (Player.player.baseAtk >= stage3RecommendedAttack)
+                            {
+                                Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                Console.ReadLine();
+                                Console.Clear();
+                                Battle.instance.Stage3();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                                Console.WriteLine("1. 예");
+                                Console.WriteLine("0. 이전 화면으로 돌아가기");
+                                Console.Write(">>");
+
+                                string stage = Console.ReadLine();
+
+                                if (stage == "1")
+                                {
+                                    Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                    Battle.instance.Stage3();
+                                }
+                                else if (stage == "0")
+                                {
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                    Dungeon.instance.DungeonEntrance();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("유효하지 않는 값입니다. 다시 선택해주세요.");
+                                    Console.Write(">>");
+                                }
+                            }
                             break;
 
                         case "4":
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Console.ReadLine();
+                            if (Player.player.baseAtk >= stage4RecommendedAttack)
+                            {
+                                Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                Console.ReadLine();
+                                Console.Clear();
+                                Battle.instance.Stage4();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                                Console.WriteLine("1. 예");
+                                Console.WriteLine("0. 이전 화면으로 돌아가기");
+                                Console.Write(">>");
+
+                                string stage = Console.ReadLine();
+
+                                if (stage == "1")
+                                {
+                                    Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                    Battle.instance.Stage4();
+                                }
+                                else if (stage == "0")
+                                {
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                    Dungeon.instance.DungeonEntrance();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("유효하지 않는 값입니다. 다시 선택해주세요.");
+                                    Console.Write(">>");
+                                }
+                            }
                             break;
 
                         case "5":
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Console.ReadLine();
+                            if (Player.player.baseAtk >= stage5RecommendedAttack)
+                            {
+                                Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                Console.ReadLine();
+                                Console.Clear();
+                                Battle.instance.Stage5();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                                Console.WriteLine("1. 예");
+                                Console.WriteLine("0. 이전 화면으로 돌아가기");
+                                Console.Write(">>");
+
+                                string stage = Console.ReadLine();
+
+                                if (stage == "1")
+                                {
+                                    Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
+                                    Battle.instance.Stage5();
+                                }
+                                else if (stage == "0")
+                                {
+                                    Console.ReadLine();
+                                    Console.Clear();
+                                    Dungeon.instance.DungeonEntrance();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("유효하지 않는 값입니다. 다시 선택해주세요.");
+                                    Console.Write(">>");
+                                }
+                            }
                             break;
                     }
                 }
@@ -227,15 +323,6 @@ namespace SpartaTextRPG
 
     internal class Game
     {
-        public static Monster[] Monsters()
-        {
-            return new Monster[]
-            {
-                new Monster(1, "몬스터1", 100, 10, 5),
-                new Monster(1, "몬스터2", 100, 10, 5),
-                new Monster(1, "몬스터3", 100, 10, 5)
-            };
-        }
         public struct CurrentStageReward
         {
             public bool isClear;
