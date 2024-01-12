@@ -66,7 +66,7 @@ namespace SpartaTextRPG.DataClass.Quest
 
             //시작 가능한 퀘스트가 없을 경우
             if (questList.Find(x => x.isPossible && !x.isOngoing && !x.isComplete) == null)
-                Color.ChangeTextColor(Colors.RED, "", "[시작 가능한 퀘스트가 없습니다]\n\n");
+                Color.ChangeTextColor(Colors.RED, "", "[시작 가능한 퀘스트가 없습니다]\n");
 
             //시작 가능한 퀘스트가 있을 경우
             else
@@ -114,8 +114,8 @@ namespace SpartaTextRPG.DataClass.Quest
 
                 //시작가능한 메인 퀘스트가 없다면
                 if (questNum == 0)
-                    Console.WriteLine();
-                    //Color.ChangeTextColor(Colors.RED, "", "***시작 가능한 메인 퀘스트가 없습니다***\n\n");
+                    Color.ChangeTextColor(Colors.RED, "", "[시작 가능한 메인 퀘스트가 없습니다]\n\n");
+                //Console.WriteLine();
 
                 Color.ChangeTextColor(Colors.MAGENTA, "", "[서브 퀘스트]\n");
                 //서브 퀘스트
@@ -160,11 +160,11 @@ namespace SpartaTextRPG.DataClass.Quest
 
                 //시작 가능한 서브 퀘스트가 없다면
                 if (questNum == 0)
-                    Console.WriteLine();
-                    //Color.ChangeTextColor(Colors.MAGENTA, "", "***시작 가능한 서브 퀘스트가 없습니다***\n\n");
+                    Color.ChangeTextColor(Colors.MAGENTA, "", "[시작 가능한 서브 퀘스트가 없습니다]\n\n");
+                    //Console.WriteLine();
             }
         }
 
-        
+
     }
 }

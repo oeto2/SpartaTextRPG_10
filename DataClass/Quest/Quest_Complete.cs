@@ -44,9 +44,9 @@ namespace SpartaTextRPG.DataClass.Quest
             CheckCompQuest();
 
             //완료할 수 있는 퀘스트가 없을 경우
-            if (questList.Find(x => x.isPossible && !x.isOngoing && !x.isComplete) == null)
-                Color.ChangeTextColor(Colors.RED, "", "***완료할 수 있는 퀘스트가 없습니다***\n");
-
+            if (questList.Find(x => x.isOngoing && x.isComplete && !x.isClear) == null)
+                Color.ChangeTextColor(Colors.RED, "", "[완료할 수 있는 퀘스트가 없습니다]\n");
+            
             //완료할 수 있는 퀘스트가 있을 경우
             else
             {
@@ -63,30 +63,30 @@ namespace SpartaTextRPG.DataClass.Quest
                         //Console.Write($"{qeustNum++}.");
                         Console.SetCursorPosition(3, col);
 
-                        //Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
-                        Console.Write($"{_quest.name} ");
+                        Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
+                        //Console.Write($"{_quest.name} ");
                         Console.SetCursorPosition(18, col);
                         Console.Write('|');
 
-                        //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
-                        Console.Write($" {_quest.info}");
+                        Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
+                        //Console.Write($" {_quest.info}");
                         Console.SetCursorPosition(60, col);
                         Console.Write('|');
 
 
-                        //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
-                        Console.Write($" {_quest.gold}".PadLeft(6));
+                        Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
+                        //Console.Write($" {_quest.gold}".PadLeft(6));
                         Console.SetCursorPosition(68, col);
-                        //Color.ChangeTextColor(Colors.YELLOW, "", "G");
-                        Console.Write("G");
+                        Color.ChangeTextColor(Colors.YELLOW, "", "G");
+                        //Console.Write("G");
                         Console.SetCursorPosition(70, col);
                         Console.Write('|');
 
-                        //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
-                        Console.Write($" {_quest.exp}".PadLeft(5));
+                        Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
+                        //Console.Write($" {_quest.exp}".PadLeft(5));
                         Console.SetCursorPosition(77, col);
-                        //Color.ChangeTextColor(Colors.YELLOW, "", "EXP ");
-                        Console.Write("EXP ");
+                        Color.ChangeTextColor(Colors.YELLOW, "", "EXP   [완료]");
+                        //Console.Write("EXP ");
                         Console.WriteLine("");
                     }
                 }

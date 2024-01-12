@@ -134,4 +134,13 @@ namespace SpartaTextRPG.DataClass.Quest
             type = _type;
         }
     }
+
+    //퀘스트 조건
+    public class QuestBool
+    {
+        public static bool usePotion = false; //물약을 사용했는지
+        public static bool[] dungeonClear = new bool[6]; // stage1 Clear -> dungeonCler[1] = true;
+        public static bool enterDungeon = false; //던전에 입장했는지
+        public static bool isRest = false; //휴식기능을 사용했는지
+    }
 }

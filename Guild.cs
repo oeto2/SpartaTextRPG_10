@@ -60,9 +60,9 @@ namespace SpartaTextRPG
                 Color.ChangeTextColor(Colors.YELLOW, "", "길드\n");
                 Console.WriteLine("퀘스트를 확인할 수 있습니다.");
                 Console.WriteLine();
-                Color.ChangeTextColor(Colors.YELLOW, "", "1. ", "새로운 퀘스트 받기\n");
-                Color.ChangeTextColor(Colors.YELLOW, "", "2. ", "진행중인 퀘스트 확인\n");
-                Color.ChangeTextColor(Colors.YELLOW, "", "3. ", "퀘스트 보상 받기\n");
+                Color.ChangeTextColor(Colors.YELLOW, "", "1. ", "새로운 퀘스트\n");
+                Color.ChangeTextColor(Colors.YELLOW, "", "2. ", "진행중인 퀘스트\n");
+                Color.ChangeTextColor(Colors.YELLOW, "", "3. ", "완료한 퀘스트\n");
                 Color.ChangeTextColor(Colors.RED, "", "0. ", "나가기\n");
                 Console.WriteLine();
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
