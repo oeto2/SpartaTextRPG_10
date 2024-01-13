@@ -120,6 +120,7 @@ namespace SpartaTextRPG
                 case "1":
                     if (Player.player.baseAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Battle.instance.BattleScene();
@@ -127,7 +128,8 @@ namespace SpartaTextRPG
                     }
                     else
                     {
-                        Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
+                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
                         Console.WriteLine("1. 예");
                         Console.WriteLine("0. 이전 화면으로 돌아가기");
                         Console.Write(">>");
@@ -136,6 +138,7 @@ namespace SpartaTextRPG
 
                         if (stage == "1")
                         {
+                            scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Console.ReadLine();
                             Console.Clear();
@@ -156,6 +159,7 @@ namespace SpartaTextRPG
                 case "2":
                     if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
@@ -163,7 +167,8 @@ namespace SpartaTextRPG
                     }
                     else
                     {
-                        Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
+                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
                         Console.WriteLine("1. 예");
                         Console.WriteLine("0. 이전 화면으로 돌아가기");
                         Console.Write(">>");
@@ -172,6 +177,7 @@ namespace SpartaTextRPG
 
                         if (stage == "1")
                         {
+                            scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleScene();
                         }
@@ -190,6 +196,7 @@ namespace SpartaTextRPG
                 case "3":
                     if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
@@ -197,7 +204,8 @@ namespace SpartaTextRPG
                     }
                     else
                     {
-                        Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
+                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
                         Console.WriteLine("1. 예");
                         Console.WriteLine("0. 이전 화면으로 돌아가기");
                         Console.Write(">>");
@@ -206,6 +214,7 @@ namespace SpartaTextRPG
 
                         if (stage == "1")
                         {
+                            scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleScene();
                         }
@@ -224,6 +233,7 @@ namespace SpartaTextRPG
                 case "4":
                     if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
@@ -231,7 +241,8 @@ namespace SpartaTextRPG
                     }
                     else
                     {
-                        Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
+                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
                         Console.WriteLine("1. 예");
                         Console.WriteLine("0. 이전 화면으로 돌아가기");
                         Console.Write(">>");
@@ -240,6 +251,7 @@ namespace SpartaTextRPG
 
                         if (stage == "1")
                         {
+                            scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleScene();
                         }
@@ -258,6 +270,7 @@ namespace SpartaTextRPG
                 case "5":
                     if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
@@ -265,7 +278,8 @@ namespace SpartaTextRPG
                     }
                     else
                     {
-                        Console.WriteLine($"{Player.player.name} 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?");
+                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
+                        Color.ChangeTextColor(Colors.RED,"" , " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
                         Console.WriteLine("1. 예");
                         Console.WriteLine("0. 이전 화면으로 돌아가기");
                         Console.Write(">>");
@@ -274,6 +288,7 @@ namespace SpartaTextRPG
 
                         if (stage == "1")
                         {
+                            scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleScene();
                         }
