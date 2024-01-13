@@ -24,13 +24,15 @@ namespace SpartaTextRPG
         public int dunAtk { get; set; }
         public string name { get; set; }
 
+        public int index = 0;
+
         public DungeonEnter(int _dunAtk, string _name)
         {
             dunAtk = _dunAtk;
             name = _name;
         }
 
-        public void DungeonAnnounce(int index)
+        public void DungeonAnnounce()
         {
             Console.WriteLine($"Stage.{index + 1} - {name}");
             if (Player.player.baseAtk + Player.player.addAtk >= dunAtk)

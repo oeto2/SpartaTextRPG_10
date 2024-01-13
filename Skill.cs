@@ -44,7 +44,7 @@ namespace SpartaTextRPG
             Player.player.mp += Skills.myskills[skillnum].mp;
 
             Monster targetMonster = monsters[monsternum];
-            Battle.OnDamage(targetMonster, damage);
+            // Battle.OnDamage(targetMonster, damage);
         }
     }
 }
