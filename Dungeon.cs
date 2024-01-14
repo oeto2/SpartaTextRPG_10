@@ -93,7 +93,6 @@ namespace SpartaTextRPG
         {
             Console.WriteLine("==========================================================");
             Color.ChangeTextColor(Colors.YELLOW, "", "던  전  입  구\n");
-            Console.WriteLine("아스키 아트 삽입 예정 (던전 입구 이미지)");
             Console.WriteLine("==========================================================");
             Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
             Console.WriteLine($"Lv. {Player.player.level}");
@@ -108,12 +107,12 @@ namespace SpartaTextRPG
 
             for (int i = 0; i < dungeonList.Count; i++)
             {
-                dungeonList[i].DungeonAnnounce(i);
+                dungeonList[i].DungeonAnnounce();
             }
 
             Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n");
             Console.WriteLine("");
-            Console.WriteLine("입장하고 싶은 던전을 선택해주세요. :");
+            Console.WriteLine("입장하고 싶은 던전을 선택해주세요. ");
             Console.Write(">>");
             string selectedStage = Console.ReadLine();
             switch (selectedStage)
@@ -124,8 +123,8 @@ namespace SpartaTextRPG
                         scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
-                        Console.Clear();
-                        Battle.instance.Stage1();
+                        Battle.instance.BattleScene();
+                        Console.ReadLine();
                     }
                     else
                     {
@@ -141,7 +140,9 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.Stage1();
+                            Console.ReadLine();
+                            Console.Clear();
+                            Battle.instance.BattleScene();
                         }
                         else if (stage == "0")
                         {
@@ -162,7 +163,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.Stage2();
+                        Battle.instance.BattleScene();
                     }
                     else
                     {
@@ -178,7 +179,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.Stage2();
+                            Battle.instance.BattleScene();
                         }
                         else if (stage == "0")
                         {
@@ -199,7 +200,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.Stage3();
+                        Battle.instance.BattleScene();
                     }
                     else
                     {
@@ -215,7 +216,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.Stage3();
+                            Battle.instance.BattleScene();
                         }
                         else if (stage == "0")
                         {
@@ -236,7 +237,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.Stage4();
+                        Battle.instance.BattleScene();
                     }
                     else
                     {
@@ -252,7 +253,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.Stage4();
+                            Battle.instance.BattleScene();
                         }
                         else if (stage == "0")
                         {
@@ -273,7 +274,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.Stage5();
+                        Battle.instance.BattleScene();
                     }
                     else
                     {
@@ -289,7 +290,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.Stage5();
+                            Battle.instance.BattleScene();
                         }
                         else if (stage == "0")
                         {

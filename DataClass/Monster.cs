@@ -2,9 +2,6 @@
 
 public class Monster
 {
-    internal readonly int Length;
-    private Monster randomMonster;
-
     public int Number { get; set; }
     public string Name { get; set; }
     public float Health { get; set; }
@@ -15,9 +12,8 @@ public class Monster
     public int Damage { get; set; }
     public bool IsDead { get; set; }
 
-    public Monster(int number, int level, string name, float hp, float maxhp, int atk, int def)
+    public Monster(int level, string name, float hp, float maxhp, int atk, int def)
     {
-        Number = number;
         Level = level;
         Name = name;
         MaxHealth = maxhp;
@@ -25,5 +21,7 @@ public class Monster
         Atk = atk;
         Def = def;
         IsDead = false;
+
+        Number = 0;
     }
 }
