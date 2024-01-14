@@ -240,10 +240,6 @@ namespace SpartaTextRPG
 
                 case "2":
                     return LoadingScene();
-
-                //case "4":
-                //    Guild.instance.ShowGuildPage();
-                //    break;
             }
 
             return 3;
@@ -252,8 +248,6 @@ namespace SpartaTextRPG
         //로딩화면
         private int LoadingScene()
         {
-            Data.instnace.Save();
-
             Console.Clear();
             Console.WriteLine("게임 데이터를 불러오는 중입니다...");
             Thread.Sleep(100);
