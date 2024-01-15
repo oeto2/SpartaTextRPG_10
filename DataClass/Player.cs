@@ -68,7 +68,11 @@ namespace SpartaTextRPG
             maxHp = _maxHp;
             maxMp = _maxMp;
         }
-        
+
+        //세이브 로드 전용 생성자
+        public Player() { }
+
+
 
         public static Player player = new Player(0, "미정", 3, 0, 0, 50, 50, 20, 20);
 
@@ -94,51 +98,54 @@ namespace SpartaTextRPG
             if (pastState.level < level)
             {
                 LevelUP(pastState);
-                ShowLevelUpPage(pastState);
             }
         }
 
         public void LevelUP(Player pastState)
         {
-            int totalExp = Convert.ToInt32(Math.Pow(((player.level +1) * 50.00 / 49.00), 2.5) * 25);
+            double expCount = Math.Pow(player.exp / 25, 0.4) * 49 / 50 + 1;
+            int level = Convert.ToInt32(Math.Floor(expCount));
+
+            int totalExp = Convert.ToInt32(Math.Pow(((level) * 50.00 / 49.00), 2.5) * 25);
+            int levelExp = totalExp - Convert.ToInt32(Math.Pow(((level - 1) * 50.00 / 49.00), 2.5) * 25);
             int needExp = totalExp - player.exp;
-            int levelExp = totalExp - Convert.ToInt32(Math.Pow(((player.level) * 50.00 / 49.00), 2.5) * 25);
 
             player.needExp = needExp;
             player.levelExp = levelExp;
 
             if(pastState.job == Job.Beginner)
             {
-                player.maxHp += 2;
-                player.baseAtk += 2;
-                player.baseDef += 1;
+                player.maxHp += 2 *(level - pastState.level);
+                player.baseAtk += 2 * (level - pastState.level);
+                player.baseDef += 1 * (level - pastState.level);
             } else if (pastState.job == Job.Warrior || pastState.job == Job.Berserker)
             {
-                player.maxHp += 5;
-                player.maxMp += 2;
-                player.baseAtk += 2;
-                player.baseDef += 2;
+                player.maxHp += 5 * (level - pastState.level);
+                player.maxMp += 2 * (level - pastState.level);
+                player.baseAtk += 2 * (level - pastState.level);
+                player.baseDef += 2 * (level - pastState.level);
             } else if (pastState.job == Job.Thief || pastState.job == Job.Demonic)
             {
-                player.maxHp += 3;
-                player.maxMp += 5;
-                player.baseAtk += 3;
-                player.baseDef += 1;
+                player.maxHp += 3 * (level - pastState.level);
+                player.maxMp += 5 * (level - pastState.level);
+                player.baseAtk += 3 * (level - pastState.level);
+                player.baseDef += 1 * (level - pastState.level);
             } else if (pastState.job == Job.Warlord)
             {
-                player.maxHp += 7;
-                player.maxMp += 3;
-                player.baseAtk += 1;
-                player.baseDef += 3;
+                player.maxHp += 7 * (level - pastState.level);
+                player.maxMp += 3 * (level - pastState.level);
+                player.baseAtk += 1 * (level - pastState.level);
+                player.baseDef += 3 * (level - pastState.level);
             } else if (pastState.job == Job.Reaper)
             {
-                player.maxHp += 2;
-                player.maxMp += 5;
-                player.baseAtk += 4;
-                player.baseDef += 1;
+                player.maxHp += 2 * (level - pastState.level);
+                player.maxMp += 5 * (level - pastState.level);
+                player.baseAtk += 4 * (level - pastState.level);
+                player.baseDef += 1 * (level - pastState.level);
             }
 
-            player.level++;
+            player.level = level;
+            Console.Clear();
             ShowLevelUpPage(pastState);
         }
 

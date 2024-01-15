@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpartaTextRPG.DataClass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -29,7 +30,7 @@ namespace SpartaTextRPG
             //메인 타이틀 화면
             while (ShowMainTitle() != 1) { };
 
-            if(!isContinue)
+            if (!isContinue)
             {
                 //이름 짓기
                 while (NamePlayer() != 1) { };
@@ -39,7 +40,7 @@ namespace SpartaTextRPG
 
                 //플레이어 이름 변경
                 Player.player.name = playerName;
-            }    
+            }
         }
 
         //스토리 스킵
@@ -224,7 +225,6 @@ namespace SpartaTextRPG
         //메인 타이틀
         private int ShowMainTitle()
         {
-            Console.Clear();
             //타이틀 이미지
             PrintTitleImage();
 
@@ -240,10 +240,6 @@ namespace SpartaTextRPG
 
                 case "2":
                     return LoadingScene();
-
-                //case "4":
-                //    Guild.instance.ShowGuildPage();
-                //    break;
             }
 
             return 3;
