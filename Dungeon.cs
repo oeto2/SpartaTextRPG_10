@@ -23,7 +23,7 @@ namespace SpartaTextRPG
 
         DungeonScene scene = DungeonScene.DungeonEntrance;
 
-        List<DungeonEnter> dungeonList = new List<DungeonEnter>()
+        public List<DungeonEnter> dungeonList = new List<DungeonEnter>()
         {
             new DungeonEnter(10, "모험의 시작"),
             new DungeonEnter(20, "용의 둥지"),
@@ -123,7 +123,7 @@ namespace SpartaTextRPG
                         scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
                         Console.ReadLine();
                     }
                     else
@@ -142,7 +142,7 @@ namespace SpartaTextRPG
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Console.ReadLine();
                             Console.Clear();
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
                         }
                         else if (stage == "0")
                         {
@@ -163,7 +163,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
                     }
                     else
                     {
@@ -179,7 +179,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
                         }
                         else if (stage == "0")
                         {
@@ -200,7 +200,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
                     }
                     else
                     {
@@ -216,7 +216,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
                         }
                         else if (stage == "0")
                         {
@@ -237,7 +237,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
                     }
                     else
                     {
@@ -253,7 +253,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
                         }
                         else if (stage == "0")
                         {
@@ -274,7 +274,7 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
                     }
                     else
                     {
@@ -290,7 +290,7 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
                         }
                         else if (stage == "0")
                         {

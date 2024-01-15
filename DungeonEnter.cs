@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpartaTextRPG
 {
-    internal class DungeonEnter
+    public class DungeonEnter
     {
         public static DungeonEnter _instance;
 
