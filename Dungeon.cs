@@ -107,7 +107,7 @@ namespace SpartaTextRPG
 
             for (int i = 0; i < dungeonList.Count; i++)
             {
-                dungeonList[i].DungeonAnnounce();
+                dungeonList[i].DungeonAnnounce(i);
             }
 
             Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n");
