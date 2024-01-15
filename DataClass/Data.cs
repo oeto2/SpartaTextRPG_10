@@ -46,6 +46,9 @@ namespace SpartaTextRPG.DataClass
             gameData.Add(new string(JsonConvert.SerializeObject(Player.player)));
             //Quest
             gameData.Add(new string(JsonConvert.SerializeObject(QuestList.questList)));
+            gameData.Add(new string(JsonConvert.SerializeObject(QuestBool.instance)));
+
+
 
             //파일 저장
             for (int i = 0; i < gameData.Count; i++)
@@ -111,6 +114,7 @@ namespace SpartaTextRPG.DataClass
                 Player.player = JsonConvert.DeserializeObject<Player>(gameData[7]);
                 //Quest
                 QuestList.questList = JsonConvert.DeserializeObject<List<Quest.Quest>>(gameData[8]);
+                QuestBool.instance = JsonConvert.DeserializeObject<QuestBool>(gameData[9]);
             }
             else loadfail = true;
         }

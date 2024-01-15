@@ -48,26 +48,26 @@ namespace SpartaTextRPG.DataClass.Quest
 
                             Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                             //Console.Write($"{_quest.name} ");
-                            Console.SetCursorPosition(20, col);
+                            Console.SetCursorPosition(22, col);
                             Console.Write('|');
 
                             Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
                             //Console.Write($" {_quest.info}");
-                            Console.SetCursorPosition(60, col);
+                            Console.SetCursorPosition(66, col);
                             Console.Write('|');
 
 
                             Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
                             //Console.Write($" {_quest.gold}".PadLeft(6));
-                            Console.SetCursorPosition(68, col);
+                            Console.SetCursorPosition(74, col);
                             Color.ChangeTextColor(Colors.YELLOW, "", "G");
                             //Console.Write("G");
-                            Console.SetCursorPosition(70, col);
+                            Console.SetCursorPosition(76, col);
                             Console.Write('|');
 
-                            Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
+                            Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(6));
                             //Console.Write($" {_quest.exp}".PadLeft(5));
-                            Console.SetCursorPosition(77, col);
+                            Console.SetCursorPosition(84, col);
                             Color.ChangeTextColor(Colors.YELLOW, "", "EXP   [완료]");
                             //Console.Write("EXP ");
                             Console.WriteLine("");
@@ -83,26 +83,26 @@ namespace SpartaTextRPG.DataClass.Quest
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                             Console.Write($"{_quest.name} ");
-                            Console.SetCursorPosition(20, col);
+                            Console.SetCursorPosition(22, col);
                             Console.Write('|');
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
                             Console.Write($" {_quest.info}");
-                            Console.SetCursorPosition(60, col);
+                            Console.SetCursorPosition(66, col);
                             Console.Write('|');
 
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
                             Console.Write($" {_quest.gold}".PadLeft(6));
-                            Console.SetCursorPosition(68, col);
+                            Console.SetCursorPosition(74, col);
                             //Color.ChangeTextColor(Colors.YELLOW, "", "G");
                             Console.Write("G");
-                            Console.SetCursorPosition(70, col);
+                            Console.SetCursorPosition(76, col);
                             Console.Write('|');
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
-                            Console.Write($" {_quest.exp}".PadLeft(5));
-                            Console.SetCursorPosition(77, col);
+                            Console.Write($" {_quest.exp}".PadLeft(6));
+                            Console.SetCursorPosition(84, col);
                             //Color.ChangeTextColor(Colors.YELLOW, "", "EXP ");
                             Console.Write("EXP   [미완료]");
                             //Console.Write("EXP");
@@ -130,26 +130,26 @@ namespace SpartaTextRPG.DataClass.Quest
 
                             Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                             //Console.Write($"{_quest.name} ");
-                            Console.SetCursorPosition(20, col);
+                            Console.SetCursorPosition(22, col);
                             Console.Write('|');
 
                             Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
                             //Console.Write($" {_quest.info}");
-                            Console.SetCursorPosition(60, col);
+                            Console.SetCursorPosition(66, col);
                             Console.Write('|');
 
 
                             Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
                             //Console.Write($" {_quest.gold}".PadLeft(6));
-                            Console.SetCursorPosition(68, col);
+                            Console.SetCursorPosition(74, col);
                             Color.ChangeTextColor(Colors.YELLOW, "", "G");
                             //Console.Write("G");
-                            Console.SetCursorPosition(70, col);
+                            Console.SetCursorPosition(76, col);
                             Console.Write('|');
 
-                            Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
+                            Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(6));
                             //Console.Write($" {_quest.exp}".PadLeft(5));
-                            Console.SetCursorPosition(77, col);
+                            Console.SetCursorPosition(84, col);
                             Color.ChangeTextColor(Colors.YELLOW, "", "EXP   [완료]");
                             //Console.Write("EXP ");
                             Console.WriteLine("");
@@ -165,26 +165,26 @@ namespace SpartaTextRPG.DataClass.Quest
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                             Console.Write($"{_quest.name} ");
-                            Console.SetCursorPosition(20, col);
+                            Console.SetCursorPosition(22, col);
                             Console.Write('|');
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
                             Console.Write($" {_quest.info}");
-                            Console.SetCursorPosition(60, col);
+                            Console.SetCursorPosition(66, col);
                             Console.Write('|');
 
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
                             Console.Write($" {_quest.gold}".PadLeft(6));
-                            Console.SetCursorPosition(68, col);
+                            Console.SetCursorPosition(74, col);
                             //Color.ChangeTextColor(Colors.YELLOW, "", "G");
                             Console.Write("G");
-                            Console.SetCursorPosition(70, col);
+                            Console.SetCursorPosition(76, col);
                             Console.Write('|');
 
                             //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
-                            Console.Write($" {_quest.exp}".PadLeft(5));
-                            Console.SetCursorPosition(77, col);
+                            Console.Write($" {_quest.exp}".PadLeft(6));
+                            Console.SetCursorPosition(84, col);
                             //Color.ChangeTextColor(Colors.YELLOW, "", "EXP ");
                             Console.Write("EXP   [미완료]");
                             //Console.Write("EXP");
