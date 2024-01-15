@@ -124,7 +124,7 @@ namespace SpartaTextRPG
                 ShowImage(5);
                 Console.WriteLine("================================================================================");
                 WriteChar("그로부터 20년 후..", 60);
-                WriteChar("{0}(은)는 부모님의 복수를 하기 위해 던전으로 향했다.", 60, playerName);
+                WriteChar("{0}(은)는 가족의 복수를 하기 위해 던전으로 향했다.", 60, playerName);
                 Console.ReadKey();
                 LoadingScene(false);
                 Console.CursorVisible = true;
