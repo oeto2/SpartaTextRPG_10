@@ -15,6 +15,7 @@ namespace SpartaTextRPG
         List<Monster> Monsters = new List<Monster>();
         List<Monster> spawnedMonsters = new List<Monster>();
         List<Monster> monsters = new List<Monster>();
+        Random rand = new Random();
         int[] monsterHp;
 
         public void BattleStart() // 2. 전투 시작
@@ -31,7 +32,14 @@ namespace SpartaTextRPG
                         Attack();
                         break;
                     case 2:
-                        // Skill();
+                        if (Skills.myskills.Count > 0)
+                        {
+                            Skill.showSkill(spawnedMonsters);
+                        }
+                        else
+                        {
+                            Color.ChangeTextColor(Colors.RED, "", "보유 스킬이 없습니다.", "\n");
+                        }
                         break;
                     case 3:
                         // HpRecovery();
@@ -59,7 +67,6 @@ namespace SpartaTextRPG
 
             static List<Monster> Monsters() // 몬스터 정보
             {
-                Random rand = new Random();
                 List<Monster> monsters = new List<Monster>
                 {
                     new Monster(1, "비아키스", 10, 10, 10, 5),
@@ -81,7 +88,7 @@ namespace SpartaTextRPG
 
                 for (int i = 0; i < Monster_count; i++)
                 {
-                    int randMonsterIndex = rand.Next(0, 4);
+                    int randMonsterIndex = rand.Next(1, 5);
                     switch(randMonsterIndex)
                     {
                         case 0:
@@ -107,43 +114,28 @@ namespace SpartaTextRPG
                        $"HP: \u001b[91m{player.hp} / {player.maxHp}\u001b[0m\n" +
                        $"\t\t\t MP: \u001b[94m{player.mp} / {player.maxMp}\u001b[0m";
             }
-            void MonsterNumber() // 몬스터 번호 출력 메서드
-            {
-                for (int i = 0; i < monsters.Count; i++)
-                {
-                    if (0 < spawnedMonsters[i].Health)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine($"{i + 1}");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                        Console.WriteLine($"{i + 1}");
-                        Console.ResetColor();
-                    }
-                }
-            }
+
             void DisplayBattleStatus()
             {
                 Console.WriteLine("[몬스터 정보]");
                 for (int i = 0; i < spawnedMonsters.Count; i++)
                 {
-                    if (spawnedMonsters[i].Health > 0)
+                    if (i < spawnedMonsters.Count)
                     {
-                        Console.Write($"{spawnedMonsters[i].Number}  Lv.{spawnedMonsters[i].Level}\t{spawnedMonsters[i].Name} \t HP : ");
-                        Color.ChangeTextColor(Colors.RED, "", $"{spawnedMonsters[i].Health} / {spawnedMonsters[i].MaxHealth}");
-                        Console.WriteLine("");
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine($"{spawnedMonsters[i].Number}  Lv. {spawnedMonsters[i].Level} {spawnedMonsters[i].Name} Dead");
-                        Console.ResetColor();
+                        if (spawnedMonsters[i].Health > 0)
+                        {
+                            Console.Write($"{i + 1}  Lv.{spawnedMonsters[i].Level}\t{spawnedMonsters[i].Name} \t HP : ");
+                            Color.ChangeTextColor(Colors.RED, "", $"{spawnedMonsters[i].Health} / {spawnedMonsters[i].MaxHealth}");
+                            Console.WriteLine("");
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.WriteLine($"{i + 1}  Lv. {spawnedMonsters[i].Level} {spawnedMonsters[i].Name} Dead");
+                            Console.ResetColor();
+                        }
                     }
                 }
-
                 Console.WriteLine("");
                 Console.WriteLine("[내 정보]");
                 Console.WriteLine(GetPlayerInfo(Player.player));
@@ -156,70 +148,93 @@ namespace SpartaTextRPG
                 Console.Write(">>");
             }
 
-            void Attack() // 플레이어 공격
+            void Attack()
             {
-                Random rand = new Random();
-
                 Console.Clear();
                 BattleScene();
-                MonsterNumber();
 
                 Console.WriteLine("대상을 선택해주세요.");
                 Console.Write(">>");
+                int selectedMonsterNumber;
 
-                int atk = ChoiceInput(1, monsters.Count);
-
-                if (atk != 0 && atk <= monsters.Count) // 0일 경우에 대한 예외 처리 및 몬스터의 수 이내의 값인지 확인
+                while (true)
                 {
-                    if (0 < monsterHp[atk - 1])
+                    selectedMonsterNumber = int.Parse(Console.ReadLine());
+
+                    if (selectedMonsterNumber > 0 && selectedMonsterNumber <= spawnedMonsters.Count)
                     {
-                        int Critical = rand.Next(1, 101);
-                        int bh = monsterHp[atk - 1];
-
-                        if (Critical <= 15)
-                        {
-                            monsterHp[atk - 1] -= rand.Next((int)Math.Ceiling(Player.player.baseAtk + Player.player.addAtk * 1.44f), (int)Math.Ceiling(Player.player.baseAtk + Player.player.addAtk * 1.76f) + 1); // 플레이어 공격 데미지
-                            BattleScene();
-                            Console.WriteLine($"\n\n{Player.player.name} 의 공격!\n");
-                            Console.WriteLine($"Lv.{monsters[atk - 1].Level} {monsters[atk - 1].Name} 을(를) 맞췄습니다. [데미지 : {bh - monsterHp[atk - 1]}] - 치명타!!");
-                        }
-                        else if (Critical >= 90)
-                        {
-                            BattleScene();
-                            Console.WriteLine($"\n\n{Player.player.name} 의 공격!\n");
-                            Console.WriteLine($"Lv.{monsters[atk - 1].Level} {monsters[atk - 1].Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.");
-                        }
-                        else
-                        {
-                            monsterHp[atk - 1] -= rand.Next((int)Math.Ceiling(Player.player.baseAtk + Player.player.addAtk * 0.9f), (int)Math.Ceiling(Player.player.baseAtk + Player.player.addAtk * 1.1f) + 1); // 플레이어 공격 데미지
-                            BattleScene();
-                            Console.WriteLine($"\n\n{Player.player.name} 의 공격!\n");
-                            Console.WriteLine($"Lv.{monsters[atk - 1].Level} {monsters[atk - 1].Name} 을(를) 맞췄습니다. [데미지 : {bh - monsterHp[atk - 1]}]");
-                        }
-                        if (monsterHp[atk - 1] <= 0)
-                        {
-                            Console.WriteLine($"\nLv.{monsters[atk - 1].Level} {monsters[atk - 1].Name}\nHP {bh} -> Dead");
-                        }
-
-                        Console.WriteLine("\n\nEnter. 다음");
-                        Console.ReadLine();
-
-                        if (CheckMonsters() != 0)
-                        {
-                            MonsterTurn(); // 공격 종료 후, 몬스터가 남아있으면 몬스터 턴
-                        }
+                        break;
                     }
                     else
                     {
-                        Console.WriteLine("Dead 상태의 몬스터는 공격할 수 없습니다.\n\nEnter. 다음");
-                        Console.ReadLine();
+                        Console.WriteLine("잘못된 몬스터 번호입니다. 다시 입력해주세요.");
+                    }
+                }
+
+                Monster targetMonster = spawnedMonsters[selectedMonsterNumber - 1];
+                float damageToMonster = Math.Max(0, Player.player.baseAtk + Player.player.addAtk - targetMonster.Def);
+
+                bool isCritical = false;
+                bool isDodge = false;
+
+                damageToMonster = CirticalAttack((int)damageToMonster, ref isCritical);
+                damageToMonster = DodgeAttack(damageToMonster, false, ref isDodge);
+
+                // 몬스터에게 데미지 적용
+                if (damageToMonster > 0)
+                {
+                    targetMonster.Health -= damageToMonster;
+                    Console.WriteLine($"{Player.player.name}이(가) {targetMonster.Name}에게 일반 공격을 가했습니다! [데미지: {damageToMonster}]");
+
+                    if (targetMonster.Health <= 0)
+                    {
+                        Console.WriteLine($"{targetMonster.Name}이(가) 사망했습니다!");
+                        spawnedMonsters.RemoveAt(selectedMonsterNumber - 1);
                     }
                 }
                 else
                 {
-                    Console.WriteLine("잘못된 선택입니다.\n\nEnter. 다음");
-                    Console.ReadLine();
+                    Console.WriteLine($"{Player.player.name}의 공격이 {targetMonster.Name}에게 효과가 없습니다.");
                 }
+
+                // 몬스터 턴
+                MonsterTurn();
+            }
+
+
+            int CirticalAttack(int damage, ref bool isCritical) // 크리티컬
+            {
+                int critical = new Random().Next(1, 101);
+                if (critical <= 15)
+                { // 크리티컬일때
+                    isCritical = true;
+                    double newCharacterSkill = damage * 1.6;
+                    damage = (int)Math.Round(newCharacterSkill);
+                }
+                else
+                {
+                    isCritical = false;
+                }
+
+                return damage;
+
+            }
+            float DodgeAttack(float damage, bool isUsingSkill, ref bool isDodge) // 회피
+            {
+                int dodge = new Random().Next(1, 101);
+                if (dodge > 11 && !isUsingSkill)
+                {
+                    // 대미지 들어감 
+                    isDodge = false;
+                }
+                else
+                {
+                    // 회피
+                    isDodge = true;
+                    Console.WriteLine("회피 하였습니다.");
+                    return 0; // 회피했으면 데미지 0 반환
+                }
+                return damage; // 회피하지 않았으면 원래의 대미지 반환
             }
 
             /*
@@ -228,29 +243,37 @@ namespace SpartaTextRPG
             }
             */
 
-            void MonsterTurn() // 몬스터 턴, 몬스터 행동
+            // 몬스터 턴
+            void MonsterTurn()
             {
-                for (int i = 0; i < monsters.Count; i++)
+                for (int i = 0; i < spawnedMonsters.Count; i++)
                 {
-                    float damage = monsters[i].Atk - Player.player.baseDef - Player.player.addDef;    // 몬스터 데미지
-                    if (damage < 0) damage = 0;
-                    if (0 < monsters[i].Health)
+                    if (spawnedMonsters[i].Health > 0)
                     {
+                        float damage = spawnedMonsters[i].Atk - Player.player.baseDef + Player.player.addDef;
+                        if (damage < 0) damage = 0;
 
-                        Player.player.maxHp -= damage;
+                        // 몬스터 데미지
+                        Player.player.hp -= damage;
+
+                        // 전투 상황 출력
                         BattleScene();
                         Console.WriteLine("\n");
-                        Console.WriteLine($"Lv.{monsters[i].Level} {monsters[i].Name} 의 공격!\n{Player.player.name} 을(를) 맞췄습니다. [데미지 : {Player.player.maxHp - Player.player.hp}]\n");
+                        Console.WriteLine($"Lv.{spawnedMonsters[i].Level} {spawnedMonsters[i].Name} 의 공격!\n{Player.player.name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+
                         if (Player.player.hp <= 0)
                         {
                             Console.WriteLine($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.maxHp} -> Dead\n\nEnter. 다음");
                             Console.ReadLine();
+                            Console.Clear();
+                            FailReward();
                             break;
                         }
                         else
                         {
                             Console.Write($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.maxHp} -> {Player.player.hp}\n\nEnter. 다음");
                             Console.ReadLine();
+                            Attack();
                         }
                     }
                 }
@@ -258,14 +281,14 @@ namespace SpartaTextRPG
 
             int CheckMonsters()
             {
-                int[] monsterHp = new int[monsters.Count];
                 int live = 0;
-                for (int i = 0; i < monsters.Count; i++)
+                for (int i = 0; i < monsterHp.Length; i++)
                 {
                     if (0 < monsterHp[i]) live++;
                 }
                 return live;
             }
+
 
             void ClearReward() // 클리어 보상
             {
@@ -433,7 +456,6 @@ namespace SpartaTextRPG
             void BattleScene() // 현재 전투 필드 출력 메서드
             {
                 Console.Clear();
-                int index;
                 Console.WriteLine("================================================");
                 // Color.ChangeTextColor(Colors.YELLOW, "", $"Stage.{index} - {Dungeon.instance.dungeonList[index - 1].name}\n");
                 Console.WriteLine("================================================");

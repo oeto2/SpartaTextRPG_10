@@ -71,7 +71,7 @@ namespace SpartaTextRPG
             }
             // Battle.OnDamage(targetMonster, damage);
 
-            Battle.instance.BattleScene();
+            Battle.instance.BattleStart();
         }
 
         public static void showSkill(List<Monster> monsters)
@@ -108,7 +108,7 @@ namespace SpartaTextRPG
                     useSkill(num - 1, monsters);
                 } else if(num  ==  0)
                 {
-                    Battle.instance.BattleScene();
+                    Battle.instance.BattleStart();
                 }
             }
         }
