@@ -63,7 +63,13 @@ namespace SpartaTextRPG
                     {
                         if (Player.player.weapon != 0)
                         {
-                            Item.Instance.equipItems[equip].SubItemStat();
+                            for (int i = 0; i < Item.Instance.equipItems.Count; i++)
+                            {
+                                if (Player.player.weapon == Item.Instance.equipItems[i].id)
+                                {
+                                    Item.Instance.equipItems[i].SubItemStat();
+                                }
+                            }
                         }
                         Player.player.weapon = Item.Instance.equipItems[equip].id;
                         Item.Instance.equipItems[equip].AddItemStat();
@@ -82,7 +88,13 @@ namespace SpartaTextRPG
                     {
                         if (Player.player.armor != 0)
                         {
-                            Item.Instance.equipItems[equip].SubItemStat();
+                            for (int i = 0; i < Item.Instance.equipItems.Count; i++)
+                            {
+                                if (Player.player.weapon == Item.Instance.equipItems[i].id)
+                                {
+                                    Item.Instance.equipItems[i].SubItemStat();
+                                }
+                            }
                         }
                         Player.player.armor = Item.Instance.equipItems[equip].id;
                         Item.Instance.equipItems[equip].AddItemStat();
