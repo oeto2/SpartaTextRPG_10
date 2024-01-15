@@ -25,13 +25,13 @@ namespace SpartaTextRPG.DataClass.Quest
         //퀘스트 목록
         public static List<Quest> questList = new List<Quest>()
         {
-            new Quest(0,"1차 전직","캐릭터의 레벨을 올려 1차 전직을 해보자.",500, 30,QuestType.Main),
+            new Quest(0,"1차 전직","캐릭터의 레벨을 올려 1차 전직을 해보자.",500, 200,QuestType.Main),
             new Quest(1,"2차 전직","캐릭터의 레벨을 올려 2차 전직을 해보자.",3000, 500,QuestType.Main),
-            new Quest(2,"아이템 장착","인벤토리에서 아이템을 장착해보자",200,500 ,QuestType.Main),
+            new Quest(2,"아이템 장착","인벤토리에서 아이템을 장착해보자",200,100 ,QuestType.Main),
             new Quest(3,"던전 입장하기","던전에 입장해보자",600,100,QuestType.Sub),
             new Quest(4,"휴식하기","휴식 기능을 사용해보자",1000,150,QuestType.Sub),
-            new Quest(5,"던전 클리어","난이도 상관없이 던전을 클리어해보자.",500,50,QuestType.Main),
-            new Quest(6,"포션 아이템 사용","상점에서 포션을 구매해서 사용해보자",500,50,QuestType.Sub),
+            new Quest(5,"던전 클리어","난이도 상관없이 던전을 클리어해보자.",500,200,QuestType.Main),
+            new Quest(6,"포션 아이템 사용","상점에서 포션을 구매해서 사용해보자",200,100,QuestType.Sub),
         };
 
         //퀘스트 시작

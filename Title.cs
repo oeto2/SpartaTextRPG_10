@@ -20,9 +20,11 @@ namespace SpartaTextRPG
 
         //이어하기
         private bool isContinue;
-            
+
         //플레이어 이름
         string playerName;
+
+        bool isSkip = false;
 
         //타이틀 화면 시작
         public void StartTitle()
@@ -34,6 +36,9 @@ namespace SpartaTextRPG
             {
                 //이름 짓기
                 while (NamePlayer() != 1) { };
+
+                //스킵 체크
+                CheckSkip();
 
                 //프롤로그 시작
                 StartProlog();
@@ -56,39 +61,78 @@ namespace SpartaTextRPG
             Player.player.name = playerName;
         }
 
+        private void CheckSkip()
+        {
+            Console.Clear();
+            if (isWrong)
+                Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.\n");
+
+            Color.ChangeTextColor(Colors.RED, "프롤로그를 ", "스킵 ", "하시겠습니까?\n\n");
+            Color.ChangeTextColor(Colors.RED, "", "1. ", "예\n");
+            Color.ChangeTextColor(Colors.RED, "", "2. ", "아니오\n\n");
+            PrintInputCursor();
+            string input = Console.ReadLine();
+
+            switch (input)
+            {
+                default:
+                    isWrong = true;
+                    CheckSkip();
+                    return;
+
+                case "1":
+                    isSkip = true;
+                    isWrong = false;
+                    break;
+                case "2":
+                    isSkip = false;
+                    isWrong = false;
+                    break;
+            }
+        }
+
         //프롤로그
         private void StartProlog()
         {
-            Console.Clear();
-            Console.CursorVisible = false;
+            if (!isSkip)
+            {
+                Console.Clear();
+                Console.CursorVisible = false;
 
-            //Prolog1-1: 평화로운 마을
-            ShowImage(3);
-            Console.WriteLine("================================================================================");
-            WriteChar("인간들의 대륙 \"엘리시움\"은 신비로운 힘과 환상적인 존재로 가득 차 있었다.", 50);
-            WriteChar("그곳에서는 인간 뿐만아니라 여러 종족이 어우러져 살아가고 있었다.", 50);
-            WriteChar("하지만 평화는 오래가지 않았다.", 50);
-            Console.ReadKey();
+                //Prolog1-1: 평화로운 마을
+                ShowImage(3);
+                Console.WriteLine("================================================================================");
+                WriteChar("인간들의 대륙 \"내배움\"은 신비로운 힘과 환상적인 존재로 가득 차 있었다.", 60);
+                WriteChar("그곳은 주 80시간 노동이라는 힘든 근무환경이 조성되어 있었지만,", 60);
+                WriteChar("나름대로 만족하며 평화롭게 살아가고 있었다", 60);
+                Console.ReadKey();
 
-            //Prolog1-2: 드래곤의 습격
-            Console.Clear();
-            ShowImage(2);
-            Console.WriteLine();
-            Console.WriteLine("================================================================================");
-            WriteChar("어느날, 드래곤과 마물들이 인간들을 습격했다.", 50);
-            WriteChar("마물들의 습격으로 인해 마을은 황폐화되었고, 많은 인간들이 죽어나갔다.", 50);
-            WriteChar("인간들은 마물들을 피해 숨었고, 원래 살던 마을은 던전이 되었다.", 50);
-            Console.ReadKey();
+                //Prolog1-2: 드래곤의 습격
+                Console.Clear();
+                ShowImage(2);
+                Console.WriteLine();
+                Console.WriteLine("================================================================================");
+                WriteChar("어느날 마왕들의 하수인인 드래곤이 마물들을 이끌고 마을을 습격했다.", 60);
+                WriteChar("마물들의 습격으로 폐허가 된 마을은 던전이 되었고, 많은 인간들이 죽어나갔다.", 60);
+                WriteChar("살아남은 인간들은 마물들을 피해 숨었지만, 마왕들의 집요함에 결국 발견되었고,", 60);
+                WriteChar("주인공 {0}의 가족 또한 이 습격을 피해갈 수 없었다.", 60, playerName);
+                Console.ReadKey();
 
 
-            //Prolog1-3: 모험의 시작
-            Console.Clear();
-            ShowImage(5);
-            Console.WriteLine("================================================================================");
-            WriteChar("그로부터 20년 후..", 50);
-            WriteChar("{0}(은)는 부모님의 복수를 하기 위해 던전으로 향했다.", 50, playerName);
-            Console.ReadKey();
-            Console.CursorVisible = true;
+                //Prolog1-3: 모험의 시작
+                Console.Clear();
+                ShowImage(5);
+                Console.WriteLine("================================================================================");
+                WriteChar("그로부터 20년 후..", 60);
+                WriteChar("{0}(은)는 가족의 복수를 하기 위해 던전으로 향했다.", 60, playerName);
+                Console.ReadKey();
+                LoadingScene(false);
+                Console.CursorVisible = true;
+            }
+            else
+            {
+                LoadingScene(false);
+            }
         }
 
 
@@ -104,10 +148,11 @@ namespace SpartaTextRPG
             while (playerName.Length < 1 || playerName.Contains(" "))
             {
                 Console.Clear();
+                if (CheckEmpty(playerName))
+                    Color.ChangeTextColor(Colors.RED, "", "캐릭터 이름에는 공백이 포함될 수 없습니다.\n");
                 Color.ChangeTextColor(Colors.YELLOW, "", "스파르타 RPG에 오신 여러분 환영합니다.\n\n");
                 Color.ChangeTextColor(Colors.MAGENTA, "모험을 시작하기 앞서 ", "캐릭터의 이름", "을 입력 해주세요.\n");
-                if (CheckEmpty(playerName))
-                    Color.ChangeTextColor(Colors.RED, "", "******캐릭터 이름에는 공백이 포함될 수 없습니다.******\n");
+
                 Console.Write(">>");
                 playerName = Console.ReadLine();
             }
@@ -117,17 +162,18 @@ namespace SpartaTextRPG
                 isName = false;
 
                 Console.Clear();
+                if (isWrong)
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.\n");
                 Color.ChangeTextColor(Colors.YELLOW, "", "캐릭터생성 - 이름\n");
                 Console.WriteLine();
 
                 Color.ChangeTextColor(Colors.MAGENTA, "", "캐릭터의 이름", "을 ");
                 Color.ChangeTextColor(Colors.RED, "", playerName, "(으)로 하시겠습니까?\n");
                 Console.WriteLine("=============================================");
-                Console.WriteLine("1.예");
-                Console.WriteLine("2.아니오");
+                Color.ChangeTextColor(Colors.RED, "", "1. ", "예\n");
+                Color.ChangeTextColor(Colors.RED, "", "2. ", "아니오\n");
                 Console.WriteLine();
-                if (isWrong)
-                    Color.ChangeTextColor(Colors.RED, "", "******잘못된 입력입니다.******\n");
+
                 Console.Write(">>");
 
                 string input = Console.ReadLine();
@@ -231,36 +277,59 @@ namespace SpartaTextRPG
             Console.Write(">>");
             string input = Console.ReadLine();
 
-            switch(input)
+            switch (input)
             {
                 default:
                     break;
+
+                //새로하기
                 case "1":
                     return 1;
 
+                //이어하기
                 case "2":
-                    return LoadingScene();
+                    return LoadingScene(true);
             }
 
             return 3;
         }
 
         //로딩화면
-        private int LoadingScene()
+        private int LoadingScene(bool _isLoad)
         {
-            Console.Clear();
-            Console.WriteLine("게임 데이터를 불러오는 중입니다...");
-            Thread.Sleep(100);
-            Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
-            Thread.Sleep(100);
-            Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
-            Thread.Sleep(100);
-            Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
-            Thread.Sleep(100);
+            if (_isLoad)
+            {
+                Console.Clear();
+                Console.WriteLine("게임 데이터를 불러오는 중입니다...");
+                Thread.Sleep(100);
+                Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
+                Thread.Sleep(100);
+                Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
+                Thread.Sleep(100);
+                Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
+                Thread.Sleep(100);
 
-            //메인화면
-            isContinue = true;
-            return 1;
+                //메인화면
+                isContinue = true;
+                return 1;
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("게임 데이터를 불러오는 중입니다...");
+                Thread.Sleep(100);
+                Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
+                Thread.Sleep(100);
+                Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
+                Thread.Sleep(100);
+                Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
+                Thread.Sleep(100);
+
+                //메인화면
+                isContinue = false;
+                return 1;
+            }
+
         }
 
         //타이틀 이미지
@@ -284,7 +353,7 @@ namespace SpartaTextRPG
             Console.WriteLine("======================================================");
             Color.ChangeTextColor(Colors.MAGENTA, "", "                      모험의 시작                      \n");
             Console.WriteLine("======================================================");
-            Color.ChangeTextColor(Colors.YELLOW, "","                      1. 새로하기                      \n");
+            Color.ChangeTextColor(Colors.YELLOW, "", "                      1. 새로하기                      \n");
             Color.ChangeTextColor(Colors.RED, "", "                      2. 이어하기                      \n");
         }
 
