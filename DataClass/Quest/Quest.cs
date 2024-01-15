@@ -14,6 +14,15 @@ namespace SpartaTextRPG.DataClass.Quest
         Sub //서브 퀘스트
     }
 
+    //물고기 종류
+    public enum FishType
+    {
+        Nomal,
+        Sliver,
+        Gold,
+        Fire
+    }
+
     public partial class QuestList
     {
         public static QuestList instance = new QuestList();
@@ -32,6 +41,10 @@ namespace SpartaTextRPG.DataClass.Quest
             new Quest(4,"휴식하기","휴식 기능을 사용해보자",1000,150,QuestType.Sub),
             new Quest(5,"던전 클리어","난이도 상관없이 던전을 클리어해보자.",500,200,QuestType.Main),
             new Quest(6,"포션 아이템 사용","상점에서 포션을 구매해서 사용해보자",200,100,QuestType.Sub),
+            new Quest(7,"물고기 10마리 잡기","낚시를 통해 그냥 물고기 10마리를 잡아보자",200,100,QuestType.Sub),
+            new Quest(8,"실버 물고기 잡기","낚시를 통해 실버 물고기를 잡아보자",500,200,QuestType.Sub),
+            new Quest(9,"골드 물고기 잡기","낚시를 통해 골드 물고기를 잡아보자",1000,500,QuestType.Sub),
+            new Quest(10,"불고기 잡기","낚시를 통해 불고기를 잡아보자",10000,10000,QuestType.Sub),
         };
 
         //퀘스트 시작
@@ -96,6 +109,16 @@ namespace SpartaTextRPG.DataClass.Quest
                 }
             }
 
+            //반복 퀘스트였을 경우
+            if (clearQuest.id == 7)
+            {
+                QuestBool.instance.CatchNomalFishNum = 0;
+                questList[7].isOngoing = false;
+                questList[7].isClear = false;
+                questList[7].isComplete = false;
+            }
+
+
             //퀘스트 보상 받기
             GetQuestReward(clearQuest);
         }
@@ -142,42 +165,96 @@ namespace SpartaTextRPG.DataClass.Quest
     //퀘스트 조건 (해당 퀘스트가 진행 중이여야만 동작)
     public class QuestBool
     {
+        public static QuestBool instance = new QuestBool();
+
         //휴식 기능을 사용 했는지
-        public static bool IsRest = false;
+        public bool IsRest = false;
 
         //물약을 사용했는지
-        public static bool UsePotion = false;
+        public bool UsePotion = false;
 
         // 던전 클리어 했을 경우 (아무 던전이나 가능)
-        public static bool DungeonClear = false;
+        public bool DungeonClear = false;
 
         //던전에 입장했는지
-        public static bool EnterDungeon = false;
+        public bool EnterDungeon = false;
+
+        //일반 물고기 잡은 횟수
+        public int CatchNomalFishNum = 0;
+
+        //물고기를 잡았는지
+        public bool CatchSilverFish = false;
+        public bool CatchGoldFish = false;
+        public bool CatchFireFish = false;
 
 
         //프로퍼티
         public static bool usePotion
         {
-            get { return UsePotion; }
-            set { if (QuestList.questList[6].isOngoing) UsePotion = value; }
-        } 
+            get { return instance.UsePotion; }
+            set { if (QuestList.questList[6].isOngoing) instance.UsePotion = value; }
+        }
 
         public static bool dungeonClear
         {
-            get { return DungeonClear; }
-            set { if (QuestList.questList[5].isOngoing) DungeonClear = value; }
+            get { return instance.DungeonClear; }
+            set { if (QuestList.questList[5].isOngoing) instance.DungeonClear = value; }
         }
 
         public static bool enterDungeon
         {
-            get { return EnterDungeon; }
-            set { if (QuestList.questList[3].isOngoing) EnterDungeon = value; }
+            get { return instance.EnterDungeon; }
+            set { if (QuestList.questList[3].isOngoing) instance.EnterDungeon = value; }
         }
 
         public static bool isRest
         {
-            get { return IsRest; }
-            set { if (QuestList.questList[4].isOngoing) IsRest = value; }
+            get { return instance.IsRest; }
+            set { if (QuestList.questList[4].isOngoing) instance.IsRest = value; }
+        }
+
+        public static bool catchSilverFish
+        {
+            get { return instance.CatchSilverFish; }
+            set { if (QuestList.questList[8].isOngoing) instance.CatchSilverFish = value; }
+        }
+
+        public static bool catchGoldFish
+        {
+            get { return instance.CatchGoldFish; }
+            set { if (QuestList.questList[9].isOngoing) instance.CatchGoldFish = value; }
+        }
+
+        public static bool catchFireFish
+        {
+            get { return instance.CatchFireFish; }
+            set { if (QuestList.questList[10].isOngoing) instance.CatchFireFish = value; }
+        }
+
+        public static void CatchFish(FishType _fishType)
+        {
+            switch (_fishType)
+            {
+                case FishType.Nomal:
+                    if (QuestList.questList[7].isOngoing)
+                       instance.CatchNomalFishNum++;
+                    break;
+
+                case FishType.Sliver:
+                    if (QuestList.questList[8].isOngoing)
+                        instance.CatchSilverFish = true;
+                    break;
+
+                case FishType.Gold:
+                    if (QuestList.questList[9].isOngoing)
+                        instance.CatchGoldFish = true;
+                    break;
+
+                case FishType.Fire:
+                    if (QuestList.questList[10].isOngoing)
+                        instance.CatchFireFish = true;
+                    break;
+            }
         }
     }
 }
