@@ -17,7 +17,8 @@ namespace SpartaTextRPG
         dungeon,
         rest,
         fishing,
-        guild
+        guild,
+        saveLoad
     }
     public class GameManager
     {
@@ -36,6 +37,8 @@ namespace SpartaTextRPG
             Console.WriteLine("5. 휴식 하기");
             Console.WriteLine("6. 낚시 하기");
             Console.WriteLine("7. 길드 입장");
+            Console.WriteLine("8. 저장, 불러오기");
+
             Color.ChangeTextColor(Colors.RED, "", "9", ". 게임종료\n\n");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -64,6 +67,9 @@ namespace SpartaTextRPG
                     break;
                 case "7":
                     Program.scene = Scene.guild;
+                    break;
+                case "8":
+                    Program.scene = Scene.saveLoad;
                     break;
                 case "9":
                     Environment.Exit(0);

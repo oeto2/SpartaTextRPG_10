@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using SpartaTextRPG.DataClass;
+using System.Diagnostics;
 
 namespace SpartaTextRPG
 {
@@ -39,6 +40,9 @@ namespace SpartaTextRPG
                         break;
                     case Scene.guild:
                         Guild.instance.ShowGuildPage();
+                        break;
+                    case Scene.saveLoad:
+                        Data.instnace.ShowSaveLoadPage();
                         break;
                 }
             }
