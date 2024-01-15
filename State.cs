@@ -64,7 +64,6 @@ namespace SpartaTextRPG
         public void Status()
         {
             checkJob();
-            Player.player.GetExp(1000);
             Color.ChangeTextColor(Colors.YELLOW, "", "상태 보기", "\n\n");
             Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
             Console.WriteLine($"Lv. {Player.player.level}");

@@ -68,7 +68,11 @@ namespace SpartaTextRPG
             maxHp = _maxHp;
             maxMp = _maxMp;
         }
-        
+
+        //세이브 로드 전용 생성자
+        public Player() { }
+
+
 
         public static Player player = new Player(0, "미정", 3, 0, 0, 50, 50, 20, 20);
 
