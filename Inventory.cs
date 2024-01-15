@@ -61,6 +61,10 @@ namespace SpartaTextRPG
                     // 장착
                     else
                     {
+                        if (Player.player.weapon != 0)
+                        {
+                            Item.Instance.equipItems[equip].SubItemStat();
+                        }
                         Player.player.weapon = Item.Instance.equipItems[equip].id;
                         Item.Instance.equipItems[equip].AddItemStat();
                     }
@@ -76,6 +80,10 @@ namespace SpartaTextRPG
                     // 장착
                     else
                     {
+                        if (Player.player.armor != 0)
+                        {
+                            Item.Instance.equipItems[equip].SubItemStat();
+                        }
                         Player.player.armor = Item.Instance.equipItems[equip].id;
                         Item.Instance.equipItems[equip].AddItemStat();
                     }
