@@ -46,8 +46,6 @@ namespace SpartaTextRPG
         };
 
 
-        //public static CurrentStageReward currentStageReward = new CurrentStageReward();
-
         public void ClearReward(int index)
         {
             Console.Clear();
@@ -56,14 +54,17 @@ namespace SpartaTextRPG
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("   ★☆Victory☆★\n\n");
             Console.ResetColor();
-            // 리워드 설정
-            Console.ReadLine(); // 레벨업 페이지 때문에 달아둠,
-            currentStageRewards[index].isClear = true;
+            Color.ChangeTextColor(Colors.YELLOW, "던전 ", Dungeon.instance.dungeonList[index].name, " 공략을 성공하였습니다!\n\n");
+            Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(Player.player.gold), " G  ->  ");
             Player.player.gold += currentStageRewards[index].gold; // 골드획득
+            Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(Player.player.gold), " G\n");
+            // 리워드 설정
+            Console.ReadLine(); 
+            currentStageRewards[index].isClear = true;
             Player.player.GetExp(currentStageRewards[index].exp);
         }
 
-        public void FailReward()
+        public void FailReward(int index)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -71,8 +72,9 @@ namespace SpartaTextRPG
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("   You Lose\n\n");
             Console.ResetColor();
+            Color.ChangeTextColor(Colors.RED, "던전 ", Dungeon.instance.dungeonList[index].name, " 공략을 실패하였습니다.\n\n");
             // 실패 시 전리품 미지급
-            Console.ReadLine(); // 레벨업 페이지 때문에 달아둠,
+            Console.ReadLine(); 
         }
     }
 }

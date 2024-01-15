@@ -24,4 +24,8 @@ public class Monster
 
         Number = 0;
     }
+    public bool IsAlive
+    {
+        get { return Health > 0; }
+    }
 }
