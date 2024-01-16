@@ -50,7 +50,9 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("    전투 결과\n");
+            Console.WriteLine("================================================");
+            Console.WriteLine("    전투 결과");
+            Console.WriteLine("================================================");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("   ★☆Victory☆★\n\n");
             Console.ResetColor();
@@ -68,7 +70,9 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("     전투 결과\n");
+            Console.WriteLine("================================================");
+            Console.WriteLine("    전투 결과");
+            Console.WriteLine("================================================");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("     You Lose\n\n");
             Console.ResetColor();
