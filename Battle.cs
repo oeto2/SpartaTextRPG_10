@@ -258,7 +258,7 @@ namespace SpartaTextRPG
         {
             for (int i = 0; i < spawnedMonsters.Count; i++)
             {
-                if (spawnedMonsters[i].Health > 0)
+                if (spawnedMonsters[i].Health > 0 && Player.player.hp > 0)
                 {
                     float damage = spawnedMonsters[i].Atk - Player.player.baseDef - Player.player.addDef;
                     if (damage < 0) damage = 0;
@@ -318,7 +318,7 @@ namespace SpartaTextRPG
                     case 3:
                         // 전투 중인 곳으로 돌아가기
                         return;
-                }
+                } 
             }
         }
         void UseHpPotion(int index)
