@@ -50,7 +50,9 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("    전투 결과\n");
+            Console.WriteLine("================================================");
+            Console.WriteLine("    전투 결과");
+            Console.WriteLine("================================================");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("   ★☆Victory☆★\n\n");
             Console.ResetColor();
@@ -68,13 +70,26 @@ namespace SpartaTextRPG
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("   전투 결과\n");
+            Console.WriteLine("================================================");
+            Console.WriteLine("    전투 결과");
+            Console.WriteLine("================================================");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("   You Lose\n\n");
+            Console.WriteLine("     You Lose\n\n");
             Console.ResetColor();
             Color.ChangeTextColor(Colors.RED, "던전 ", Dungeon.instance.dungeonList[index].name, " 공략을 실패하였습니다.\n\n");
+            Color.ChangeTextColor(Colors.RED, "", "        .---.\n");
+            Color.ChangeTextColor(Colors.RED, "", "        |   |  \n");
+            Color.ChangeTextColor(Colors.RED, "", "     ___|   |___\n");
+            Color.ChangeTextColor(Colors.RED, "", "    [           ]  \n");
+            Color.ChangeTextColor(Colors.RED, "", "    `---.   .---'\n");
+            Color.ChangeTextColor(Colors.RED, "", "        |   | \n");
+            Color.ChangeTextColor(Colors.RED, "", "        |   | \n");
+            Color.ChangeTextColor(Colors.RED, "", "        |   |   \n");
+            Color.ChangeTextColor(Colors.RED, "", "     _.-|   |-,_\n");
+            Color.ChangeTextColor(Colors.RED, "", " .-\"`   `\"`'`   `\"-.\n");
+
             // 실패 시 전리품 미지급
-            Console.ReadLine(); 
+            Console.ReadLine();
         }
     }
 }

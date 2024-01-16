@@ -36,6 +36,7 @@ namespace SpartaTextRPG
         {
             if (scene == DungeonScene.DungeonEntrance)
             {
+                Console.Clear();
                 Console.WriteLine("==========================================================");
                 Color.ChangeTextColor(Colors.YELLOW, "", "던  전  입  구\n");
                 Console.WriteLine("==========================================================");
