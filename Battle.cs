@@ -260,7 +260,7 @@ namespace SpartaTextRPG
             {
                 if (spawnedMonsters[i].Health > 0)
                 {
-                    float damage = spawnedMonsters[i].Atk - Player.player.baseDef + Player.player.addDef;
+                    float damage = spawnedMonsters[i].Atk - Player.player.baseDef - Player.player.addDef;
                     if (damage < 0) damage = 0;
 
                     // 몬스터 데미지

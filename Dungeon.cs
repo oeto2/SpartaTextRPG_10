@@ -102,7 +102,7 @@ namespace SpartaTextRPG
             Console.WriteLine($"공격력 : {Player.player.baseAtk + Player.player.addAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
             Console.WriteLine($"방어력 : {Player.player.baseDef + Player.player.addDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
             Console.WriteLine($"HP : {Player.player.hp} / {Player.player.maxHp}");
-            Console.WriteLine($"MP : {Player.player.hp} / {Player.player.maxMp}");
+            Console.WriteLine($"MP : {Player.player.mp} / {Player.player.maxMp}");
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
             Console.WriteLine("==========================================================");
             Console.WriteLine("[  단   계  ]");
