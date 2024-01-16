@@ -47,7 +47,8 @@ namespace SpartaTextRPG.DataClass
             //Quest
             gameData.Add(new string(JsonConvert.SerializeObject(QuestList.questList)));
             gameData.Add(new string(JsonConvert.SerializeObject(QuestBool.instance)));
-
+            //Skill
+            gameData.Add(new string(JsonConvert.SerializeObject(Skills.myskills)));
 
 
             //파일 저장
@@ -115,6 +116,8 @@ namespace SpartaTextRPG.DataClass
                 //Quest
                 QuestList.questList = JsonConvert.DeserializeObject<List<Quest.Quest>>(gameData[8]);
                 QuestBool.instance = JsonConvert.DeserializeObject<QuestBool>(gameData[9]);
+                //Skill
+                Skills.myskills = JsonConvert.DeserializeObject<List<Skills>>(gameData[10]);
             }
             else loadfail = true;
         }
