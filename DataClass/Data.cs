@@ -25,7 +25,8 @@ namespace SpartaTextRPG.DataClass
         string filePath = Directory.GetCurrentDirectory();
 
         //bool값
-        private bool isWrong, isSave, isLoad, loadfail;
+        private bool isWrong, isSave, isLoad;
+        public bool loadfail;
 
         public void Save()
         {

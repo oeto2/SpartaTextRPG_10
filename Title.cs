@@ -297,39 +297,38 @@ namespace SpartaTextRPG
         //로딩화면
         private int LoadingScene(bool _isLoad)
         {
+            //데이터 불러오기
             if (_isLoad)
             {
-                Console.Clear();
-                Console.WriteLine("게임 데이터를 불러오는 중입니다...");
-                Thread.Sleep(100);
-                Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
-                Thread.Sleep(100);
-                Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
-                Thread.Sleep(100);
-                Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
-                Thread.Sleep(100);
+                //데이터 불러오기
+                Data.instnace.Load();
+                if(Data.instnace.loadfail)
+                {
+                    Console.Clear();
+                    Color.ChangeTextColor(Colors.RED, "", "저장된 데이터가 존재하지 않습니다.\n");
+                    PrintInputCursor();
+                    Console.ReadLine();
+                }
 
-                //메인화면
-                isContinue = true;
-                return 1;
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("게임 데이터를 불러오는 중입니다...");
-                Thread.Sleep(100);
-                Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
-                Thread.Sleep(100);
-                Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
-                Thread.Sleep(100);
-                Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
-                Thread.Sleep(100);
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("게임 데이터를 불러오는 중입니다...");
+                    Thread.Sleep(300);
+                    Console.WriteLine("상점주인이 아이템을 준비하고 있습니다...");
+                    Thread.Sleep(300);
+                    Console.WriteLine("던전에 몬스터들이 배치되었습니다.");
+                    Thread.Sleep(300);
+                    Console.WriteLine("주인공이 모험을 떠날 준비를 하고있습니다...");
+                    Thread.Sleep(300);
 
-                //메인화면
-                isContinue = false;
-                return 1;
+                    //메인화면
+                    isContinue = true;
+                    return 1;
+                }
             }
 
+            return 0;
         }
 
         //타이틀 이미지

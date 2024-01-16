@@ -20,7 +20,7 @@ namespace SpartaTextRPG
             Skills.allskills.Add(Skills.requiem);
             Skills.allskills.Add(Skills.howling);
             Skills.allskills = Skills.allskills.Distinct().ToList();
-
+            Skills.myskills = Skills.myskills.Distinct().ToList();
             Skill.instance.getSkill();
         }
         //스킬 얻기

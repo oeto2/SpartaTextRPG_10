@@ -9,8 +9,9 @@ namespace SpartaTextRPG
         static void Main(string[] args)
         {
             Item.Instance.ItemInit();
-            Title.instance.StartTitle();
             Skill.instance.makeSkill();
+            Title.instance.StartTitle();
+
             Console.Clear();
             while (true)
             {

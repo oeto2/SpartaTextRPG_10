@@ -271,7 +271,7 @@ namespace SpartaTextRPG
 
                     if (Player.player.hp <= 0)
                     {
-                        Console.WriteLine($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.maxHp} -> Dead\n\nEnter. 다음");
+                        Console.WriteLine($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.hp} -> Dead\n\nEnter. 다음");
                         Console.ReadLine();
                         Console.Clear();
                         Reward.Instance.FailReward(DungeonEnter.dungeonLevel);
@@ -279,7 +279,7 @@ namespace SpartaTextRPG
                     }
                     else
                     {
-                        Console.Write($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.maxHp} -> {Player.player.hp}\n\nEnter. 다음");
+                        Console.Write($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.hp} -> {Player.player.hp}\n\nEnter. 다음");
                         Console.ReadLine();
                         if (!isClear)
                             PlayerTurn();
