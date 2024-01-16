@@ -64,6 +64,7 @@ namespace SpartaTextRPG
             Color.ChangeTextColor(Colors.MAGENTA, "", Convert.ToString(Player.player.gold), " G\n");
             // 리워드 설정
             Console.ReadLine(); 
+            Console.Clear();
             currentStageRewards[index].isClear = true;
             Player.player.GetExp(currentStageRewards[index].exp);
             Program.scene = Scene.mainScene;

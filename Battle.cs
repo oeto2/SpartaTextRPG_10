@@ -139,20 +139,10 @@ namespace SpartaTextRPG
                             return;
                         break;
                     case 3:
-                        // HpRecovery();
+                        UsePotion(1);
                         break;
                 }
             }
-            //if (Player.player.hp > 0)
-            //{
-            //    Console.ReadLine();
-            //    Reward.Instance.ClearReward(1);
-            //}
-            //else
-            //{
-            //    Reward.Instance.FailReward(1);
-
-            //}
         }
         public bool Attack()
         {
@@ -255,13 +245,6 @@ namespace SpartaTextRPG
             return damage; // 회피하지 않았으면 원래의 대미지 반환
         }
 
-
-        /*
-        void Skill()
-        {
-        }
-        */
-
         // 몬스터 턴
         public void MonsterTurn()
         {
@@ -306,40 +289,23 @@ namespace SpartaTextRPG
             }
             return live;
         }
-
-        /*
-        void HpRecovery()
+        public void UsePotion(int index)
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[회복]\n");
-            Console.ResetColor();
-            Console.Write("체력, 마나 포션을 사용하면 Hp/Mp를 ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("30");
-            Console.ResetColor();
-            Console.Write(" 회복 할 수 있습니다.\n");
-            Console.Write("\n(남은 체력 포션 : ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write(Player.player.HpPotion);
-            Console.ResetColor();
-            Console.Write(" )\n");
-            Console.Write("\n(남은 마나 포션 : ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write(Player.player.MpPotion);
-            Console.ResetColor();
-            Console.Write(" )\n");
-
+            Console.WriteLine("================================================");
+            Color.ChangeTextColor(Colors.YELLOW, "", $"Stage.{index} - {Dungeon.instance.dungeonList[index - 1].name}\n");
+            Console.WriteLine("================================================");
+            Console.WriteLine("");
             while (true)
             {
-                Console.WriteLine("\n1. 체력 회복 \n2. 마나 회복 \n3. 돌아가기");
-                switch (ChoiceInput(1, 3))
+                int input;
+                Console.WriteLine("\n1. 하급 포션 : HP를 30 회복해줍니다. \n2. 중급 포션 : HP를 60, MP를 30 회복해줍니다. \n3. 돌아가기");
+                Console.Write(">>");
+                switch (input = ChoiceInput(1, 3))
                 {
                     case 1:
-                        UseHpPotion();
-                        break;
                     case 2:
-                        UseMpPotion();
+                        UseHpPotion(input);
                         break;
                     case 3:
                         // 전투 중인 곳으로 돌아가기
@@ -347,104 +313,51 @@ namespace SpartaTextRPG
                 }
             }
         }
-        void UseHpPotion()
+        void UseHpPotion(int index)
         {
-            if (player.HpPotion > 0)
+            Console.Clear();
+            Console.WriteLine("================================================");
+            Color.ChangeTextColor(Colors.YELLOW, "", $"Stage.{index} - {Dungeon.instance.dungeonList[index - 1].name}\n");
+            Console.WriteLine("================================================");
+            Console.WriteLine("");
+            Console.WriteLine("[포션 목록]");
+            if (Player.player.hp >= Player.player.maxHp)
             {
-                if (player.Hp < player.MaxHp)
+                Console.WriteLine("이미 최대 HP 입니다.");
+            }
+            else if (Item.Instance.consumItems[index - 1].count > 0)
+            {
+                Item.Instance.consumItems[index - 1].UsePotion();
+                Console.Write("\nHP를");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(Item.Instance.consumItems[index - 1].recoveryHp); // 회복량 출력
+                Console.ResetColor();
+                Console.Write("회복 하였습니다.\n");
+                if (Item.Instance.consumItems[index - 1].recoveryMp > 0)
                 {
-                    int currentHp = player.Hp; // 현재 체력 저장, 플레이어hp
-                    player.Hp = Math.Min(player.Hp + 30, player.MaxHp);
-                    int recoveryHp = player.Hp - currentHp; // 회복량 계산 
-                    player.HpPotion--; // 1개 소모
-                    Console.Write("\n체력을 ");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(recoveryHp); // 회복량 출력
+                    Console.Write("\nMP를");
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.ResetColor();
-                    Console.Write("회복 하였습니다.\n");
-                    Console.WriteLine("\n");
-                    Console.Write("플레이어의 현재 체력 : ");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(player.Hp);
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    Console.Write("남은 체력 포션 : ");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write(player.HpPotion);
-                    Console.ResetColor();
-                    Console.WriteLine();
+                    Console.Write(Item.Instance.consumItems[index - 1].recoveryMp);
+                    Console.Write("회복 하였습니다.");
                 }
-                else if (player.Hp >= player.MaxHp)
-                {
-                    Console.Write("이미 ");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("최대 체력");
-                    Console.ResetColor();
-                    Console.Write("입니다.");
-                    Console.WriteLine();
-                }
-
-                Console.Write("입니다.");
+                Console.WriteLine("\n");
+                Console.Write("플레이어의 현재 HP : ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(Player.player.hp);
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.Write("남은" + Item.Instance.consumItems[index - 1].name + " : ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(Item.Instance.consumItems[index - 1].count);
+                Console.ResetColor();
                 Console.WriteLine();
             }
             else
             {
-                Console.Write("체력 포션이 ");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("부족");
-                Console.ResetColor();
-                Console.Write("합니다!");
-                Console.WriteLine();
+                Console.WriteLine("보유하신 포션이 없습니다.");
             }
         }
-        void UseMpPotion()
-        {
-            if (player.MpPotion > 0)
-            {
-                if (player.Mp < player.MaxMp)
-                {
-                    int currentMp = player.Mp; // 현재 마나 저장, 플레이어hp
-                    player.Mp = Math.Min(player.Mp + 30, player.MaxMp);
-                    int recoveryMp = player.Mp - currentMp; // 회복량 계산 
-                    player.MpPotion--; // 1개 소모
-                    Console.Write("\n체력을 ");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(recoveryMp); // 회복량 출력
-                    Console.ResetColor();
-                    Console.Write("회복 하였습니다.\n");
-                    Console.WriteLine("\n");
-                    Console.Write("플레이어의 현재 마나 : ");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(player.Mp);
-                    Console.ResetColor();
-                    Console.WriteLine();
-                    Console.Write("남은 마나 포션 : ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write(player.MpPotion);
-                    Console.ResetColor();
-                    Console.WriteLine();
-                }
-                else if (player.Mp >= player.MaxMp)
-                {
-                    Console.Write("이미 ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write("최대 마나");
-                    Console.ResetColor();
-                    Console.Write("입니다.");
-                    Console.WriteLine();
-                }
-                else
-                {
-                    Console.Write("마나 포션이 ");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("부족");
-                    Console.ResetColor();
-                    Console.Write("합니다!");
-                    Console.WriteLine();
-                }
-            }
-        }
-        */
 
         public void BattleScene(int index) // 현재 전투 필드 출력 메서드
         {

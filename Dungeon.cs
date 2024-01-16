@@ -46,8 +46,8 @@ namespace SpartaTextRPG
                 Console.WriteLine($"chad < {Player.player.job} >\n");
                 Console.WriteLine($"공격력 : {Player.player.baseAtk + Player.player.addAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
                 Console.WriteLine($"방어력 : {Player.player.baseDef + Player.player.addDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
-                Console.WriteLine($"체력 : {Player.player.maxHp} / {Player.player.hp}");
-                Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
+                Console.WriteLine($"HP : {Player.player.hp} / {Player.player.maxHp}");
+                Console.WriteLine($"MP : {Player.player.mp} / {Player.player.maxMp}");
                 Console.WriteLine($"Gold : {Player.player.gold} G\n");
                 Console.WriteLine("==========================================================");
                 Console.WriteLine("1. 던전 입장");
@@ -100,9 +100,9 @@ namespace SpartaTextRPG
             Console.WriteLine($"Lv. {Player.player.level}");
             Console.WriteLine($"chad < {Player.player.job} >\n");
             Console.WriteLine($"공격력 : {Player.player.baseAtk + Player.player.addAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
-            Console.WriteLine($"방어력 : {Player.player.baseAtk + Player.player.addAtk} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
-            Console.WriteLine($"체력 : {Player.player.maxHp} / {Player.player.hp}");
-            Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
+            Console.WriteLine($"방어력 : {Player.player.baseDef + Player.player.addDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
+            Console.WriteLine($"HP : {Player.player.hp} / {Player.player.maxHp}");
+            Console.WriteLine($"MP : {Player.player.hp} / {Player.player.maxMp}");
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
             Console.WriteLine("==========================================================");
             Console.WriteLine("[  단   계  ]");
