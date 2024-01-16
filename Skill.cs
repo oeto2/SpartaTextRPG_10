@@ -75,7 +75,7 @@ namespace SpartaTextRPG
                     else if (Player.player.mp < -Skills.myskills[skillnum].mp)
                     {
                         Console.WriteLine("플레이어의 MP가 부족합니다.\n");
-                        res = false;
+                        showSkill(monsters);
                     }
                     else if (damageToMonster > 0 )
                     {
@@ -100,8 +100,11 @@ namespace SpartaTextRPG
                             }
 
                         }
+                    } else
+                    {
+                        Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                     }
-                
+
                 } else
                 {
                     Console.WriteLine("잘못된 몬스터 번호입니다. 다시 입력해주세요.");
@@ -146,16 +149,20 @@ namespace SpartaTextRPG
                 {
                     Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                 }
-                else if (Skills.myskills[num - 1] != null)
-                {
-                    useSkill(num - 1, monsters);
-                    return Skill.instance.check;
-                }
                 else if (num == 0)
                 {
 
                     Battle.instance.PlayerTurn();
                     return false;
+                }
+                else if (Skills.myskills.Count >= num)
+                {
+                    useSkill(num - 1, monsters);
+                    return Skill.instance.check;
+                } else
+                {
+                    res = false;
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                 }
             }
             return false;
