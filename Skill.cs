@@ -54,7 +54,7 @@ namespace SpartaTextRPG
                 int num;
 
                 res = int.TryParse(userInput, out monsternum);
-                if (res && monsters.Count >= monsternum) 
+                if (res && monsters.Count >= monsternum && monsternum > 0) 
                 { 
                     Monster targetMonster = monsters[monsternum - 1];
                     float damage = Skills.myskills[skillnum].damage * (Player.player.baseAtk + Player.player.addAtk - targetMonster.Def);
@@ -104,7 +104,7 @@ namespace SpartaTextRPG
                 
                 } else
                 {
-                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n"); 
+                    Console.WriteLine("잘못된 몬스터 번호입니다. 다시 입력해주세요.");
                     res = false;
                 }
 
