@@ -55,6 +55,10 @@ namespace SpartaTextRPG.DataClass.Quest
             if (questList[4] != null && !questList[4].isOngoing && !questList[4].isComplete)
                 questList[4].isPossible = true;
 
+            //던전 클리어하기 퀘스트 시작 조건
+            if (questList[5] != null && !questList[5].isOngoing && !questList[5].isComplete)
+                questList[5].isPossible = true;
+
             //포션아이템 사용 퀘스트 시작 조건
             if (questList[6] != null && !questList[6].isOngoing && !questList[6].isComplete)
                 questList[6].isPossible = true;
