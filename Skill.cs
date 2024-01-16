@@ -54,10 +54,13 @@ namespace SpartaTextRPG
                 int num;
 
                 res = int.TryParse(userInput, out monsternum);
-                if (res && monsters.Count >= monsternum && monsternum > 0) 
-                { 
+                if (res && monsters.Count >= monsternum && monsternum > 0)
+                {
                     Monster targetMonster = monsters[monsternum - 1];
-                    float damage = Skills.myskills[skillnum].damage * (Player.player.baseAtk + Player.player.addAtk - targetMonster.Def);
+                    float damage = Skills.myskills[skillnum].damage * (Player.player.baseAtk + Player.player.addAtk) - targetMonster.Def;
+                    if (damage < 1)
+                        damage = 1;
+
                     Math.Truncate(damage);
                     float damageToMonster = damage;
                     bool iscritical = false;
@@ -115,7 +118,8 @@ namespace SpartaTextRPG
                         Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                     }
 
-                } else
+                }
+                else
                 {
                     Console.WriteLine("잘못된 몬스터 번호입니다. 다시 입력해주세요.");
                     res = false;
@@ -169,7 +173,8 @@ namespace SpartaTextRPG
                 {
                     useSkill(num - 1, monsters);
                     return Skill.instance.check;
-                } else
+                }
+                else
                 {
                     res = false;
                     Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
