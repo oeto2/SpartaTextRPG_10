@@ -12,6 +12,7 @@ namespace SpartaTextRPG
         public static Skill instance = new Skill();
         public void makeSkill()
         {
+            Skills.allskills.Add(Skills.hit);
             Skills.allskills.Add(Skills.smash);
             Skills.allskills.Add(Skills.luncky7);
             Skills.allskills.Add(Skills.frenzy);
@@ -19,6 +20,8 @@ namespace SpartaTextRPG
             Skills.allskills.Add(Skills.requiem);
             Skills.allskills.Add(Skills.howling);
             Skills.allskills = Skills.allskills.Distinct().ToList();
+
+            Skill.instance.getSkill();
         }
         //스킬 얻기
         public void getSkill()
@@ -36,50 +39,87 @@ namespace SpartaTextRPG
 
         //스킬 사용(원하는 스킬 인덱스 , 공격 몬스터 인덱스)
         //나중에 스플뎀 가능하면 넣을 예정
-        public static void useSkill(int skillnum,  List<Monster> monsters)
+
+        public bool check = false;
+        public static void useSkill(int skillnum, List<Monster> monsters)
         {
             int monsternum;
+
             bool res = false;
             while (!res)
             {
-                Console.WriteLine("공격할 몬스터를 선택해주세요.");
+                Console.WriteLine("대상을 선택해주세요.");
                 Console.Write(">>");
                 string userInput = Console.ReadLine();
                 int num;
 
                 res = int.TryParse(userInput, out monsternum);
-
-                if (!res)
-                {
-                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                }
-                else if (monsters[monsternum - 1] != null)
-                {
-                    res = true;
-                    float damage = Skills.myskills[skillnum].damage * (Player.player.baseAtk + Player.player.addAtk);
+                if (res && monsters.Count >= monsternum) 
+                { 
+                    Monster targetMonster = monsters[monsternum - 1];
+                    float damage = Skills.myskills[skillnum].damage * (Player.player.baseAtk + Player.player.addAtk - targetMonster.Def);
                     Math.Truncate(damage);
-                    Player.player.hp += Skills.myskills[skillnum].hp;
-                    Player.player.mp += Skills.myskills[skillnum].mp;
+                    float damageToMonster = damage;
+                    bool iscritical = false;
+                    bool isdodge = false;
 
-                    monsters[monsternum - 1].Health -= damage;
+                    damageToMonster = Battle.instance.CriticalAttack(damageToMonster, ref iscritical);
+                    damageToMonster = Battle.instance.DodgeAttack(damageToMonster, false, ref isdodge);
 
-                }
-                else if (monsternum == 0)
+                    if (targetMonster.Health <= 0 && isdodge == false)
+                    {
+                        targetMonster.Health = 0;
+                        Console.WriteLine("이미 죽은 몬스터에게는 데미지를 입힐 수 없습니다!\n");
+                        res = false;
+                    }
+                    else if (Player.player.mp < -Skills.myskills[skillnum].mp)
+                    {
+                        Console.WriteLine("플레이어의 MP가 부족합니다.\n");
+                        res = false;
+                    }
+                    else if (damageToMonster > 0 )
+                    {
+                        targetMonster.Health -= damageToMonster;
+                        Player.player.hp += Skills.myskills[skillnum].hp;
+                        Player.player.mp += Skills.myskills[skillnum].mp;
+                        Console.WriteLine($"{Player.player.name}이(가) {targetMonster.Name}에게 {Skills.myskills[skillnum].name}을 가했습니다! [데미지: {damageToMonster}]");
+                        Console.ReadLine();
+                        Console.WriteLine("");
+                        if (targetMonster.Health <= 0)
+                        {
+                            Console.WriteLine($"{targetMonster.Name}이(가) 사망했습니다!");
+
+                            // 몬스터가 다 죽었을 때
+                            bool allMonstersDead = monsters.All(monster => monster.Health <= 0);
+                            Console.ReadLine();
+
+                            if (allMonstersDead == true)
+                            {
+                                Reward.Instance.ClearReward(1);
+                                Skill.instance.check = true;
+                            }
+
+                        }
+                    }
+                
+                } else
                 {
-                    res = true;
+                    Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n"); 
+                    res = false;
                 }
-            }
-            // Battle.OnDamage(targetMonster, damage);
 
-            Battle.instance.BattleStart();
+            }
+
+            Battle.instance.MonsterTurn();
+            Skill.instance.check = false;
         }
 
-        public static void showSkill(List<Monster> monsters)
+        public static bool showSkill(List<Monster> monsters)
         {
             int i = 1;
             foreach (var skill in Skills.myskills)
             {
-                Color.ChangeTextColor(Colors.BLUE, "\n", $"{i}. {skill.name} ","");
+                Color.ChangeTextColor(Colors.BLUE, "\n", $"{i}. {skill.name} ", "");
                 if (skill.hp != 0)
                 {
                     Console.Write($" - HP {-skill.hp} 사용\n");
@@ -90,6 +130,8 @@ namespace SpartaTextRPG
                 }
                 i++;
             }
+            Color.ChangeTextColor(Colors.RED, "", "0. 취소하기", "\n\n");
+
             bool res = false;
             while (!res)
             {
@@ -100,17 +142,23 @@ namespace SpartaTextRPG
 
                 res = int.TryParse(userInput, out num);
 
-                if (!res) 
+                if (!res)
                 {
                     Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                }else if(Skills.myskills[num - 1] != null)
+                }
+                else if (Skills.myskills[num - 1] != null)
                 {
                     useSkill(num - 1, monsters);
-                } else if(num  ==  0)
+                    return Skill.instance.check;
+                }
+                else if (num == 0)
                 {
-                    Battle.instance.BattleStart();
+
+                    Battle.instance.PlayerTurn();
+                    return false;
                 }
             }
+            return false;
         }
     }
 }

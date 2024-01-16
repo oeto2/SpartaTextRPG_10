@@ -135,14 +135,8 @@ namespace SpartaTextRPG
                             return;
                         break;
                     case 2:
-                        if (Skills.myskills.Count > 0)
-                        {
-                            Skill.showSkill(spawnedMonsters);
-                        }
-                        else
-                        {
-                            Color.ChangeTextColor(Colors.RED, "", "보유 스킬이 없습니다.", "\n");
-                        }
+                        if (Skill.showSkill(spawnedMonsters))
+                            return;
                         break;
                     case 3:
                         // HpRecovery();
