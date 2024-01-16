@@ -59,6 +59,22 @@ namespace SpartaTextRPG.DataClass.Quest
             if (questList[6] != null && !questList[6].isOngoing && !questList[6].isComplete)
                 questList[6].isPossible = true;
 
+            //물고기 10마리 잡기
+            if (questList[7] != null && !questList[7].isOngoing && !questList[7].isComplete)
+                questList[7].isPossible = true;
+
+            //실버 물고기 잡기
+            if (questList[8] != null && !questList[8].isOngoing && !questList[8].isComplete)
+                questList[8].isPossible = true;
+
+            //골드 물고기 잡기
+            if (questList[9] != null && !questList[9].isOngoing && !questList[9].isComplete)
+                questList[9].isPossible = true;
+
+            //불고기 잡기
+            if (questList[10] != null && !questList[10].isOngoing && !questList[10].isComplete)
+                questList[10].isPossible = true;
+
             #endregion
         }
 
@@ -141,26 +157,26 @@ namespace SpartaTextRPG.DataClass.Quest
 
                         //Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                         Console.Write($"{_quest.name} ");
-                        Console.SetCursorPosition(20, col);
+                        Console.SetCursorPosition(22, col);
                         Console.Write('|');
 
                         //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
                         Console.Write($" {_quest.info}");
-                        Console.SetCursorPosition(60, col);
+                        Console.SetCursorPosition(66, col);
                         Console.Write('|');
 
 
                         //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
                         Console.Write($" {_quest.gold}".PadLeft(6));
-                        Console.SetCursorPosition(68, col);
+                        Console.SetCursorPosition(74, col);
                         //Color.ChangeTextColor(Colors.YELLOW, "", "G");
                         Console.Write("G");
-                        Console.SetCursorPosition(70, col);
+                        Console.SetCursorPosition(76, col);
                         Console.Write('|');
 
                         //Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
-                        Console.Write($" {_quest.exp}".PadLeft(5));
-                        Console.SetCursorPosition(77, col);
+                        Console.Write($" {_quest.exp}".PadLeft(6));
+                        Console.SetCursorPosition(84, col);
                         //Color.ChangeTextColor(Colors.YELLOW, "", "EXP ");
                         Console.Write("EXP ");
                         Console.WriteLine("");

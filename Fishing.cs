@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpartaTextRPG.DataClass.Quest;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -72,21 +73,25 @@ namespace SpartaTextRPG
                             Console.WriteLine("성공했습니다.");
                             if (fish == 17)
                             {
+                                QuestBool.CatchFish(FishType.Fire);
                                 Color.ChangeTextColor(Colors.RED, "전설의", "불고기", "가 존재하였습니다.");
                                 Item.Instance.fishList[3].count++;
                             }
                             else if(fish <=10)
                             {
+                                QuestBool.CatchFish(FishType.Gold);
                                 Color.ChangeTextColor(Colors.YELLOW, "아닛! 이것이", "골드물고기", "!?!?");
                                 Item.Instance.fishList[2].count++;
                             }
                             else if(fish>= 800)
                             {
+                                QuestBool.CatchFish(FishType.Sliver);
                                 Color.ChangeTextColor(Colors.BLUE, "흠...", "실버물고기", "를 낚았군요.");
                                 Item.Instance.fishList[1].count++;
                             }
                             else
                             {
+                                QuestBool.CatchFish(FishType.Nomal);
                                 Console.Write("그냥 물고기를 낚았습니다.");
                                 Item.Instance.fishList[0].count++;
                             }
