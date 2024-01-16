@@ -68,8 +68,8 @@ namespace SpartaTextRPG
             Color.ChangeTextColor(Colors.MAGENTA, "모험가 ", Player.player.name, "\n\n");
             Console.WriteLine($"Lv. {Player.player.level}");
             Console.WriteLine($"chad < {job} >\n");
-            Console.WriteLine($"공격력 : {Player.player.baseAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
-            Console.WriteLine($"방어력 : {Player.player.baseDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
+            Console.WriteLine($"공격력 : {Player.player.baseAtk + Player.player.addAtk} " + (Player.player.addAtk != 0 ? $"(+{Player.player.addAtk})" : ""));
+            Console.WriteLine($"방어력 : {Player.player.baseDef + Player.player.addDef} " + (Player.player.addDef != 0 ? $"(+{Player.player.addDef})" : ""));
             Console.WriteLine($"체력 : {Player.player.maxHp} / {Player.player.hp}");
             Console.WriteLine($"마력 : {Player.player.maxMp} / {Player.player.mp}");
             Console.WriteLine($"Gold : {Player.player.gold} G\n");
@@ -133,12 +133,12 @@ namespace SpartaTextRPG
             switch (read)
             {
                 case "1":
-                    if (Player.player.job == ((Job)0))
+                    if (Player.player.level >= 1 && Player.player.job == ((Job)0))
                     {
                         Console.Clear();
                         FirstJob();
                     }
-                    else if (Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString())
+                    else if (Player.player.level >= 3 && Player.player.job.ToString() == ((Job)1).ToString() || Player.player.job.ToString() == ((Job)2).ToString())
                     {
                         Console.Clear();
                         SecondJob();
