@@ -27,10 +27,10 @@ namespace SpartaTextRPG
         public List<DungeonEnter> dungeonList = new List<DungeonEnter>()
         {
             new DungeonEnter(10, "모험의 시작"),
-            new DungeonEnter(20, "용의 둥지"),
-            new DungeonEnter(30, "불의 둥지"),
-            new DungeonEnter(40, "의 둥지"),
-            new DungeonEnter(50, "스파르타 매니저들의 안식처")
+            new DungeonEnter(20, "루테란"),
+            new DungeonEnter(30, "애니츠"),
+            new DungeonEnter(40, "파푸니카"),
+            new DungeonEnter(50, "한효승 매니저의 안식처")
         };
 
         public void DungeonEntrance()
@@ -120,13 +120,17 @@ namespace SpartaTextRPG
             switch (selectedStage)
             {
                 case "1":
-                    if (Player.player.baseAtk >= DungeonEnter.Instance.dunAtk)
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                    if (Player.player.baseAtk + Player.player.addAtk >= dungeonList[Convert.ToInt16(selectedStage)-1].dunAtk)
                     {
                         Battle.isClear = false;
                         scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
-                        Battle.instance.BattleStart();
+                        Battle.instance.BattleStart(Convert.ToInt16(selectedStage) - 1);
                         //Console.ReadLine();
                         QuestBool.enterDungeon = true;
                     }
@@ -142,167 +146,12 @@ namespace SpartaTextRPG
 
                         if (stage == "1")
                         {
+                            Battle.isClear = false;
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Console.ReadLine();
                             Console.Clear();
-                            Battle.instance.BattleStart();
-                            QuestBool.enterDungeon = true;
-                        }
-                        else if (stage == "0")
-                        {
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                        }
-                    }
-                    break;
-
-                case "2":
-                    if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
-                    {
-                        scene = DungeonScene.DungeonEntrance;
-                        Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                        Console.ReadLine();
-                        Console.Clear();
-                        Battle.instance.BattleStart();
-                        QuestBool.enterDungeon = true;
-                    }
-                    else
-                    {
-                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
-                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
-                        Console.WriteLine("1. 예");
-                        Console.WriteLine("0. 이전 화면으로 돌아가기");
-                        Console.Write(">>");
-
-                        string stage = Console.ReadLine();
-
-                        if (stage == "1")
-                        {
-                            scene = DungeonScene.DungeonEntrance;
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleStart();
-                            QuestBool.enterDungeon = true;
-                        }
-                        else if (stage == "0")
-                        {
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                        }
-                    }
-                    break;
-
-                case "3":
-                    if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
-                    {
-                        scene = DungeonScene.DungeonEntrance;
-                        Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                        Console.ReadLine();
-                        Console.Clear();
-                        Battle.instance.BattleStart();
-                        QuestBool.enterDungeon = true;
-                    }
-                    else
-                    {
-                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
-                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
-                        Console.WriteLine("1. 예");
-                        Console.WriteLine("0. 이전 화면으로 돌아가기");
-                        Console.Write(">>");
-
-                        string stage = Console.ReadLine();
-
-                        if (stage == "1")
-                        {
-                            scene = DungeonScene.DungeonEntrance;
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleStart();
-                            QuestBool.enterDungeon = true;
-                        }
-                        else if (stage == "0")
-                        {
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                        }
-                    }
-                    break;
-
-                case "4":
-                    if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
-                    {
-                        scene = DungeonScene.DungeonEntrance;
-                        Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                        Console.ReadLine();
-                        Console.Clear();
-                        Battle.instance.BattleStart();
-                        QuestBool.enterDungeon = true;
-                    }
-                    else
-                    {
-                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
-                        Color.ChangeTextColor(Colors.RED, "", " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
-                        Console.WriteLine("1. 예");
-                        Console.WriteLine("0. 이전 화면으로 돌아가기");
-                        Console.Write(">>");
-
-                        string stage = Console.ReadLine();
-
-                        if (stage == "1")
-                        {
-                            scene = DungeonScene.DungeonEntrance;
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleStart();
-                            QuestBool.enterDungeon = true;
-                        }
-                        else if (stage == "0")
-                        {
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
-                        }
-                    }
-                    break;
-
-                case "5":
-                    if (Player.player.baseAtk + Player.player.addAtk >= DungeonEnter.Instance.dunAtk)
-                    {
-                        scene = DungeonScene.DungeonEntrance;
-                        Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                        Console.ReadLine();
-                        Console.Clear();
-                        Battle.instance.BattleStart();
-                        QuestBool.enterDungeon = true;
-                    }
-                    else
-                    {
-                        Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name}");
-                        Color.ChangeTextColor(Colors.RED,"" , " 님의 공격력이 해당 던전의 적정 공격력보다 낮습니다. 그래도 입장 하시겠습니까?", "\n");
-                        Console.WriteLine("1. 예");
-                        Console.WriteLine("0. 이전 화면으로 돌아가기");
-                        Console.Write(">>");
-
-                        string stage = Console.ReadLine();
-
-                        if (stage == "1")
-                        {
-                            scene = DungeonScene.DungeonEntrance;
-                            Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleStart();
+                            Battle.instance.BattleStart(Convert.ToInt16(selectedStage)-1);
                             QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")

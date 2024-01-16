@@ -100,7 +100,7 @@ namespace SpartaTextRPG
 
                             if (allMonstersDead == true)
                             {
-                                Reward.Instance.ClearReward(1);
+                                Reward.Instance.ClearReward(DungeonEnter.dungeonLevel);
                                 Skill.instance.check = true;
                             }
 

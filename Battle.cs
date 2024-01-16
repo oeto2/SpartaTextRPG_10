@@ -35,8 +35,9 @@ namespace SpartaTextRPG
             return choice;
         }
 
-        public void BattleStart() // 2. 전투 시작
+        public void BattleStart(int stageLevel) // 2. 전투 시작
         {
+            DungeonEnter.dungeonLevel = stageLevel + 1;
             monsters = Monsters();
             spawnedMonsters = MonsterSpawn();
             monsterHp = new int[spawnedMonsters.Count];
@@ -48,7 +49,9 @@ namespace SpartaTextRPG
                 {
                     new Monster(1, "비아키스", 10, 10, 10, 1),
                     new Monster(2, "아브렐슈드", 15, 15, 15, 1),
-                    new Monster(3, "쿠크세이튼", 20, 20, 20, 1)
+                    new Monster(3, "쿠크세이튼", 20, 20, 20, 1),
+                    new Monster(4, "한효승 매니저", 30, 50, 50, 30)
+
                 };
                 // 몬스터에 연속 번호 부여
                 for (int i = 0; i < monsters.Count; i++)
@@ -57,28 +60,33 @@ namespace SpartaTextRPG
                 }
                 return monsters;
             }
-            static List<Monster> MonsterSpawn()
+            List<Monster> MonsterSpawn()
             {
                 List<Monster> spawnedMonsters = new List<Monster>();
                 Random rand = new Random();
                 int Monster_count = rand.Next(1, 5);
 
+                if (DungeonEnter.dungeonLevel == 5)
+                {
+                    Monster Manager = new Monster(999, "한효승 매니저", 3000, 3000, 50, 30);
+                    spawnedMonsters.Add(Manager);
+                }
                 for (int i = 0; i < Monster_count; i++)
                 {
-                    int randMonsterIndex = rand.Next(0, 5);
-                    if (i == 0) randMonsterIndex = rand.Next(0, 2);
+                    int randMonsterIndex = rand.Next(0, 3);
+
                     switch (randMonsterIndex)
                     {
                         case 0:
-                            Monster Vykas = new Monster(1, "비아키스", 10, 10, 10, 0);
+                            Monster Vykas = new Monster(stageLevel + 1, "비아키스", 10 * ((float)Math.Pow(stageLevel + 1, 2)), 10 * ((float)Math.Pow(stageLevel + 1, 2)), 4 * stageLevel + 1, 2 * stageLevel + 1);
                             spawnedMonsters.Add(Vykas);
                             break;
                         case 1:
-                            Monster Abrel = new Monster(2, "아브렐슈드", 15, 15, 15, 0);
+                            Monster Abrel = new Monster(stageLevel + 1, "아브렐슈드", 10 * ((float)Math.Pow(stageLevel + 1, 2)), 10 * ((float)Math.Pow(stageLevel + 1, 2)), 5 * stageLevel + 1, 1 * stageLevel + 1);
                             spawnedMonsters.Add(Abrel);
                             break;
                         case 2:
-                            Monster Saton = new Monster(3, "쿠크세이튼", 20, 20, 20, 0);
+                            Monster Saton = new Monster(stageLevel + 1, "쿠크세이튼", 10 * ((float)Math.Pow(stageLevel + 1, 2)), 10 * ((float)Math.Pow(stageLevel + 1, 2)), 6 * stageLevel + 1, 0 * stageLevel + 1);
                             spawnedMonsters.Add(Saton);
                             break;
                     }
@@ -127,7 +135,7 @@ namespace SpartaTextRPG
         {
             while (0 < Player.player.hp && !isClear) // 전투 시작 플레이어 턴
             {
-                BattleScene(1);
+                BattleScene(DungeonEnter.dungeonLevel);
                 switch (ChoiceInput(1, 3))
                 {
                     case 1:
@@ -148,7 +156,7 @@ namespace SpartaTextRPG
         {
             {
                 Console.Clear();
-                BattleScene(1);
+                BattleScene(DungeonEnter.dungeonLevel);
 
                 int selectedMonsterNumber;
 
@@ -192,7 +200,7 @@ namespace SpartaTextRPG
 
                         if (allMonstersDead == true)
                         {
-                            Reward.Instance.ClearReward(1);
+                            Reward.Instance.ClearReward(DungeonEnter.dungeonLevel);
                             return true;
                         }
 
@@ -266,7 +274,7 @@ namespace SpartaTextRPG
                         Console.WriteLine($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.maxHp} -> Dead\n\nEnter. 다음");
                         Console.ReadLine();
                         Console.Clear();
-                        Reward.Instance.FailReward(1);
+                        Reward.Instance.FailReward(DungeonEnter.dungeonLevel);
                         return;
                     }
                     else

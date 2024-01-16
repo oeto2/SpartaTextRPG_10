@@ -25,6 +25,7 @@ namespace SpartaTextRPG
         public string name { get; set; }
 
         public int index = 0;
+        public static int dungeonLevel = 1;
 
         public DungeonEnter(int _dunAtk, string _name)
         {
