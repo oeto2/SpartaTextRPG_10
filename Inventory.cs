@@ -90,7 +90,7 @@ namespace SpartaTextRPG
                         {
                             for (int i = 0; i < Item.Instance.equipItems.Count; i++)
                             {
-                                if (Player.player.weapon == Item.Instance.equipItems[i].id)
+                                if (Player.player.armor == Item.Instance.equipItems[i].id)
                                 {
                                     Item.Instance.equipItems[i].SubItemStat();
                                 }

@@ -39,7 +39,6 @@ namespace SpartaTextRPG
             monsterHp = new int[spawnedMonsters.Count];
             PlayerTurn();
 
-
             static List<Monster> Monsters() // 몬스터 정보
             {
                 List<Monster> monsters = new List<Monster>

@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Reflection;
 using SpartaTextRPG;
 using SpartaTextRPG.DataClass;
+using SpartaTextRPG.DataClass.Quest;
 
 namespace SpartaTextRPG
 {
@@ -126,6 +127,7 @@ namespace SpartaTextRPG
                         Console.ReadLine();
                         Battle.instance.BattleStart();
                         Console.ReadLine();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -144,6 +146,7 @@ namespace SpartaTextRPG
                             Console.ReadLine();
                             Console.Clear();
                             Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -165,6 +168,7 @@ namespace SpartaTextRPG
                         Console.ReadLine();
                         Console.Clear();
                         Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -181,6 +185,7 @@ namespace SpartaTextRPG
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -202,6 +207,7 @@ namespace SpartaTextRPG
                         Console.ReadLine();
                         Console.Clear();
                         Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -218,6 +224,7 @@ namespace SpartaTextRPG
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -239,6 +246,7 @@ namespace SpartaTextRPG
                         Console.ReadLine();
                         Console.Clear();
                         Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -255,6 +263,7 @@ namespace SpartaTextRPG
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -276,6 +285,7 @@ namespace SpartaTextRPG
                         Console.ReadLine();
                         Console.Clear();
                         Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -292,6 +302,7 @@ namespace SpartaTextRPG
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
