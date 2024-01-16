@@ -32,7 +32,7 @@ namespace SpartaTextRPG
             name = _name;
         }
 
-        public void DungeonAnnounce()
+        public void DungeonAnnounce(int index)
         {
             Console.WriteLine($"Stage.{index + 1} - {name}");
             if (Player.player.baseAtk + Player.player.addAtk >= dunAtk)
