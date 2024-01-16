@@ -17,6 +17,9 @@ namespace SpartaTextRPG
         List<Monster> spawnedMonsters = new List<Monster>();
         List<Monster> monsters = new List<Monster>();
         Random rand = new Random();
+
+        public static bool isClear = false;
+
         int[] monsterHp;
         int ChoiceInput(int fst, int last) // 선택지 입력 메서드
         {
@@ -122,13 +125,14 @@ namespace SpartaTextRPG
         }
         public void PlayerTurn()
         {
-            while (0 < Player.player.hp) // 전투 시작 플레이어 턴
+            while (0 < Player.player.hp && !isClear) // 전투 시작 플레이어 턴
             {
                 BattleScene(1);
                 switch (ChoiceInput(1, 3))
                 {
                     case 1:
-                        Attack();
+                        if (Attack())
+                            return;
                         break;
                     case 2:
                         if (Skills.myskills.Count > 0)
@@ -145,18 +149,18 @@ namespace SpartaTextRPG
                         break;
                 }
             }
-            if (Player.player.hp > 0)
-            {
-                Console.ReadLine();
-                Reward.Instance.ClearReward(1);
-            }
-            else
-            {
-                Reward.Instance.FailReward(1);
+            //if (Player.player.hp > 0)
+            //{
+            //    Console.ReadLine();
+            //    Reward.Instance.ClearReward(1);
+            //}
+            //else
+            //{
+            //    Reward.Instance.FailReward(1);
 
-            }
+            //}
         }
-        public void Attack()
+        public bool Attack()
         {
             {
                 Console.Clear();
@@ -205,6 +209,7 @@ namespace SpartaTextRPG
                         if (allMonstersDead == true)
                         {
                             Reward.Instance.ClearReward(1);
+                            return true;
                         }
 
                     }
@@ -214,8 +219,10 @@ namespace SpartaTextRPG
                     targetMonster.Health = 0;
                     Console.WriteLine("이미 죽은 몬스터에게는 데미지를 입힐 수 없습니다!");
                 }
+
                 // 몬스터 턴
                 MonsterTurn();
+                return false;
             }
         }
 
@@ -289,7 +296,8 @@ namespace SpartaTextRPG
                     {
                         Console.Write($"Lv.{Player.player.level} {Player.player.name}\nHP {Player.player.maxHp} -> {Player.player.hp}\n\nEnter. 다음");
                         Console.ReadLine();
-                        PlayerTurn();
+                        if (!isClear)
+                            PlayerTurn();
                     }
                 }
             }
