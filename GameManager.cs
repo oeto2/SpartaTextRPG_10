@@ -83,6 +83,7 @@ namespace SpartaTextRPG
         {   
             QuestBool.isRest = true;
             Player.player.hp = Player.player.maxHp;
+            Player.player.mp = Player.player.maxMp;
             Console.WriteLine("휴 식");
             Color.ChangeTextColor(Colors.MAGENTA, "", $"{Player.player.name} ");
             Console.WriteLine("님, 휴식을 할수있는 공간에 오셨습니다.\n");

@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Reflection;
 using SpartaTextRPG;
 using SpartaTextRPG.DataClass;
+using SpartaTextRPG.DataClass.Quest;
 
 namespace SpartaTextRPG
 {
@@ -23,7 +24,7 @@ namespace SpartaTextRPG
 
         DungeonScene scene = DungeonScene.DungeonEntrance;
 
-        List<DungeonEnter> dungeonList = new List<DungeonEnter>()
+        public List<DungeonEnter> dungeonList = new List<DungeonEnter>()
         {
             new DungeonEnter(10, "모험의 시작"),
             new DungeonEnter(20, "용의 둥지"),
@@ -36,6 +37,7 @@ namespace SpartaTextRPG
         {
             if (scene == DungeonScene.DungeonEntrance)
             {
+                Console.Clear();
                 Console.WriteLine("==========================================================");
                 Color.ChangeTextColor(Colors.YELLOW, "", "던  전  입  구\n");
                 Console.WriteLine("==========================================================");
@@ -107,7 +109,7 @@ namespace SpartaTextRPG
 
             for (int i = 0; i < dungeonList.Count; i++)
             {
-                dungeonList[i].DungeonAnnounce();
+                dungeonList[i].DungeonAnnounce(i);
             }
 
             Color.ChangeTextColor(Colors.RED, "", "0", ". 나가기\n");
@@ -120,11 +122,13 @@ namespace SpartaTextRPG
                 case "1":
                     if (Player.player.baseAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        Battle.isClear = false;
                         scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
-                        Battle.instance.BattleScene();
-                        Console.ReadLine();
+                        Battle.instance.BattleStart();
+                        //Console.ReadLine();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -142,7 +146,8 @@ namespace SpartaTextRPG
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                             Console.ReadLine();
                             Console.Clear();
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -163,7 +168,8 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -179,7 +185,8 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -200,7 +207,8 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -216,7 +224,8 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -237,7 +246,8 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -253,7 +263,8 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {
@@ -274,7 +285,8 @@ namespace SpartaTextRPG
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Console.Clear();
-                        Battle.instance.BattleScene();
+                        Battle.instance.BattleStart();
+                        QuestBool.enterDungeon = true;
                     }
                     else
                     {
@@ -290,7 +302,8 @@ namespace SpartaTextRPG
                         {
                             scene = DungeonScene.DungeonEntrance;
                             Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
-                            Battle.instance.BattleScene();
+                            Battle.instance.BattleStart();
+                            QuestBool.enterDungeon = true;
                         }
                         else if (stage == "0")
                         {

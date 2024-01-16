@@ -34,13 +34,29 @@ namespace SpartaTextRPG.DataClass.Quest
             if (questList[4].isOngoing && QuestBool.isRest)
                 questList[4].isComplete = true;
 
-            // 5.Stage.2 던전 클리어
+            // 5.던전 클리어
             if (questList[5].isOngoing && QuestBool.dungeonClear)
                 questList[5].isComplete = true;
 
             // 6.포션아이템 사용
             if (questList[6].isOngoing && QuestBool.usePotion)
                 questList[6].isComplete = true;
+
+            // 7.물고기 10마리 잡기
+            if (questList[7].isOngoing && QuestBool.instance.CatchNomalFishNum >= 10)
+                questList[7].isComplete = true;
+
+            // 8.실버 물고기 잡기
+            if (questList[8].isOngoing && QuestBool.instance.CatchSilverFish)
+                questList[8].isComplete = true;
+
+            // 9.골드 물고기 잡기
+            if (questList[9].isOngoing && QuestBool.instance.CatchGoldFish)
+                questList[9].isComplete = true;
+
+            // 10.불고기 잡기
+            if (questList[10].isOngoing && QuestBool.instance.CatchFireFish)
+                questList[10].isComplete = true;
         }
 
         //완료한 퀘스트 목록 보여주기
@@ -78,26 +94,26 @@ namespace SpartaTextRPG.DataClass.Quest
 
                         Color.ChangeTextColor(Colors.YELLOW, "", $"{_quest.name} ");
                         //Console.Write($"{_quest.name} ");
-                        Console.SetCursorPosition(18, col);
+                        Console.SetCursorPosition(22, col);
                         Console.Write('|');
 
                         Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.info}");
                         //Console.Write($" {_quest.info}");
-                        Console.SetCursorPosition(60, col);
+                        Console.SetCursorPosition(66, col);
                         Console.Write('|');
 
 
                         Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.gold}".PadLeft(6));
                         //Console.Write($" {_quest.gold}".PadLeft(6));
-                        Console.SetCursorPosition(68, col);
+                        Console.SetCursorPosition(74, col);
                         Color.ChangeTextColor(Colors.YELLOW, "", "G");
                         //Console.Write("G");
-                        Console.SetCursorPosition(70, col);
+                        Console.SetCursorPosition(76, col);
                         Console.Write('|');
 
-                        Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(5));
+                        Color.ChangeTextColor(Colors.YELLOW, "", $" {_quest.exp}".PadLeft(6));
                         //Console.Write($" {_quest.exp}".PadLeft(5));
-                        Console.SetCursorPosition(77, col);
+                        Console.SetCursorPosition(84, col);
                         Color.ChangeTextColor(Colors.YELLOW, "", "EXP   ");
                         if (_quest.type == QuestType.Main)
                             Color.ChangeTextColor(Colors.RED, "", "[메인]");
