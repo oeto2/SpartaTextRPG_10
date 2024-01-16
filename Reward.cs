@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpartaTextRPG.DataClass.Quest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,6 +65,8 @@ namespace SpartaTextRPG
             Console.ReadLine(); 
             currentStageRewards[index].isClear = true;
             Player.player.GetExp(currentStageRewards[index].exp);
+            Program.scene = Scene.mainScene;
+            QuestBool.dungeonClear = true;
         }
 
         public void FailReward(int index)
@@ -90,6 +93,7 @@ namespace SpartaTextRPG
 
             // 실패 시 전리품 미지급
             Console.ReadLine();
+            Program.scene = Scene.mainScene;
         }
     }
 }
