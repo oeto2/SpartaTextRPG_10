@@ -34,7 +34,7 @@ namespace SpartaTextRPG.DataClass.Quest
             if (questList[4].isOngoing && QuestBool.isRest)
                 questList[4].isComplete = true;
 
-            // 5.Stage.2 던전 클리어
+            // 5.던전 클리어
             if (questList[5].isOngoing && QuestBool.dungeonClear)
                 questList[5].isComplete = true;
 
