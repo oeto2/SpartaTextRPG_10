@@ -17,12 +17,6 @@
 <a href="https://github.com/Leah001025"><img src="https://img.shields.io/badge/Github-Leah001025-blue?logo=github&style=for-the-badge"/></a>
 
 
-## Stack?
-<img src="https://i.namu.wiki/i/rR0JqoHBX6JAFtqYRWEFCutl8t2UvLGETvnivzsAzcUgvycs-EDmvEW9Buj8AdK36K7FelgNRzf5gZW2T7vtQA.svg" alt="2020-12-21-1-27-21" border="0" width="200">
-
-
 ## For project details
 
-### Data 
-<a href="https://dbdiagram.io/d/659cf1a0ac844320ae83b157"><img src="https://i.ibb.co/t84qwRM/image.png" alt="2020-12-21-1-27-21" border="0" ></a>
-
+### [checkout WIKI](https://github.com/oeto2/SpartaTextRPG_10/wiki)
