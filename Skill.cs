@@ -77,7 +77,12 @@ namespace SpartaTextRPG
                         Console.WriteLine("플레이어의 MP가 부족합니다.\n");
                         showSkill(monsters);
                     }
-                    else if (damageToMonster > 0 )
+                    else if (Player.player.hp <= -Skills.myskills[skillnum].hp)
+                    {
+                        Console.WriteLine("플레이어의 HP가 부족합니다.\n");
+                        showSkill(monsters);
+                    }
+                    else if (damageToMonster > 0)
                     {
                         targetMonster.Health -= damageToMonster;
                         Player.player.hp += Skills.myskills[skillnum].hp;
@@ -100,7 +105,12 @@ namespace SpartaTextRPG
                             }
 
                         }
-                    } else
+                    }
+                    else if (isdodge)
+                    {
+                        Player.player.mp += Skills.myskills[skillnum].mp;
+                    }
+                    else
                     {
                         Color.ChangeTextColor(Colors.RED, "", "잘못된 입력입니다.", "\n");
                     }
@@ -133,7 +143,7 @@ namespace SpartaTextRPG
                 }
                 i++;
             }
-            Color.ChangeTextColor(Colors.RED, "", "0. 취소하기", "\n\n");
+            Color.ChangeTextColor(Colors.RED, "\n", "0. 취소하기", "\n\n");
 
             bool res = false;
             while (!res)
