@@ -49,6 +49,7 @@ namespace SpartaTextRPG
 
         public void ClearReward(int index)
         {
+            Battle.isClear = true;   
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("================================================");
@@ -93,6 +94,7 @@ namespace SpartaTextRPG
 
             // 실패 시 전리품 미지급
             Console.ReadLine();
+            Console.Clear();
             Program.scene = Scene.mainScene;
         }
     }

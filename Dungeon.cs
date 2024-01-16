@@ -122,11 +122,12 @@ namespace SpartaTextRPG
                 case "1":
                     if (Player.player.baseAtk >= DungeonEnter.Instance.dunAtk)
                     {
+                        Battle.isClear = false;
                         scene = DungeonScene.DungeonEntrance;
                         Console.WriteLine("던전에 입장하겠습니다. 건투를 빕니다!");
                         Console.ReadLine();
                         Battle.instance.BattleStart();
-                        Console.ReadLine();
+                        //Console.ReadLine();
                         QuestBool.enterDungeon = true;
                     }
                     else
