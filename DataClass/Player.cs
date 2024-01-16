@@ -74,7 +74,7 @@ namespace SpartaTextRPG
 
 
 
-        public static Player player = new Player(0, "미정", 300, 0, 0, 50, 50, 20, 20);
+        public static Player player = new Player(0, "미정", 300, 0, 0, 50, 0, 20, 20);
 
         //플레이어 경험치 획득
         public void GetExp(int _getExp)
